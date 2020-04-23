@@ -1,0 +1,88 @@
+../coronavizdata\forms.py	/^    email =Bcrypt	../coronavizdata\__init__.py	/^from flask_bcrypt import Bcrypt$/;"	kind:namespace	line:3
+Bcrypt	../coronavizdata\__init__.py	/^from flask_bcrypt import Bcrypt$/;"	kind:namespace	line:3
+Flask	../coronavizdata\__init__.py	/^from flask import Flask$/;"	kind:namespace	line:1
+Image	../coronavizdata\routes.py	/^from PIL import Image$/;"	kind:namespace	line:3
+Item	../coronavizdata\models.py	/^class Item(db.Model):$/;"	kind:class	line:34
+Item	../coronavizdata\routes.py	/^from squares.models import User, Post, Item$/;"	kind:namespace	line:7
+ItemDemo	../coronavizdata\routes.py	/^from squares.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ItemForm, ItemDemo$/;"	kind:namespace	line:6
+ItemForm	../coronavizdata\routes.py	/^from squares.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ItemForm, ItemDemo$/;"	kind:namespace	line:6
+LoginForm	../coronavizdata\routes.py	/^from squares.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ItemForm, ItemDemo$/;"	kind:namespace	line:6
+LoginManager	../coronavizdata\__init__.py	/^from flask_login import LoginManager$/;"	kind:namespace	line:4
+Post	../coronavizdata\models.py	/^class Post(db.Model):$/;"	kind:class	line:23
+Post	../coronavizdata\routes.py	/^from squares.models import User, Post, Item$/;"	kind:namespace	line:7
+PostForm	../coronavizdata\routes.py	/^from squares.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ItemForm, ItemDemo$/;"	kind:namespace	line:6
+RegistrationForm	../coronavizdata\routes.py	/^from squares.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ItemForm, ItemDemo$/;"	kind:namespace	line:6
+SQLAlchemy	../coronavizdata\__init__.py	/^from flask_sqlalchemy import SQLAlchemy$/;"	kind:namespace	line:2
+UpdateAccountForm	../coronavizdata\routes.py	/^from squares.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ItemForm, ItemDemo$/;"	kind:namespace	line:6
+User	../coronavizdata\routes.py	/^from squares.models import User, Post, Item$/;"	kind:namespace	line:7
+__init__.py	../coronavizdata\__init__.py	1;"	kind:file	line:1
+__repr__	../coronavizdata\models.py	/^    def __repr__(self):$/;"	kind:member	line:46
+__repr__	../coronavizdata\models.py	/^  def __repr__(self):$/;"	kind:member	line:19
+__repr__	../coronavizdata\models.py	/^  def __repr__(self):$/;"	kind:member	line:30
+abort	../coronavizdata\routes.py	/^from flask import render_template, url_for, flash, redirect, request, abort$/;"	kind:namespace	line:4
+about	../coronavizdata\routes.py	/^def about():$/;"	kind:function	line:19
+account	../coronavizdata\routes.py	/^def account():$/;"	kind:function	line:110
+app	../coronavizdata\__init__.py	/^app = Flask(__name__)$/;"	kind:variable	line:7
+app	../coronavizdata\routes.py	/^from squares import app, db, bcrypt$/;"	kind:namespace	line:5
+app	../run.py	/^from squares import app$/;"	kind:namespace	line:1
+bcrypt	../coronavizdata\__init__.py	/^bcrypt = Bcrypt(app)$/;"	kind:variable	line:13
+bcrypt	../coronavizdata\routes.py	/^from squares import app, db, bcrypt$/;"	kind:namespace	line:5
+body_type	../coronavizdata\models.py	/^    body_type = db.Column(db.String(16), nullable=False, default='3')$/;"	kind:variable	line:40
+cityFinder	../coronavizdata\routes.py	/^    def cityFinder(item_dest_id):$/;"	kind:function	line:291
+content	../coronavizdata\models.py	/^  content = db.Column(db.Text, nullable=False)$/;"	kind:variable	line:27
+create_item	../coronavizdata\routes.py	/^def create_item():$/;"	kind:function	line:37
+current_user	../coronavizdata\routes.py	/^from flask_login import login_user, current_user, logout_user, login_required$/;"	kind:namespace	line:8
+date_posted	../coronavizdata\models.py	/^    date_posted = db.Column(db.DateTime, nullable=False,$/;"	kind:variable	line:43
+date_posted	../coronavizdata\models.py	/^  date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)$/;"	kind:variable	line:26
+db	../coronavizdata\__init__.py	/^db = SQLAlchemy(app)$/;"	kind:variable	line:12
+db	../coronavizdata\routes.py	/^from squares import app, db, bcrypt$/;"	kind:namespace	line:5
+default	../coronavizdata\models.py	/^                            default=datetime.utcnow)$/;"	kind:variable	line:44
+delete_post	../coronavizdata\routes.py	/^def delete_post(post_id):$/;"	kind:function	line:172
+destStyler	../coronavizdata\routes.py	/^    def destStyler(item_dest_index):$/;"	kind:function	line:218
+dest_id	../coronavizdata\models.py	/^    dest_id = db.Column(db.String(16), nullable=False, default='0')$/;"	kind:variable	line:41
+email	../coronavizdata\models.py	/^  email = db.Column(db.String(120), unique=True, nullable=False)$/;"	kind:variable	line:14
+flash	../coronavizdata\routes.py	/^from flask import render_template, url_for, flash, redirect, request, abort$/;"	kind:namespace	line:4
+home	../coronavizdata\routes.py	/^def home():$/;"	kind:function	line:13
+id	../coronavizdata\models.py	/^    id = db.Column(db.Integer, primary_key=True)$/;"	kind:variable	line:36
+id	../coronavizdata\models.py	/^  id = db.Column(db.Integer, primary_key=True)$/;"	kind:variable	line:24
+imageFinder	../coronavizdata\routes.py	/^    def imageFinder(item_bodyType_index):$/;"	kind:function	line:237
+image_file	../coronavizdata\models.py	/^  image_file = db.Column(db.String(20), nullable=False, default='default.png')$/;"	kind:variable	line:15
+inject_ItemDemoList	../coronavizdata\routes.py	/^def inject_ItemDemoList():$/;"	kind:function	line:185
+inject_bodyTypeImgDict	../coronavizdata\routes.py	/^def inject_bodyTypeImgDict():$/;"	kind:function	line:234
+inject_bodyTypeTextDict	../coronavizdata\routes.py	/^def inject_bodyTypeTextDict():$/;"	kind:function	line:252
+inject_destCityDict	../coronavizdata\routes.py	/^def inject_destCityDict():$/;"	kind:function	line:288
+inject_destStyleDict	../coronavizdata\routes.py	/^def inject_destStyleDict():$/;"	kind:function	line:215
+inject_shipStatMsgDict	../coronavizdata\routes.py	/^def inject_shipStatMsgDict():$/;"	kind:function	line:270
+inv_home	../coronavizdata\routes.py	/^def inv_home():$/;"	kind:function	line:24
+login	../coronavizdata\routes.py	/^def login():$/;"	kind:function	line:73
+login_manager	../coronavizdata\__init__.py	/^login_manager = LoginManager(app)$/;"	kind:variable	line:14
+login_required	../coronavizdata\routes.py	/^from flask_login import login_user, current_user, logout_user, login_required$/;"	kind:namespace	line:8
+login_user	../coronavizdata\routes.py	/^from flask_login import login_user, current_user, logout_user, login_required$/;"	kind:namespace	line:8
+logout	../coronavizdata\routes.py	/^def logout():$/;"	kind:function	line:89
+logout_user	../coronavizdata\routes.py	/^from flask_login import login_user, current_user, logout_user, login_required$/;"	kind:namespace	line:8
+make	../coronavizdata\models.py	/^    make = db.Column(db.String(16), nullable=False, default='Ford')$/;"	kind:variable	line:37
+model	../coronavizdata\models.py	/^    model = db.Column(db.String(16), nullable=False, default='Mustang')$/;"	kind:variable	line:38
+new_post	../coronavizdata\routes.py	/^def new_post():$/;"	kind:function	line:131
+os	../coronavizdata\__init__.py	/^import os$/;"	kind:namespace	line:5
+os	../coronavizdata\routes.py	/^import os$/;"	kind:namespace	line:1
+password	../coronavizdata\models.py	/^  password = db.Column(db.String(60), nullable=False)$/;"	kind:variable	line:16
+post	../coronavizdata\routes.py	/^def post(post_id):$/;"	kind:function	line:144
+posts	../coronavizdata\models.py	/^  posts = db.relationship('Post', backref='author', lazy=True)$/;"	kind:variable	line:17
+redirect	../coronavizdata\routes.py	/^from flask import render_template, url_for, flash, redirect, request, abort$/;"	kind:namespace	line:4
+register	../coronavizdata\routes.py	/^def register():$/;"	kind:function	line:57
+render_template	../coronavizdata\routes.py	/^from flask import render_template, url_for, flash, redirect, request, abort$/;"	kind:namespace	line:4
+request	../coronavizdata\routes.py	/^from flask import render_template, url_for, flash, redirect, request, abort$/;"	kind:namespace	line:4
+routes	../coronavizdata\__init__.py	/^from squares import routes$/;"	kind:namespace	line:18
+routes.py	../coronavizdata\routes.py	1;"	kind:file	line:1
+run.py	../run.py	1;"	kind:file	line:1
+save_picture	../coronavizdata\routes.py	/^def save_picture(form_picture):$/;"	kind:function	line:94
+secrets	../coronavizdata\routes.py	/^import secrets$/;"	kind:namespace	line:2
+ship_status	../coronavizdata\models.py	/^    ship_status = db.Column(db.String(16), nullable=False, default='0')$/;"	kind:variable	line:42
+statusFinder	../coronavizdata\routes.py	/^    def statusFinder(item_ship_status):$/;"	kind:function	line:273
+title	../coronavizdata\models.py	/^  title = db.Column(db.String(100), nullable=False)$/;"	kind:variable	line:25
+typeFinder	../coronavizdata\routes.py	/^    def typeFinder(item_bodyType_id):$/;"	kind:function	line:255
+update_post	../coronavizdata\routes.py	/^def update_post(post_id):$/;"	kind:function	line:152
+url_for	../coronavizdata\routes.py	/^from flask import render_template, url_for, flash, redirect, request, abort$/;"	kind:namespace	line:4
+user_id	../coronavizdata\models.py	/^  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)$/;"	kind:variable	line:28
+username	../coronavizdata\models.py	/^  username = db.Column(db.String(20), unique=True, nullable=False)$/;"	kind:variable	line:13
+year	../coronavizdata\models.py	/^    year = db.Column(db.String(16), nullable=False, default='2007')$/;"	kind:variable	line:39

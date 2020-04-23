@@ -1,0 +1,38 @@
+setup = """
+my_dict = {"color": "red", "width": 17, "height": 19}
+value_to_find = "red"
+"""
+
+brute_force_single = """
+for key, value in my_dict.items():
+    if value == value_to_find:
+        break
+"""
+
+brute_force_multi = """
+for key, value in my_dict.items():
+    if value == value_to_find:
+        pass
+"""
+
+generator_single = """
+next(key for key, value in my_dict.items() if value == value_to_find)
+"""
+
+generator_multi = """
+exp = (key for key, value in my_dict.items() if value == value_to_find)
+for key in exp:
+    pass
+"""
+
+inverse_single = """
+my_inverted_dict = {value: key for key, value in my_dict.items()}
+my_inverted_dict[value_to_find]
+"""
+
+inverse_multi = """
+my_inverted_dict = dict()
+for key, value in my_dict.items():
+    my_inverted_dict.setdefault(value, list()).append(key)
+my_inverted_dict[value_to_find]
+"""
