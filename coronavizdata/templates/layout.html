@@ -26,8 +26,7 @@
   </head>
 
   <body>
-    <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-purpseethru fixed-top py-1">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
         <div class="container">
           <a class="navbar-brand mr-4" href="https://displaytracker.herokuapp.com" style="font-family: cursive;">
           <img 
@@ -54,21 +53,13 @@
           </div>
         </div>
       </nav>
-    </header>
-    
-    <!-- this is only cosmetic to give a bottom border to navbar that is not gonna slide down with the real one! -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-info mt-2 py-2 text-center justify-content-center">
-      <div class="d-flex text-center">
-        <i class="fas fa-battery-empty text-light"> . . . </i>
-        <i class="fas fa-battery-quarter text-warning"> . . . </i>
-        <i class="fas fa-battery-half text-primary"> . . . </i>
-        <i class="fa fa-battery-three-quarters text-danger"> . . . </i>
-      </div>
-    </nav>
 
-    <main role="main" class="container">
+      <hr class="mt-1" style="border-color: #2aa198;">
+      
+
+    <main role="main" class="container-fluid">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-lg-10">
           {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
           {% for category, message in messages %}
@@ -81,7 +72,7 @@
           {% block content %}{% endblock%}
         </div>
         <!-- sidebar -->
-        <div class="col-md-3">
+        <div class="col-lg-2">
           <div class="sidebar-section px-1">
               <div class="text-center py-0 mt-0">
                 <img 
@@ -123,54 +114,6 @@
       </div>
     </main>
     
-    <footer class="container p-5">
-      <div class="row">
-        <div class="col-12 col-md">
-<img
-src="https://raw.githubusercontent.com/attila5287/displayTracker_img/master/dtSquare.png"
-class="img-fluid p-4" alt="">
-          <small class="d-block mb-3 text-muted">© 2017-2018</small>
-        </div>
-        <div class="col-6 col-md">
-          <h5>Features</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Cool stuff</a></li>
-            <li><a class="text-muted" href="#">Random feature</a></li>
-            <li><a class="text-muted" href="#">Team feature</a></li>
-            <li><a class="text-muted" href="#">Stuff for developers</a></li>
-            <li><a class="text-muted" href="#">Another one</a></li>
-            <li><a class="text-muted" href="#">Last time</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-md">
-          <h5>Resources</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Resource</a></li>
-            <li><a class="text-muted" href="#">Resource name</a></li>
-            <li><a class="text-muted" href="#">Another resource</a></li>
-            <li><a class="text-muted" href="#">Final resource</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-md">
-          <h5>Resources</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Business</a></li>
-            <li><a class="text-muted" href="#">Education</a></li>
-            <li><a class="text-muted" href="#">Government</a></li>
-            <li><a class="text-muted" href="#">Gaming</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-md">
-          <h5>About</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Team</a></li>
-            <li><a class="text-muted" href="#">Locations</a></li>
-            <li><a class="text-muted" href="#">Privacy</a></li>
-            <li><a class="text-muted" href="#">Terms</a></li>
-          </ul>
-        </div>
-      </div>
-    </footer>
 
 
     <!-- Optional JavaScript -->
