@@ -51,3 +51,12 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 10px;
 }
 
+.rounded-xl{
+  border-radius: 8px;
+}
+.rounded-2xl{
+  border-radius: 12px;
+}
+.rounded-3xl{
+  border-radius: 16px;
+} 
