@@ -3,9 +3,14 @@ from coronavizdata import app, db
 
 
 @app.route("/")
+@app.route("/dashboard")
+def dashboard():
+    return render_template('dashboard.html', title='dashBoard')
+
 @app.route("/home")
 def home():
     return render_template('home.html', title='Home')
+
 
 
 @app.route("/about")

@@ -1,0 +1,198 @@
+{% extends 'layout_dash.html' %}
+
+{% block content %}
+
+<div class="d-flex flex-row">
+  <!-- gauge -->
+<div class="col-lg-3 text-center">
+  <div class="card bg-transparent mt-2 mb-1">
+    <div class="card-body py-0">
+      <div id="gaugeDesc">
+        <small>
+          <em>
+            <i class="fa fa-angle-down fa-2x fa-pull-left" aria-hidden="true"></i>
+            Availaibility gauge shows %-ratio of units stocked with main/preferred items
+          </em>
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="card bg-transparent shadow-before" id="gaugeZone" style="border-radius: 10px;">
+    <div class="dash-section">
+      <!-- GAUGE -->
+      <div id="avlb-gauge"></div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-4">
+</div>
+<div class="col-lg-3">
+</div>
+  <!-- form to select squares -->
+  <div class="col-lg-4">
+    <!-- select field options form info card -->
+    <!-- $squareSelect is the opts field of form -->
+    <form method="POST" action="" class="mt-4">
+      <div class="card infoboard-section bg-transparent border-success text-right">
+        <div class="card-header py-1 border-success">
+          <em>
+          Select country...
+          <i class="fa fa-sort text-primary ml-2 animated infinite heartBeat delay-1s" aria-hidden="true"></i>
+          </em>
+        </div>
+        <div class="card-body my-0 py-1">
+            <div class="form-group">
+              <div class="form-group">
+                <select id="opts" class="custom-select border-primary text-center text-uppercase mb-0 p-0" style="border-radius: 9px;border-width: 3px;font-size: 14px;">
+                  <option>Text</option>
+                </select>
+              </div>
+            </div>                
+        </div>
+      </div>
+  <div class="card infoboard-section bg-transparent border-success text-success text-center mt-2">
+    <div class="card-body my-1 py-2">
+      <p class="card-text text-left my-0 text-muted">
+        <i class="fa fa-2x fa-info ml-2 fa-pull-left" aria-hidden="true"></i>
+        <small>
+          <em>
+
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            App pulls the latest available data from John Hopkins API @
+            'coronavirus-tracker-api.herokuapp.com/v2/locations'
+            
+          </em>
+      </small>
+      </p>
+    </div>
+  </div>          
+  
+
+    </form>
+    <!-- square button pulsing -->
+    <div class="d-flex flex-row justify-content-around align-items-center text-center">
+      <div class="fa-fw">
+        <i class="fas fa-cog fa-spin fa-2x"></i>
+        <i class="fas fa-cog fa-spin fa-2x text-success"></i>
+      </div>
+      <div class="fa-fw">
+        <i class="fas fa-sun fa-cog text-success"></i>
+        <span class="fa-stack">
+          <i class="far fa-fw fa-circle fa-stack-2x text-success"></i>
+          <i class="fas fa-fw fa-sun fa-stack-1x fa-spin"></i>
+        </span>
+        <i class="fas fa-cog fa-spin fa-fw"></i>
+      </div>
+      <div class="fa-fw">
+        <i class="fas fa-cog fa-spin"></i>
+        <i class="fas fa-cog fa-spin text-success"></i>
+      </div>
+      <a class="btn btn-dark btn-sm border-dark px-3" style="border-width:thick;border-radius: 2rem;">
+        <i class="fa animated infinite pulse delay-1s text-secondary">
+          <em class="text-light">
+            <i id="">
+                CoVid19-Tracker 
+            </i>
+          </em>
+        </i>
+      </a>
+      <div class="d-flex flex-column">
+        <span class="fa-stack">
+          <i class="fas fa-circle fa-stack-2x  text-dark"></i>
+          <i class="fas fa-wifi fa-stack-1x fa-spin text-success"></i>
+        </span>            
+        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        <i class="fa fa-signal text-success" aria-hidden="true"></i>
+        </div>
+
+        <div class="d-flex flex-column">
+          <span class="fa-stack">
+            <i class="fa fa-circle-notch fa-stack-2x fa-pulse text-success"></i>
+            <i class="fas fa-globe-americas fa-stack-1x  text-secondary"></i>
+          </span>      
+          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          <i class="fa fa-server text-success" aria-hidden="true"></i>
+          
+        </div>
+        
+        <div class="fa-fw">
+          <i class="fa fa-sync text-success" aria-hidden="true"></i>
+          <i class="fa fa-sitemap text-success" aria-hidden="true"></i>
+          <i class="fa fa-link text-success" aria-hidden="true"></i>
+        </div>
+    </div>
+    <p class="mt-0  py-0 text-center">
+      <small>
+        <em>
+          by @attila5287
+        </em>
+      </small>
+      <a href="https://github.com/attila5287">
+        
+        <span class="fa-stack">
+          <i class="far fa-circle fa-stack-2x text-secondary"></i>
+          <i class="fab fa-github fa-1x fa-inverse" aria-hidden="true"></i>
+        </span>
+
+      </a>
+    </p>
+
+    <!-- OVERALL FIGURES - TWO CARDS -->
+      <div class="d-flex flex-row justify-content-between">
+      <div class="card infoboard-section bg-transparent border-success text-success text-center">
+        <div class="card-header py-1 border-success py-1">
+          Deaths
+        </div>
+        <div class="card-body my-0 py-1 py-0">
+          <h4 class="card-title" id="overallDeath">
+          </h4>
+        </div>
+      </div>
+      <div class="card infoboard-section bg-transparent border-success text-success text-center">
+        <div class="card-header py-1 border-success py-1">
+            Confirmed
+            
+        </div>
+        <div class="card-body my-0 py-1 py-0">
+          <h4 class="card-title" id="overallConfirmed">
+          </h4>
+        </div>
+      </div>
+    </div>
+    <!-- TWO CARDS FOR SQUARE INTRO -->
+    <div class="card-group my-2">
+      <div class="card infoboard-section bg-transparent border-success text-success text-center">
+        <div class="card-header py-1 border-success py-1">
+          ID:
+        </div>
+        <div class="card-body my-0 py-1 py-0">
+          <i class="fa fa-id-badge fa-fw fa-2x fa-pull-left mt-1" aria-hidden="true"></i>
+          <h1 class="card-title" id="squareID">
+          </h1>
+        </div>
+      </div>
+      <div class="card infoboard-section bg-transparent border-success text-success text-center">
+        <div class="card-header py-1 border-success py-1">
+          Capacity
+        </div>
+        <div class="card-body my-0 py-1 py-0">
+          <i class="fa fa-warehouse fa-2x fa-fw fa-pull-left mt-2" aria-hidden="true"></i>
+          <h3 class="card-title" id="squareArea">
+          </h3>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+
+<script>
+
+  // https://coronavirus-tracker-api.herokuapp.com/v2/locations
+
+</script>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+{% endblock content %}
