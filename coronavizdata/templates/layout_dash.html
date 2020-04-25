@@ -48,9 +48,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('home') }}">
-                <i class="fas fa-envelope-open"></i>
-                HomeTest</a>
+
               <a class="nav-item nav-link" href="{{ url_for('about') }}">
                 <i class="fas fa-info-circle    "></i>
                 About</a>
@@ -64,8 +62,6 @@
       
 
     <main role="main" class="container-fluid">
-      <div class="row">
-        <div class="col-lg-10">
           {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
           {% for category, message in messages %}
@@ -76,14 +72,6 @@
           {% endif %}
           {% endwith %}
           {% block content %}{% endblock%}
-        </div>
-
-
-<style>
-   
-</style>
-
-      </div>
     </main>
     
 
