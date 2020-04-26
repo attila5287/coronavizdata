@@ -1,4 +1,3 @@
-
 {% extends 'layout_dash.html' %}
 
 {% block content %}
@@ -7,8 +6,21 @@
   <div class="row">
     <div class="col-lg-9">
       <div class="row">
-        <!-- GAUGE -->
+        <!-- GAUGE-INFO -->
         <div class="col-lg-5 text-center">
+          <div class="card bg-transparent mt-2 mb-1">
+            <div class="card-body text-center py-0">
+              <div>
+                <small><em>
+                    <i class="fa fa-angle-down fa-2x fa-pull-left" aria-hidden="true"></i>
+                    Gauges below shows ratio of deaths/confirmed cases with respect to population of the selected
+                    country
+                  </em>
+                </small>
+              </div>
+            </div>
+          </div>
+          <!-- GAUGE -->
           <div class="card bg-transparent shadow-before" style="border-radius: 10px;">
             <div class="dash-section py-0">
               <div class="row">
@@ -25,6 +37,23 @@
         </div>
         <!-- BUBBLE -->
         <div class="col-lg-7">
+          <div class="card bg-transparent mt-2 mb-1">
+            <div class="card-body text-center py-0">
+              <p class="card-text mb-0">
+                <small><em>
+                    <i class="fa fa-angle-down fa-2x fa-pull-left" aria-hidden="true"></i>
+                    Bubble indicates population while deaths and confirmed cases placed on y-axis
+                    <hr class="my-0">
+                    &middot;
+                    Higher the position of the bubble means higher the count of deaths/confirmed cases.
+                    <hr class="my-0">
+                    &middot;
+                    Thicker the size of the bubble means higher population of the country in question.
+                  </em>
+                </small>
+              </p>
+            </div>
+          </div>
           <div class="row">
             <div class="col-lg-6">
               <div id="bubble-deaths"></div>
@@ -33,7 +62,7 @@
               <div id="bubble-confirmed"></div>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
       <div class="row">
         <!-- PIE CHART -->
@@ -51,10 +80,10 @@
           </div>
 
           <div class="card bg-transparent shadow-before" id="pieZone" style="border-radius: 10px;">
-             <div id="pie-deaths"></div>
+            <div id="pie-deaths"></div>
           </div>
 
-        </div>        
+        </div>
         <!-- HISTOGRAM -->
         <div class="col-lg-4 text-center">
           <div id="histDesc">
@@ -62,7 +91,7 @@
               <div class="card-body text-center py-0">
                 <small><em>
                     <i class="fa fa-angle-down fa-2x fa-pull-left" aria-hidden="true"></i>
-                    Histogram will be listing all item attributes on database regardless
+                    Bar chart below shows deaths only, placed here for providing help read above bubble chart
                   </em>
                 </small>
               </div>
@@ -72,7 +101,7 @@
             <div id="histogram-bar-deaths">
             </div>
           </div>
-        </div>            
+        </div>
         <!-- HISTOGRAM -->
         <div class="col-lg-4 text-center">
           <div id="histDesc">
@@ -80,7 +109,7 @@
               <div class="card-body text-center py-0">
                 <small><em>
                     <i class="fa fa-angle-down fa-2x fa-pull-left" aria-hidden="true"></i>
-                    Histogram will be listing all item attributes on database regardless
+                    Bar chart below shows confirmed cases only, placed here for providing help read above bubble chart
                   </em>
                 </small>
               </div>
@@ -90,33 +119,90 @@
             <div id="histogram-bar-confirmed">
             </div>
           </div>
-        </div>                    
+        </div>
       </div>
     </div>
+
+    <style>
+
+    </style>
     <!-- form to select country and sidebar -->
     <div class="col-lg-3">
-      <!-- OVERALL FIGURES - TWO CARDS -->
-      <div class="d-flex flex-row justify-content-between">
+      <!-- showing figures for country -->
+      <div class="container-fluid text-center text-uppercase py-1">
+        <div class="card infoboard-section bg-transparent border-success  shadow-gold text-success text-center">
+          <div class="card-body bg-black py-1 m-2 rounded-2xl">
+            <div class="row">
+              <div class="col-sm-8 offset-2">
+                <div class="d-flex flex-row text-left">
+                  <i class="fa fa-chevron-right text-primary ml-2 animated infinite fadeOutRight delay-2s"
+                    aria-hidden="true" style="font-size: 0.75rem;">
+                    <i style="font-family:'Lucida Grande';">
+                      <em>NOW ON BOARD</em>
+                    </i>
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-row justify-content-center">
+
+        <div class="card infoboard-section bg-secondary border-secondary text-success text-center mt-1 mb-2"
+          style="border-width: thin;">
+          <div class="card-header bg-slategray py-0 px-1">
+            <div class="d-flex flex-row justify-content-between">
+              <i class="fa fa-minus-circle text-silver" aria-hidden="true"></i>
+              <i class="fa fa-minus-circle text-silver" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="card-body py-0">
+            <p class="card-title text-dark py-0 px-2 mb-0" style="font-size: 2rem;">
+              TURKEY
+            </p>
+          </div>
+          <div class="card-footer bg-slategray py-0 px-1">
+            <div class="d-flex flex-row justify-content-between">
+              <i class="fa fa-minus-circle text-silver" aria-hidden="true"></i>
+              <i class="fa fa-minus-circle text-silver" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <i id="countryName"></i> -->
+
+
+      <!-- FIGURES FOR SELECTED COUNTRY -->
+      <div class="card-group mt-0 mb-2">
         <div class="card infoboard-section bg-transparent border-success text-success text-center">
           <div class="card-header py-1 border-success py-1">
-            Deaths
+            <i class="far fa-flag" aria-hidden="true"></i>
+            <small>
+              Deaths
+            </small>
           </div>
           <div class="card-body my-0 py-1 py-0">
-            <h4 class="card-title" id="overallDeaths">
+            <h4 class="card-title" id="countryDeaths">
             </h4>
           </div>
         </div>
         <div class="card infoboard-section bg-transparent border-success text-success text-center">
           <div class="card-header py-1 border-success py-1">
-            Confirmed
-
+            <i class="far fa-flag" aria-hidden="true"></i>
+            <small>
+              Confirmed
+            </small>
           </div>
           <div class="card-body my-0 py-1 py-0">
-            <h4 class="card-title" id="overallConfirmed">
+            <h4 class="card-title" id="countryConfirmed">
             </h4>
           </div>
         </div>
       </div>
+
+
       <!-- $countrySelect is the opts field of form -->
       <form method="POST" action="" class="mt-4">
         <div class="card infoboard-section bg-transparent border-success text-right">
@@ -126,13 +212,12 @@
                 Change selection for action!
               </small>
             </em>
-              <i class="fa fa-sort text-primary ml-2 animated infinite heartBeat delay-1s" aria-hidden="true"></i>
+            <i class="fa fa-sort text-primary ml-2 animated infinite heartBeat delay-1s" aria-hidden="true"></i>
           </div>
           <div class="card-body py-0">
             <div class="form-group my-0">
               <select id="opts" class="custom-select border-primary text-center text-title mt-2 mb-0 p-0"
-                style="border-radius: 9px;border-width: 3px;font-size: smaller;"
-                >
+                style="border-radius: 9px;border-width: 3px;font-size: smaller;">
               </select>
             </div>
             <div class="card-text text-center  text-success py-0 my-0" style="font-size: smaller;">
@@ -147,83 +232,27 @@
         </div>
       </form>
 
-      <!-- showing figures for country -->
-      <div class="container-fluid text-center text-uppercase py-1">
-        <i class="fa fa-chevron-down text-light mt-2" aria-hidden="true"></i>
-        <i class="text-lowercase text-light mt-2 mx-2">
-          <small>
-            <em>
-              showing figures for:
-            </em>
-          </small>
-        </i>
-        <button class="btn btn-dark border-success btn-sm rounded-3xl" type="button">
-          <i id="countryName"></i>
-        </button>
-      </div>
 
-      <div class="d-flex flex-row justify-content-around mt-0">
-        <ul class="list-inline my-1" style="font-size:smaller;">
-          <li>
-            <i class="fa fa-flag" aria-hidden="true"></i>
-            &middot;
-            Country Code:
-            <i id="countryCode"></i>
-          </li>
-          <li>
-            <i class="fa fa-users" aria-hidden="true"></i>
-            &middot;
-            Population:
-            <i id="countryPop">
-            </i>
-          </li>
-        </ul>
-        <ul class="list-inline my-1" style="font-size:smaller;">
-          <li>
-            <span class="fa-stack text-center">
-              <i class="fas fa-globe fa-stack-1x text-secondary"></i>
-              <i class="fas fa-minus fa-stack-1x text-primary"></i>
-            </span>
-            &middot;
-            Latitude:
-            <i id="countryLat">
-            </i>
-          </li>
-          <li>
-            <span class="fa-stack text-center">
-              <i class="fas fa-globe fa-stack-1x text-secondary"></i>
-              <i class="fas fa-minus fa-stack-1x fa-rotate-90 text-primary"></i>
-            </span>
-            &middot;
-            Longitude:
-            <i id="countryLong">
-
-            </i>
-          </li>
-        </ul>
-      </div>
-
-      <!-- FIGURES FOR SELECTED COUNTRY -->
-      <div class="card-group mt-0 mb-2">
+      <!-- OVERALL FIGURES - TWO CARDS -->
+      <div class="d-flex flex-row justify-content-between">
         <div class="card infoboard-section bg-transparent border-success text-success text-center">
           <div class="card-header py-1 border-success py-1">
-            <small>
-              Deaths
-            </small>
+            <i class="fa fa-globe-americas" aria-hidden="true"></i>
+            Deaths
           </div>
           <div class="card-body my-0 py-1 py-0">
-            <h4 class="card-title" id="countryDeaths">
+            <h4 class="card-title" id="overallDeaths">
             </h4>
           </div>
         </div>
         <div class="card infoboard-section bg-transparent border-success text-success text-center">
           <div class="card-header py-1 border-success py-1">
-            <small>
-              Confirmed
-            </small>
+            <i class="fa fa-globe-americas" aria-hidden="true"></i>
+            Confirmed
+
           </div>
           <div class="card-body my-0 py-1 py-0">
-            <h4 class="card-title" id="countryConfirmed">
+            <h4 class="card-title" id="overallConfirmed">
             </h4>
           </div>
         </div>
@@ -320,7 +349,7 @@
   </div>
 </div>
 
-    <div id="myDiv"></div>
+<div id="myDiv"></div>
 
 <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 

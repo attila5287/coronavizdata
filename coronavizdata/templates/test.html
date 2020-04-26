@@ -1,0 +1,25 @@
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid text-center mx-3 px-3" style="vertical-align: middle;">
+            
+          <a class="navbar-brand mr-4" href="https://coronavizdata.herokuapp.com">
+          <img 
+          class="m-0 p-0"
+          src="{{ url_for('static', filename='img/co_hex.png') }}"
+          style="height: 2.75rem;"
+          >
+        </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+            aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+            </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('about') }}">
+                <i class="fas fa-info-circle"></i>
+                About</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </nav>

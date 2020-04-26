@@ -1,9 +1,21 @@
+      .bg-black {
+        background-color: black;
+      }
+
+      .bg-slategray {
+        background-color: #0f3b46d5;
+      }
+
+      .text-silver {
+        color: silver;
+      }
+
 html {
   font-size: 10px;
 }
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
