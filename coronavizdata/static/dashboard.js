@@ -640,124 +640,6 @@ function chosenBubbleUp(data, chosenId) {
 }
 
 
-function worldMapUp(data, chosenId) {
-  console.log(' --- Data for Map --- ');
-  var chosenCountry = data.locations[chosenId];
-  var countryList = [];
-  var populationList = [];
-  var deathsList = [];
-  var confirmedList = [];
-  var latList = [];
-  var lonList = [];
-  
-
-  var countryIds = [chosenId, 225, 137, 201];
-
-  countryIds.forEach(id => {
-    countryList.push(data.locations[id].country);
-    latList.push(data.locations[id].coordinates.latitude);
-    lonList.push(data.locations[id].coordinates.longitude);
-    populationList.push(data.locations[id].country_population);
-    deathsList.push(data.locations[id].latest.deaths);
-    confirmedList.push(data.locations[id].latest.confirmed);
-  });
-
-  let chinaName = 'China',
-     chinaPop = data.locations[49].country_population,
-      chinaLat = data.locations[49].coordinates.latitude,
-      chinaLon = data.locations[49].coordinates.longitude,
-      chinaDeaths = 0,
-      chinaConfirmed = 0,
-      countrySize = [],
-      hoverText = [],
-      scale = 500;
-
-  // sum all 33 provinces of China for death-confirmed total
-  for (let id = 49; id <= 81; id += 1) {
-    const province = data.locations[id];
-    chinaDeaths += province.latest.deaths;
-    chinaConfirmed += province.latest.confirmed;
-  }
-
-  countryList.push(chinaName);
-  deathsList.push(chinaDeaths);
-  populationList.push(chinaPop);
-  confirmedList.push(chinaConfirmed);
-  latList.push(chinaLat);
-  lonList.push(chinaLon);
-
-
-    for ( var i = 0 ; i < populationList.length; i += 1) {
-        var currentSize = deathsList[i] / scale;
-        var currentText = countryList[i] + " deaths: " + deathsList[i];
-        countrySize.push(currentSize);
-        hoverText.push(currentText);
-    }
-
-    var data = [{
-        type: 'scattergeo',
-        locationmode: 'ISO-3',
-        lat: latList,
-        lon: lonList,
-        hoverinfo: 'text',
-        text: hoverText,
-        marker: {
-            size: countrySize,
-            line: {
-                color: 'black',
-                width: 2
-            },
-        }
-    }];
-
-    var layout = {
-    plot_bgcolor: "#002B36",
-    paper_bgcolor: "#002B36",
-    responsive: true,
-    showgrid: true,
-    showlegend:true,
-    font: {
-      color: '#B58900',
-    },
-    margin: {
-      t: 25,
-      r: 5,
-      l: 5,
-      b: 5
-    },
-    legend: {
-      font: {
-        color: '#B58900'
-      }
-    },
-    title: `${chosenCountryName} vs. US, China, Italy, Spain in Deaths`,
-    showlegend: true,
-    geo: {
-      lataxis :{
-        range: [-25,35]
-      },
-      scope: 'world',
-      showland: true,
-      showocean: true, 
-      showframe: true, 
-      framecolor:'#002B36',
-      landcolor: '#B58900',
-      oceancolor: '#002B36',
-      bgcolor: '#002B36',
-      subunitwidth: 1,
-      countrywidth: 1,
-      subunitcolor: '#073642',
-      center:{
-        lat: 39,
-        lon: 35
-      },
-      },
-    };
-
-    Plotly.newPlot("world-scatter-geo", data, layout, {showLink: false});
-
-}
-
 
 function timeSeriesUp(chosenCountry) {
   var url = 'https://pomber.github.io/covid19/timeseries.json';
@@ -828,8 +710,7 @@ function timeSeriesUp(chosenCountry) {
    'x': [],
    'y': [],
    'type': 'scatter',
-   'mode': 'lines',
-
+   'mode': 'lines+markers',
  };
 
   trace['name'] = dict.name;
@@ -844,7 +725,7 @@ function timeSeriesUp(chosenCountry) {
     
   var layout = {
       title: {
-        text: chosenCountry + " vs. US, China, Italy, Spain in Deaths",
+        text: chosenCountry + " vs. US, China, Italy, Spain in Deaths-Time Series",
         font: {
           size: 12,
           color: '#b58900',
@@ -894,6 +775,7 @@ function timeSeriesUp(chosenCountry) {
         linecolor: '#B58900',
         linewidth: 0.25,
       },
+      
     };
 
   
@@ -901,4 +783,136 @@ function timeSeriesUp(chosenCountry) {
 
   });
 }
+
+function worldMapUp(data, chosenId) {
+  console.log(' --- Data for Map --- ');
+  var chosenCountry = data.locations[chosenId];
+  var countryList = [];
+  var populationList = [];
+  var deathsList = [];
+  var confirmedList = [];
+  var latList = [];
+  var lonList = [];
+  
+
+  var countryIds = [chosenId, 225, 137, 201];
+
+  countryIds.forEach(id => {
+    countryList.push(data.locations[id].country);
+    latList.push(data.locations[id].coordinates.latitude);
+    lonList.push(data.locations[id].coordinates.longitude);
+    populationList.push(data.locations[id].country_population);
+    deathsList.push(data.locations[id].latest.deaths);
+    confirmedList.push(data.locations[id].latest.confirmed);
+  });
+
+  let chinaName = 'China',
+     chinaPop = data.locations[49].country_population,
+      chinaLat = data.locations[49].coordinates.latitude,
+      chinaLon = data.locations[49].coordinates.longitude,
+      chinaDeaths = 0,
+      chinaConfirmed = 0,
+      countrySize = [],
+      hoverText = [],
+      scale = 500;
+
+  // sum all 33 provinces of China for death-confirmed total
+  for (let id = 49; id <= 81; id += 1) {
+    const province = data.locations[id];
+    chinaDeaths += province.latest.deaths;
+    chinaConfirmed += province.latest.confirmed;
+  }
+
+  countryList.push(chinaName);
+  deathsList.push(chinaDeaths);
+  populationList.push(chinaPop);
+  confirmedList.push(chinaConfirmed);
+  latList.push(chinaLat);
+  lonList.push(chinaLon);
+
+
+    for ( var i = 0 ; i < populationList.length; i += 1) {
+        var currentSize = deathsList[i] / scale;
+        var currentText = countryList[i] + " deaths: " + deathsList[i];
+        countrySize.push(currentSize);
+        hoverText.push(currentText);
+    }
+
+    var data = [{
+
+        name:'bubbleChartDeaths',
+        type: 'scattergeo',
+        locationmode: 'ISO-3',
+        lat: latList,
+        lon: lonList,
+        hoverinfo: 'text',
+        text: hoverText,
+        marker: {
+            size: countrySize,
+            line: {
+                color: 'black',
+                width: 2
+            },
+        }
+    }];
+
+    var layout = {
+      
+    plot_bgcolor: "#002B36",
+    paper_bgcolor: "#002B36",
+    responsive: true,
+    showgrid: true,
+    showlegend:true,
+    font: {
+      color: '#B58900',
+    },
+    margin: {
+      t: 20,
+      r: 5,
+      l: 5,
+      b: 5
+    },
+    legend: {
+      font: {
+        color: '#B58900'
+      }
+    },
+    title: {
+      text: `${chosenCountryName} vs. US, China, Italy, Spain in Deaths`,
+      font: {
+        size: 12,
+        color: '#b58900',
+      }},    
+    showlegend: true,
+    geo: {
+            showgrid: true,
+      zeroline: false,
+      showline: false,
+      mirror: 'ticks',
+      gridcolor: '#073642',
+      gridwidth: 0.05,
+      lataxis :{
+        range: [-50, 75]
+      },
+      scope: 'world',
+      showland: true,
+      showocean: true, 
+      showframe: true, 
+      showgrid: true, 
+      framecolor:'#002B36',
+      landcolor: '#B58900',
+      oceancolor: '#002B36',
+      bgcolor: '#002B36',
+      subunitwidth: 1,
+      countrywidth: 1,
+      subunitcolor: '#073642',
+    },
+    padding:1
+    };
+
+    Plotly.newPlot("world-scatter-geo", data, layout, {showLink: false});
+
+}
+
+
 
