@@ -123,9 +123,8 @@
       </div>
     </div>
 
-    <style>
 
-    </style>
+
     <!-- form to select country and sidebar -->
     <div class="col-lg-3">
       <!-- showing figures for country -->
@@ -152,7 +151,7 @@
 
         <div class="card infoboard-section bg-secondary border-secondary text-success text-center mt-1 mb-2"
           style="border-width: thin;">
-          <div class="card-header bg-slategray py-0 px-1">
+          <div class="card-header bg-slategray py-0 px-2">
             <div class="d-flex flex-row justify-content-between">
               <i class="fa fa-minus-circle text-silver" aria-hidden="true"></i>
               <i class="fa fa-minus-circle text-silver" aria-hidden="true"></i>
@@ -234,7 +233,7 @@
 
 
       <!-- OVERALL FIGURES - TWO CARDS -->
-      <div class="d-flex flex-row justify-content-between">
+      <div class="d-flex flex-row justify-content-between my-3">
         <div class="card infoboard-section bg-transparent border-success text-success text-center">
           <div class="card-header py-1 border-success py-1">
             <i class="fa fa-globe-americas" aria-hidden="true"></i>
@@ -265,7 +264,7 @@
           <i class="fas fa-cog fa-spin fa-2x text-success"></i>
         </div>
         <div class="fa-fw">
-          <i class="fas fa-sun fa-cog text-success"></i>
+          <i class="fas fa-sun fa-spin text-success"></i>
           <span class="fa-stack">
             <i class="far fa-fw fa-circle fa-stack-2x text-success"></i>
             <i class="fas fa-fw fa-sun fa-stack-1x fa-spin"></i>
@@ -276,7 +275,7 @@
           <i class="fas fa-cog fa-spin"></i>
           <i class="fas fa-cog fa-spin text-success"></i>
         </div>
-        <a class="btn btn-dark btn-sm border-dark px-3" style="border-width:thick;border-radius: 2rem;">
+        <a class="btn btn-dark btn-md border-dark px-3" style="border-width:thick;border-radius: 2rem;">
           <i class="fa animated infinite pulse delay-1s text-secondary">
             <em class="text-light">
               <i id="">
@@ -287,8 +286,8 @@
         </a>
         <div class="d-flex flex-column">
           <span class="fa-stack">
-            <i class="fas fa-circle fa-stack-2x  text-dark"></i>
-            <i class="fas fa-wifi fa-stack-1x fa-spin text-success"></i>
+            <i class="far fa-circle fa-stack-2x  text-success"></i>
+            <i class="fas fa-wifi fa-stack-1x fa-pulse text-secondary"></i>
           </span>
           <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
           <i class="fa fa-signal text-success" aria-hidden="true"></i>
@@ -300,15 +299,17 @@
             <i class="fas fa-globe-americas fa-stack-1x  text-secondary"></i>
           </span>
           <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-          <i class="fa fa-server text-success" aria-hidden="true"></i>
-
-        </div>
-
-        <div class="fa-fw">
-          <i class="fa fa-sync text-success" aria-hidden="true"></i>
           <i class="fa fa-sitemap text-success" aria-hidden="true"></i>
-          <i class="fa fa-link text-success" aria-hidden="true"></i>
+          
         </div>
+        <div class="d-flex flex-column">
+          <span class="fa-stack">
+            <i class="far fa-circle text-success fa-stack-2x" aria-hidden="true"></i>
+            <i class="fa fa-sync text-secondary fa-pulse fa-stack-1x" aria-hidden="true"></i>
+          </span>
+          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          <i class="fa fa-server text-success" aria-hidden="true"></i>
+        </div>        
       </div>
       <p class="mt-0  py-0 text-center">
         <small>
@@ -326,22 +327,46 @@
         </a>
       </p>
 
-
+       
       <!-- info card general -->
       <div class="card infoboard-section bg-transparent border-success text-success text-center mt-2">
-        <div class="card-body my-1 py-2">
-          <p class="card-text text-right my-0 text-muted">
-            <i class="fa fa-2x fa-info ml-2 mt-2 fa-pull-left" aria-hidden="true"></i>
-            <small>
-              <em style="font-size: smaller;">
-                <i class="fa fa-chevron-right" aria-hidden="true">
-                </i>
+        <div class="card-header pt-1 pb-0 my-0">
+      <div class="row my-0">
+        <div class="col-sm-2 text-center">
+          <hr class="border-success" style="border-width: thin;">
+        </div>
+        <div class="col-sm-2 text-center">
+          <i class="fa fa-info-circle text-success fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="col-sm-8 text-center">
+          <hr class="border-success" style="border-width: thin;">
+        </div>
+      </div>           
 
-                App pulls the latest available data from John Hopkins API @
+
+        </div>
+        <div class="card-body mt-0 mb-1 pt-0 pb-2">
+            <ul class="list-inline text-left text-secondary my-0" style="font-weight: lighter;font-size: smaller;font-style: italic;">
+              <li class="list-inline-item">
+                <i class="fa fa-info-circle text-success" aria-hidden="true"></i>
+                App pulls the latest available data from John Hopkins API 
+              </li>              
+
+              <li class="list-inline-item">
+                <i class="fa fa-info-circle text-success" aria-hidden="true"></i>
+                Geo-Map: 
                 'coronavirus-tracker-api.herokuapp.com/v2/locations'
-              </em>
-            </small>
-          </p>
+              </li>                
+              <li class="list-inline-item">
+                <i class="fa fa-info-circle text-success" aria-hidden="true">
+                </i>
+                Time-Series: 
+                'https://pomber.github.io/covid19/timeseries.json'
+              </li>                
+                
+            </ul>
+
+
         </div>
       </div>
 
@@ -349,7 +374,8 @@
   </div>
 </div>
 
-<div id="myDiv"></div>
+<div id="world-scatter-geo"></div>
+<div id="death-time-series"></div>
 
 <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 

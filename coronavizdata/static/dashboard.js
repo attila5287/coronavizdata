@@ -1,7 +1,8 @@
-/* eslint-disable no-undef */
 // user will select country from Select element thus the dynamic dashboard update
 const $countrySelect = document.getElementById('opts');
 let defaultId = 213; // turkey country code as initial value
+
+timeSeriesUp('Turkey');
 
 fetchLatestData();
 function fetchLatestData() {
@@ -28,6 +29,8 @@ function fetchLatestData() {
       chosenBubbleUp(data, chosenId);
       chosenPieUp(data, chosenId);
       worldMapUp(data, chosenId);
+      let chosenCountryName = data.locations[chosenId].country;
+      timeSeriesUp(chosenCountryName);
       });
 
   });
@@ -43,7 +46,7 @@ console.log(' --- Data for Pie --- ');
 
   chosenCountry = data.locations[chosenId];
   chosenCountryName = chosenCountry.country;
-  console.log(chosenCountryName);
+  // console.log(chosenCountryName);
 
   countryIdsPie = [chosenId, 225, 137, 201];
   countryIdsPie.forEach(id => {
@@ -68,9 +71,9 @@ console.log(' --- Data for Pie --- ');
   deathsListPie.push(chinaDeaths);
   confirmedListPie.push(chinaConfirmed);
 
-  console.log(countryListPie);
-  console.log(deathsListPie);
-  console.log(confirmedListPie);
+  // console.log(countryListPie);
+  // console.log(deathsListPie);
+  // console.log(confirmedListPie);
 
   let totalDeaths = data.latest.deaths;
   let totalConfirmed = data.latest.confirmed;
@@ -81,11 +84,11 @@ console.log(' --- Data for Pie --- ');
   countryListPie.push('All Others');
   deathsListPie.push(totalDeaths-displayFiveDeaths);
   confirmedListPie.push(totalConfirmed-displayFiveConfirmed);
-  console.log(' ---- final ----');
-  console.log(countryListPie);
-  console.log(deathsListPie);
-  console.log(confirmedListPie);  
-  console.log(chosenCountryName);  
+  // console.log(' ---- final ----');
+  // console.log(countryListPie);
+  // console.log(deathsListPie);
+  // console.log(confirmedListPie);  
+  // console.log(chosenCountryName);  
 
   var tracePie1 = {
     labels: countryListPie,
@@ -366,6 +369,7 @@ function chosenBubbleUp(data, chosenId) {
       }
     }
   };
+
   var layoutBubble1 = {
     title: {
       text: `${chosenCountryName} vs. US, China, Italy, Spain in Deaths`,
@@ -420,6 +424,7 @@ function chosenBubbleUp(data, chosenId) {
       linewidth: 0.25,
     },
   };
+
   var trace2 = {
     x: countryList,
     y: confirmedList,
@@ -436,6 +441,7 @@ function chosenBubbleUp(data, chosenId) {
       }
     }
   };
+
   var layoutBubble2 = {
     title: {
       text: `${chosenCountryName} vs. US, China, Italy, Spain in Confirmed Cases`,
@@ -490,6 +496,7 @@ function chosenBubbleUp(data, chosenId) {
       linewidth: 0.25,
     },
   };
+
   var $bubble = document.getElementById('bubble-deaths');
   var $bubble2 = document.getElementById('bubble-confirmed');
   Plotly.newPlot($bubble, [trace1], layoutBubble1);
@@ -726,19 +733,172 @@ function worldMapUp(data, chosenId) {
     title: `${chosenCountryName} vs. US, China, Italy, Spain in Deaths`,
     showlegend: true,
     geo: {
-        scope: 'world',
-        showland: true,
-        showocean: true, 
-        landcolor: '#B58900',
-        oceancolor: '#002B36',
-        subunitwidth: 1,
-        countrywidth: 1,
-        subunitcolor: '#073642',
-        countrycolor: '#002B36'
-        },
+      lataxis :{
+        range: [-25,35]
+      },
+      scope: 'world',
+      showland: true,
+      showocean: true, 
+      showframe: true, 
+      framecolor:'#002B36',
+      landcolor: '#B58900',
+      oceancolor: '#002B36',
+      bgcolor: '#002B36',
+      subunitwidth: 1,
+      countrywidth: 1,
+      subunitcolor: '#073642',
+      center:{
+        lat: 39,
+        lon: 35
+      },
+      },
     };
 
-    Plotly.newPlot("myDiv", data, layout, {showLink: false});
+    Plotly.newPlot("world-scatter-geo", data, layout, {showLink: false});
 
 }
-/* eslint-disable no-var, no-var, no-var, comma-dangle, no-var, no-var, max-len, no-var, no-undef, quotes, quotes, quotes, quotes, no-var, quotes, quotes, no-undef, quotes, func-names, prefer-arrow-callback, space-before-function-paren, indent, prefer-arrow-callback, func-names, space-before-function-paren, no-param-reassign, no-param-reassign, vars-on-top, no-var, no-undef, no-undef, no-var, vars-on-top, no-undef, no-undef, no-var, vars-on-top, no-undef, no-var, vars-on-top, no-undef, quotes, quotes, quotes, indent, no-var, vars-on-top, quotes, indent, indent, indent, quotes, indent, quotes, indent, quotes, indent, quotes, quotes, indent, quotes, quotes, indent, quotes, quotes, no-var, vars-on-top, no-undef, quotes, quotes, func-names, prefer-arrow-callback, space-before-function-paren, quotes, func-names, prefer-arrow-callback, space-before-function-paren, quotes, func-names, prefer-arrow-callback, space-before-function-paren, no-unused-vars, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes, quotes */
+
+
+function timeSeriesUp(chosenCountry) {
+  var url = 'https://pomber.github.io/covid19/timeseries.json';
+  var namesListed = ['US', 'China', 'Spain', 'Italy'];
+
+  namesListed.push(chosenCountry);
+
+  d3.json(url, function(error, data) {
+    if (error) throw error;
+    
+    console.log(' --- Data for Time Series --- ');
+    // console.log(data);
+    
+  let countryArray = [];
+
+  const keys = Object.keys(data)
+  for (const key of keys) {
+    countryArray.push(key)
+  }    
+  
+  // console.log(countryArray)
+  
+  let dictArray = [];
+
+  countryArray.forEach(country => {
+    let dict = {
+        'name': '',
+        'rollingSumDeaths': [],
+        'rollingSumConfirmed': [],
+        'dates': []
+      };    
+      var condition = namesListed.includes(country);
+
+      console.log(condition);
+
+      if (condition) {
+        
+      
+
+      dict['name']=country;
+
+    let rollingSumDeaths = 0;
+    let rollingSumConfirmed = 0;
+    
+    let array = data[country];
+    for (let index = 0; index < array.length; index++) {
+      const dailyRecord = array[index];
+      rollingSumDeaths+=dailyRecord.deaths;
+      rollingSumConfirmed+=dailyRecord.confirmed;
+      dict['rollingSumDeaths'].push(rollingSumDeaths);
+      dict['rollingSumConfirmed'].push(rollingSumConfirmed);
+      dict['dates'].push(dailyRecord.date);
+    }
+
+    dictArray.push(dict);
+    }
+  });
+  
+  console.log(dictArray);
+
+
+ let dataMultiTrace = [];
+
+
+ dictArray.forEach(dict => {
+ let trace = {
+   'name': '',
+   'x': [],
+   'y': [],
+   'type': 'scatter',
+   'mode': 'lines',
+
+ };
+
+  trace['name'] = dict.name;
+  trace['x']= dict.dates;
+  trace['y']=dict.rollingSumConfirmed;
+  trace['type']= 'scatter';
+  trace['mode']= 'lines';
+  dataMultiTrace.push(trace);
+  console.log(trace);
+  
+  });
+    
+  var layout = {
+      title: {
+        text: chosenCountry + " vs. US, China, Italy, Spain in Deaths",
+        font: {
+          size: 12,
+          color: '#b58900',
+        }
+      },
+      plot_bgcolor: "#002B36",
+      paper_bgcolor: "#002B36",
+      showlegend: true,
+      responsive: true,
+      margin: {
+        t: 25,
+        r: 15,
+        l: 25,
+        b: 30
+      },
+      padding: 1,
+      responsive: true,
+      xaxis: {
+        tickfont: {
+          size: 10,
+          color: '#B58900',
+        },
+        showgrid: true,
+        zeroline: false,
+        showline: false,
+        mirror: 'ticks',
+        gridcolor: '#073642',
+        gridwidth: 0.05,
+        zerolinecolor: '#002B36',
+        zerolinewidth: 0.25,
+        linecolor: '#B58900',
+        linewidth: 0.25,
+      },
+      yaxis: {
+        tickfont: {
+          size: 10,
+          color: '#B58900',
+        },
+        showgrid: true,
+        zeroline: false,
+        showline: false,
+        mirror: 'ticks',
+        gridcolor: '#073642',
+        gridwidth: 0.05,
+        zerolinecolor: '#002B36',
+        zerolinewidth: 0.25,
+        linecolor: '#B58900',
+        linewidth: 0.25,
+      },
+    };
+
+  
+  Plotly.react('death-time-series', dataMultiTrace, layout);
+
+  });
+}
+
