@@ -4,11 +4,13 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-          {
-            "name": "ff Launch index.html",
-            "type": "firefox",
-            "request": "attach"
-          },
+    
+
+    {
+      "type": "firefox",
+      "request": "attach",
+      "name": "Attach"
+    },
     {
       "type": "node",
       "request": "launch",
@@ -16,7 +18,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\coronavizdata\\static\\dashboard.js"
+      "program": "${file}"
     }
   ]
 }

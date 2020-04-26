@@ -93,8 +93,7 @@
         </div>                    
       </div>
     </div>
-
-    <!-- form to select squares sidebar -->
+    <!-- form to select country and sidebar -->
     <div class="col-lg-3">
       <!-- OVERALL FIGURES - TWO CARDS -->
       <div class="d-flex flex-row justify-content-between">
@@ -321,9 +320,11 @@
   </div>
 </div>
 
-<script>
-  // https://coronavirus-tracker-api.herokuapp.com/v2/locations
-</script>
+<div class="row mt-2">
+  <div class="col-lg-12">
+    <div id="myDiv"></div>
+  </div>
+</div>
 
 <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 {% endblock content %}
