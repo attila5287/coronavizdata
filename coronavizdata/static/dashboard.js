@@ -728,7 +728,9 @@ function worldMapUp(data, chosenId) {
     geo: {
         scope: 'world',
         showland: true,
+        showocean: true, 
         landcolor: '#B58900',
+        oceancolor: '#002B36',
         subunitwidth: 1,
         countrywidth: 1,
         subunitcolor: '#073642',
