@@ -84,8 +84,8 @@ h1, h2, h3, h4, h5, p, i {
     background-color: #002B36;
     width: 100%;
     background-position: center;
-    background-repeat: repeat;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
     position: relative;
     border-radius: 1.75rem;
     border-width: 2rem;
