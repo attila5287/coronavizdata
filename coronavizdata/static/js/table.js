@@ -4,25 +4,10 @@ var testdata = testdata; // from testdata.js
 const $countrySelect = document.getElementById('opts'); // selectfield
 let defaultId = 213;  // turkey country code as initial value
 
-fetchTestData();
+// fetchTestData();
 
-function fetchTestData(){
-  selectOptionsUp(testdata);
-  overallCountUp(testdata);
-  chosenFiguresUp(testdata, defaultId);
-  table4OnePlease(testdata, defaultId);
-  
-  d3.select('#opts')
-  .on('change', function () {
-    let chosenId = eval(d3.select(this).property('value'));
 
-    chosenFiguresUp(testdata, chosenId);
-    chosenFiguresUp(testdata, chosenId);
-    table4OnePlease(testdata, chosenId);
-  });
-}
-
-// fetchLatestData();
+fetchLatestData();
 
 function fetchLatestData() {
   
@@ -172,5 +157,21 @@ d3.select("tbody")
   .append("tr")
   .html(function(d) {
     return `<td>${d.name}</td><td>${d.population}</td><td>${d.deaths}</td><td>${d.confirmed}</td>`;
+  });
+}
+
+function fetchTestData(){
+  selectOptionsUp(testdata);
+  overallCountUp(testdata);
+  chosenFiguresUp(testdata, defaultId);
+  table4OnePlease(testdata, defaultId);
+  
+  d3.select('#opts')
+  .on('change', function () {
+    let chosenId = eval(d3.select(this).property('value'));
+
+    chosenFiguresUp(testdata, chosenId);
+    chosenFiguresUp(testdata, chosenId);
+    table4OnePlease(testdata, chosenId);
   });
 }
