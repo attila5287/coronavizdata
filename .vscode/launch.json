@@ -4,14 +4,19 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "program": "${file}"
-    }
+  
+
+            {
+              "name": "Launch localhost",
+              "type": "firefox",
+              "request": "launch",
+              "reAttach": true,
+              "url": "http://127.0.0.1:5000/",
+              "pathMappings": [{
+                "url": "http://127.0.0.1:5000/",
+                "path": "${workspaceFolder}"
+              }],
+              "popupAutohideButton": true
+            }
   ]
 }

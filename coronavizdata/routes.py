@@ -7,6 +7,13 @@ from coronavizdata import app, db
 def dashboard():
     return render_template('dashboard.html', title='dashBoard')
 
+
+@app.route("/table")
+def table():
+    return render_template('table.html', title='Table')
+
+
+
 @app.route("/home")
 def home():
     return render_template('home.html', title='Home')

@@ -19,9 +19,9 @@
 
     <!-- set title on route by render_template(... ,title='test') -->
     {% if title %}
-    <title>COVID-19-DataViz-{{ title }}</title>
+    <title>COVID-19-Tracker-{{ title }}</title>
     {% else %}
-    <title>COVID-19-DataViz</title>
+    <title>COVID-19-Tracker</title>
     {% endif %}
   </head>
 
@@ -45,9 +45,12 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('home') }}">
-                <i class="fas fa-envelope-open"></i>
-                HomeTest</a>
+              <a class="nav-item nav-link" href="{{ url_for('table') }}">
+                <i class="fas fa-tachometer-alt    "></i>
+                Dashboard</a>              
+              <a class="nav-item nav-link" href="{{ url_for('table') }}">
+                <i class="fas fa-table"></i>
+                Table</a>
               <a class="nav-item nav-link" href="{{ url_for('about') }}">
                 <i class="fas fa-info-circle    "></i>
                 About</a>
@@ -96,13 +99,13 @@
                 Site Map
               </button>
               <div class="list-group sidebar-section text-center mt-1 mb-0" style="border-radius: 4px;">
-                <a href="/register" class="list-group-item list-group-item-action">
-                  <i class="fas fa-registered    "></i>
-                  Register
+                <a href="/dashboard" class="list-group-item list-group-item-action">
+                  <i class="fas fa-tachometer-alt"></i>
+                  Dashboard
                 </a>
-                <a href="/login" class="list-group-item list-group-item-action">
-                  <i class="fas fa-sign-in-alt"></i>
-                  Login
+                <a href="/table" class="list-group-item list-group-item-action">
+                  <i class="fas fa-table"></i>
+                  Table
                 </a>
                 <a href="/about" class="list-group-item list-group-item-action">
                   <i class="fas fa-info-circle"></i>

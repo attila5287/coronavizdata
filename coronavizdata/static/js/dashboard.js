@@ -1,8 +1,14 @@
+ 
 // user will select country from Select element thus the dynamic dashboard update
-const $countrySelect = document.getElementById('opts');
-let defaultId = 213; // turkey country code as initial value
 
+const $countrySelect = document.getElementById('opts');
+
+// turkey country code as initial value
+let defaultId = 213; 
+
+// turkey country name as initial label for time series related API
 timeSeriesUp('Turkey');
+
 
 fetchLatestData();
 function fetchLatestData() {
@@ -361,7 +367,7 @@ function chosenBubbleUp(data, chosenId) {
       size: populationList,
       sizemode: 'diameter',
       color: '#073642',
-      opacity: 0.99,
+      opacity: 0.59,
       sizeref: 10000000,
       line: {
         color: '#b58900',
@@ -433,7 +439,7 @@ function chosenBubbleUp(data, chosenId) {
       size: populationList,
       sizemode: 'diameter',
       color: '#073642',
-      opacity: 0.99,
+      opacity: 0.59,
       sizeref: 10000000,
       line: {
         color: '#268bd2',
@@ -660,7 +666,7 @@ function timeSeriesUp(chosenCountry) {
     countryArray.push(key)
   }    
   
-  // console.log(countryArray)
+  console.log(countryArray)
   
   let dictArray = [];
 
@@ -676,15 +682,15 @@ function timeSeriesUp(chosenCountry) {
       console.log(condition);
 
       if (condition) {
-        
-      
 
-      dict['name']=country;
+    dict['name']=country;
 
     let rollingSumDeaths = 0;
+
     let rollingSumConfirmed = 0;
     
     let array = data[country];
+
     for (let index = 0; index < array.length; index++) {
       const dailyRecord = array[index];
       rollingSumDeaths+=dailyRecord.deaths;
@@ -728,12 +734,16 @@ function timeSeriesUp(chosenCountry) {
         text: chosenCountry + " vs. US, China, Italy, Spain in Deaths-Time Series",
         font: {
           size: 12,
-          color: '#b58900',
+          color: '#B58900',
         }
       },
       plot_bgcolor: "#002B36",
       paper_bgcolor: "#002B36",
       showlegend: true,
+    legend: {
+      font: {
+        color: '#B58900'
+      }} ,      
       responsive: true,
       margin: {
         t: 25,
@@ -913,6 +923,3 @@ function worldMapUp(data, chosenId) {
     Plotly.newPlot("world-scatter-geo", data, layout, {showLink: false});
 
 }
-
-
-

@@ -1,16 +1,15 @@
 {% extends 'layout_dash.html' %}
 
 {% block content %}
-<div class="container-fluid">
   <div class="row">
     <div class="col-lg-9">
       <div class="row">
-
         <!-- WORLD GEO MAP -->
         <div class="col-lg-12 text-center">
             <div id="world-scatter-geo"></div>
         </div>
-
+      </div>
+      <div class="row">
         <!-- GAUGE-INFO -->
         <div class="col-lg-5 text-center">
           <div class="card bg-transparent mt-2 mb-1">
@@ -69,7 +68,6 @@
           </div>
         </div>
       </div>
-
       <div class="row">
 
         <!-- LINE PLOT TIME SERIES -->
@@ -84,7 +82,7 @@
             </div>
           </div>
           <div id="death-time-series"></div>
-        </div        
+        </div>       
         <!-- BAR CHART-DEATHS -->
         <div class="col-lg-3 text-center">
           <div id="histDesc">
@@ -124,12 +122,8 @@
 
       </div>
     </div>
-
-
-
     <!-- form to select country and sidebar -->
     <div class="col-lg-3">
-
 
       <!-- showing figures for country -->
       <div class="container-fluid text-center text-uppercase py-1">
@@ -382,28 +376,13 @@
 
         </div>
       </div>
-      <!-- PIE CHART -->
-      <div class="card bg-transparent mt-2 mb-1">
-        <div class="card-body text-center py-0">
-          <small><em>
-              <i class="fa fa-angle-down fa-2x fa-pull-left" aria-hidden="true"></i>
-              Pie chart shows country deaths per overall as percentage
-            </em>
-          </small>
-        </div>
-
-        <div class="card bg-transparent shadow-before" id="pieZone" style="border-radius: 10px;">
-          <div id="pie-deaths"></div>
-        </div>
-
-      </div>
     </div>
+    
+  </div>  
+  
+  
 
-  </div>
-</div>
 
-
-
-<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
 {% endblock content %}
