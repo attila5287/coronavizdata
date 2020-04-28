@@ -1,10 +1,9 @@
-var testdata = testdata; // from testdata.js
-// console.log(testdata);
+// var testdata = testdata; // from testdata.js
+// fetchTestData();
 
 const $countrySelect = document.getElementById('opts'); // selectfield
 let defaultId = 213;  // turkey country code as initial value
 
-// fetchTestData();
 
 
 fetchLatestData();
