@@ -1,22 +1,20 @@
- 
 // user will select country from Select element thus the dynamic dashboard update
-
-const $countrySelect = document.getElementById('opts');
-
-// turkey country code as initial value
-let defaultId = 213; 
+var $countrySelect = document.getElementById('opts');
 
 // turkey country name as initial label for time series related API
 timeSeriesUp('Turkey');
 
 
 fetchLatestData();
+
 function fetchLatestData() {
   const url = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations';
   d3.json(url, (error, data) => {
     if (error) {
       throw error;
     }
+    let defaultId = 213; 
+    // turkey country code as initial value
     // initial part here
     overallCountUp(data);
     selectOptionsUp(data);
@@ -27,9 +25,13 @@ function fetchLatestData() {
     worldMapUp(data, defaultId);
     
     // dynamic part here
-    d3.select('#opts')
-    .on('change', function () {
+    d3.select('#opts').on('change', function () {
+      console.log(' TEST ');
       let chosenId = eval(d3.select(this).property('value'));
+
+      console.log(' --- chosenId ---');
+      console.log(chosenId);
+
       chosenFiguresUp(data, chosenId);
       chosenGaugeUp(data, chosenId);
       chosenBubbleUp(data, chosenId);
@@ -37,11 +39,11 @@ function fetchLatestData() {
       worldMapUp(data, chosenId);
       let chosenCountryName = data.locations[chosenId].country;
       timeSeriesUp(chosenCountryName);
+
       });
 
   });
 }
-
 
 function chosenPieUp(data, chosenId) {
 console.log(' --- Data for Pie --- ');
@@ -50,9 +52,8 @@ console.log(' --- Data for Pie --- ');
   let deathsListPie = [];
   let confirmedListPie = [];
 
-  chosenCountry = data.locations[chosenId];
-  chosenCountryName = chosenCountry.country;
-  // console.log(chosenCountryName);
+  chosenCountryName = data.locations[chosenId].country;
+  console.log(chosenCountryName);
 
   countryIdsPie = [chosenId, 225, 137, 201];
   countryIdsPie.forEach(id => {
@@ -645,8 +646,6 @@ function chosenBubbleUp(data, chosenId) {
     Plotly.newPlot($histogram2, [traceHist2], layout2);  
 }
 
-
-
 function timeSeriesUp(chosenCountry) {
   var url = 'https://pomber.github.io/covid19/timeseries.json';
   var namesListed = ['US', 'China', 'Spain', 'Italy'];
@@ -666,7 +665,7 @@ function timeSeriesUp(chosenCountry) {
     countryArray.push(key)
   }    
   
-  console.log(countryArray)
+  // console.log(countryArray)
   
   let dictArray = [];
 
@@ -679,7 +678,7 @@ function timeSeriesUp(chosenCountry) {
       };    
       var condition = namesListed.includes(country);
 
-      console.log(condition);
+      // console.log(condition);
 
       if (condition) {
 
