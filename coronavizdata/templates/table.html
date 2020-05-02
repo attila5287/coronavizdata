@@ -2,35 +2,40 @@
 
 {% block content %}
 
+
 <div class="row">
-  
+
   <div class="col-lg-9">
-<div class="container">
-<div class="jumbotron hero-image" style="background-image: url({{url_for('static', filename='img/world-map-transparent.png')}});">
-  <hr class="my-4">
-  <h1>COVID-19 LATEST</h1>
-  <hr class="my-4">
-</div>>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-hover table-striped">
-                <thead>
-                  <tr>
-                    <th>country</th>
-                    <th>country_population</th>
-                    <th>deaths</th>
-                    <th>confirmed</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+    <div class="container">
+      <div class="jumbotron hero-image"
+        style="background-image: url({{url_for('static', filename='img/world-map-transparent.png')}});">
+        
+        <div class="chart">
+          <svg></svg>
         </div>
+        
+        
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>country</th>
+                <th>country_population</th>
+                <th>deaths</th>
+                <th>confirmed</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
     </div>
-</div>
   </div>
   <!-- form to select country and sidebar -->
   <div class="col-lg-3">
-
+    
     <!-- showing figures for country -->
     <div class="container-fluid text-center text-uppercase py-1">
       <div class="card infoboard-section bg-transparent border-success  shadow-gold text-success text-center">
@@ -39,17 +44,18 @@
             <div class="col-sm-8 offset-2">
               <div class="d-flex flex-row text-left">
                 <i class="fa fa-chevron-right text-primary ml-2 animated infinite fadeOutRight delay-2s"
-                  aria-hidden="true" style="font-size: 0.75rem;">
-                  <i style="font-family:'Lucida Grande';">
-                    <em>NOW ON BOARD</em>
-                  </i>
+                aria-hidden="true" style="font-size: 0.75rem;">
+                <i style="font-family:'Lucida Grande';">
+                  <em>NOW ON BOARD</em>
                 </i>
-              </div>
+              </i>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  
 
     <div class="d-flex flex-row justify-content-center">
 
@@ -168,9 +174,9 @@
         <span class="fa-stack">
           <i class="fa fa-certificate fa-stack-2x fa-spin"></i>
           <i class="fas fa-sun fa-stack-1x fa-spin text-dark"></i>
-        </span>          
+        </span>
         <i class="fas fa-cog fa-spin"></i>
-      </div>        
+      </div>
       <div class="fa-fw">
         <i class="fas fa-cog fa-spin fa-2x"></i>
         <i class="fas fa-cog fa-spin fa-2x text-success"></i>
@@ -283,14 +289,21 @@
       </div>
     </div>
 
-  </div>  
-      
+  </div>
+
 </div>
 
 
-<script src=" {{ url_for('static', filename = 'js/testdata.js') }} "></script>
-<script src=" {{ url_for('static', filename = 'js/table.js') }} "></script>
 
+<script src=" {{ url_for('static', filename = 'js/testdata.js') }} "></script>
+<script src=" {{ url_for('static', filename = 'js/testdatatimeser.js') }} "></script>
+<!-- <script src=" {{ url_for('static', filename = 'js/bundle.js') }} "></script> -->
+
+
+<!-- <script src=" {{ url_for('static', filename = 'js/scatter-animated.js') }} "></script> -->
+
+<script src=" {{ url_for('static', filename = 'js/table.js') }} "></script>
+<!-- <script src=" {{ url_for('static', filename = 'js/scatter-interactive.js') }} "></script> -->
+<!-- <script src=" {{ url_for('static', filename = 'js/multi-line.js') }} "></script> -->
 
 {% endblock %}
- 

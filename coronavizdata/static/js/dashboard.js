@@ -1,3 +1,5 @@
+console.log(' test');
+
 // user will select country from Select element thus the dynamic dashboard update
 var $countrySelect = document.getElementById('opts');
 
@@ -5,15 +7,20 @@ var $countrySelect = document.getElementById('opts');
 timeSeriesUp('Turkey');
 
 
-fetchLatestData();
+fetchLatestData();  
 
 function fetchLatestData() {
   const url = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations';
   d3.json(url, (error, data) => {
     if (error) {
-      throw error;
+      console.log(error);
+      ;
     }
+    console.log(data);
     let defaultId = 213; 
+    console.log(defaultId);
+    console.log(' TEST');
+
     // turkey country code as initial value
     // initial part here
     overallCountUp(data);
@@ -37,6 +44,7 @@ function fetchLatestData() {
       chosenBubbleUp(data, chosenId);
       chosenPieUp(data, chosenId);
       worldMapUp(data, chosenId);
+      
       let chosenCountryName = data.locations[chosenId].country;
       timeSeriesUp(chosenCountryName);
 

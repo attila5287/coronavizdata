@@ -4,7 +4,7 @@
 const $countrySelect = document.getElementById('opts'); // selectfield
 let defaultId = 213;  // turkey country code as initial value
 
-
+timeCirclesUp('Turkey');
 
 fetchLatestData();
 
@@ -13,9 +13,8 @@ function fetchLatestData() {
   const url = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations';
   d3.json(url, (error, data) => {
     if (error) {
-      throw error;
+      console.log(error);
     }
-    
     // count for overall data
     overallCountUp(data);
     
@@ -32,8 +31,13 @@ function fetchLatestData() {
     d3.select('#opts')
     .on('change', function () {
       let chosenId = eval(d3.select(this).property('value'));
+      console.log('chosenId***');
+      console.log(chosenId);
       chosenFiguresUp(data, chosenId);
       table4OnePlease(data, chosenId);
+      
+      let chosenCountryName = data.locations[chosenId].country;
+      timeCirclesUp(chosenCountryName);
       
       });
 
@@ -81,7 +85,8 @@ function table4OnePlease(data, chosenId) {
   var confirmedList = [];
 
   var countryIds = [chosenId, 225, 137, 201];
-
+  console.log(' -- countryIds -- ');
+  console.log(countryIds);
   countryIds.forEach(id => {
     countryList.push(data.locations[id].country);
     populationList.push(data.locations[id].country_population);
@@ -109,11 +114,11 @@ function table4OnePlease(data, chosenId) {
 
   let dictArray = [];
   
-  console.log('---init dictArray ---');
-  console.log(dictArray);
+  // console.log('---init dictArray ---');
+  // console.log(dictArray);
   const format = d3.format(',');    
   for (let i = 0; i < countryList.length; i++) {
-    console.log(' --- dict comprehend ---');
+    // console.log(' --- dict comprehend ---');
     let dict = {
       'name': '',
       'population': 0,
@@ -124,30 +129,13 @@ function table4OnePlease(data, chosenId) {
     dict.population = format(populationList[i]);
     dict.deaths  = format(deathsList[i]);
     dict.confirmed = format(confirmedList[i]);
-    console.log(dict.name);
-    console.log(dict);
+    // console.log(dict.name);
+    // console.log(dict);
     dictArray.push(dict);
   }
 
-
-  console.log(' --- dictArray --- ');
-  console.log(dictArray);
-
-  let list_of_items = ['a','b','c','d'],
-    result = [];
-
-function myAttempt(arr, key){
-  arr.forEach(function(v){
-    let obj = {};
-    obj[key] = v;
-    result.push(obj);
-  });
-  console.log(' --- result ---');
-  console.log(result);
-}
-
-myAttempt(list_of_items, 'name');
-
+  // console.log(' --- dictArray --- ');
+  // console.log(dictArray);
 
 d3.select("tbody")
   .selectAll("tr")
@@ -159,18 +147,214 @@ d3.select("tbody")
   });
 }
 
-function fetchTestData(){
-  selectOptionsUp(testdata);
-  overallCountUp(testdata);
-  chosenFiguresUp(testdata, defaultId);
-  table4OnePlease(testdata, defaultId);
+// function fetchTestData(){
+//   selectOptionsUp(testdata);
+//   overallCountUp(testdata);
+//   chosenFiguresUp(testdata, defaultId);
+//   table4OnePlease(testdata, defaultId);
   
-  d3.select('#opts')
-  .on('change', function () {
-    let chosenId = eval(d3.select(this).property('value'));
+//   d3.select('#opts')
+//   .on('change', function () {
+//     let chosenId = eval(d3.select(this).property('value'));
 
-    chosenFiguresUp(testdata, chosenId);
-    chosenFiguresUp(testdata, chosenId);
-    table4OnePlease(testdata, chosenId);
-  });
+//     chosenFiguresUp(testdata, chosenId);
+//     chosenFiguresUp(testdata, chosenId);
+//     table4OnePlease(testdata, chosenId);
+//   });
+// }
+
+function prepDataFromJSON( data, chosenCountry ) {
+
+  var namesListed = [ 'US', 'China', 'Spain', 'Italy' ];
+
+  namesListed.push( chosenCountry );
+  console.log( ' --- prepDataFromJSON --- ' );
+  // console.log(data);
+
+  let countryArray = [];
+
+  const keys = Object.keys( data )
+  for ( const key of keys ) {
+    countryArray.push( key )
+  }
+
+  // console.log(countryArray)
+
+  let dictArray = [];
+
+  countryArray.forEach( country => {
+    let dict = {
+      'name': '',
+      'rollingSumDeaths': [],
+      // 'rollingSumConfirmed': [],
+      'dates': []
+    };
+    var condition = namesListed.includes( country );
+
+    if ( condition ) {
+
+      dict[ 'name' ] = country;
+
+      let rollingSumDeaths = 0;
+
+      // let rollingSumConfirmed = 0;
+
+      let array = data[ country ];
+
+      for ( let index = 0; index < array.length; index++ ) {
+        const dailyRecord = array[ index ];
+        dict[ 'rollingSumDeaths' ].push( dailyRecord.deaths );
+        // dict[ 'rollingSumConfirmed' ].push( dailyRecord.confirmed );
+        dict[ 'dates' ].push( dailyRecord.date );
+      }
+
+
+      dictArray.push( dict );
+    }
+  } );
+
+  console.log( ' ___ data prep done! ___ ' );
+
+  return dictArray;
 }
+
+function splatJSONTable( data ) {
+
+  var svgWidth = 800;
+  var svgHeight = 480;
+  var margin = {
+    top: 20,
+    right: 60,
+    bottom: 20,
+    left: 20
+  }
+  ;
+
+  const svg = d3
+    .select( '.chart' )
+    .select( 'svg' )
+    .attr( "height", svgHeight )
+    .attr( "width", svgWidth );
+
+  var height = svgHeight - margin.top - margin.bottom;
+  var width = svgWidth - margin.left - margin.right;
+
+  // console.log(data);
+  var chartGroup = svg.append( "g" )
+    .attr( "transform", `translate(${margin.left}, ${margin.top})` );
+
+
+  const arrayForScale = data[ 4 ].rollingSumDeaths;
+
+  var myColor = d3.scaleOrdinal()
+    .domain(data.length)
+    .range(d3.schemeSet3);
+  // scales
+  var xScale = d3.scaleLinear()
+    .domain( [ 0, arrayForScale.length ] )
+    .range( [ 0, width ] );
+  var yScale = d3.scaleLinear()
+    .domain( [ 0, d3.max( arrayForScale ) ] )
+    .range( [ height, 0 ] );
+
+  // ################### LINES ######################
+  console.log('lines drawing...');
+  data.forEach( d => {
+    
+    console.log( d.name );
+    const array = d.rollingSumDeaths;
+    
+    // line generator
+    var line = d3.line()
+    .x( ( d, i ) => xScale( i ) )
+    .y( d => yScale( d ) );
+    
+    // create path
+    chartGroup.append( "path" )
+    .attr( "d", line( array ) )
+    .attr( "fill", "none" )
+    .attr("stroke", myColor(d.name) )
+    .attr( "stroke-width", "2" )
+    .style( "opacity", "0.45" );
+  } );
+  console.log('...lines completed');
+  
+    var nestedArr =[];
+
+    data.forEach(d => {
+      let nested = {
+        name:'',
+        values:[]
+        }
+        ;
+
+      nested.name = d.name;
+
+      d.rollingSumDeaths.forEach(value => {
+        let obj ={
+          deaths: value,
+        }
+        nested.values.push(obj)
+      });
+
+      nested.values.forEach(element => {
+        
+      });
+      nestedArr.push(nested)
+      
+    });
+    // console.log('nestedArr');
+    // console.log(nestedArr);
+
+    // Add the points
+    chartGroup
+      .selectAll("circle")
+      .data(nestedArr)
+      .enter()
+        .append('g')
+        .style("fill", function(d){ return myColor(d.name) })
+      // Second we need to enter in the 'values' part of this group
+      .selectAll("myPoints")
+      .data(function(d){ return d.values })
+      .enter()
+      .append("circle")
+        .attr("r", 3)
+        .transition()
+        .duration( 1000 )
+        .attr( "cx", ( d, i ) => xScale( i ) )
+        .attr( "cy", d => yScale( d.deaths ) )
+        ;
+    
+
+
+    console.log(nestedArr);
+    var position = nestedArr[0].values.length - 1;
+    console.log('position---->>>');
+    console.log(position);
+    // Add a legend at the end of each line
+    chartGroup
+      .selectAll("myLabels")
+      .data(nestedArr)
+      .enter()
+        .append('g')
+        .append("text")
+          .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+          .text(function(d) { return d.name; })
+          .attr("transform", function(d) { return "translate(" + xScale(position) + "," + yScale(d.value.deaths) + ")"; })
+          .attr("x", 12) // shift the text a bit more right          
+          .style("fill", function(d){ return myColor(d.name) })
+          .style("font-size", 15)
+          .style("font-family", 'Arial')
+          ;
+
+}
+
+function timeCirclesUp(chosenCountryName) {
+  let url = 'https://pomber.github.io/covid19/timeseries.json';
+  d3.json( url, function ( error, data ) {
+    if ( error )
+      throw 'fetch didnt work';
+    splatJSONTable( prepDataFromJSON( data, chosenCountryName ) );
+  } );
+}
+
