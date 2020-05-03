@@ -6,32 +6,28 @@
 <div class="row">
 
   <div class="col-lg-9">
-    <div class="container">
+    
+
       <div class="jumbotron hero-image"
         style="background-image: url({{url_for('static', filename='img/world-map-transparent.png')}});">
-        
         <div class="chart">
           <svg></svg>
         </div>
-        
-        
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table table-hover table-striped">
-            <thead>
-              <tr>
-                <th>country</th>
-                <th>country_population</th>
-                <th>deaths</th>
-                <th>confirmed</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+
+
+      
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>country</th>
+            <th>country_population</th>
+            <th>deaths</th>
+            <th>confirmed</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
   </div>
   <!-- form to select country and sidebar -->
   <div class="col-lg-3">
@@ -302,7 +298,8 @@
 
 <!-- <script src=" {{ url_for('static', filename = 'js/scatter-animated.js') }} "></script> -->
 
-<script src=" {{ url_for('static', filename = 'js/table.js') }} "></script>
+<!-- <script src=" {{ url_for('static', filename = 'js/table.js') }} "></script> -->
+<script src=" {{ url_for('static', filename = 'js/auto-table.js') }} "></script>
 <!-- <script src=" {{ url_for('static', filename = 'js/scatter-interactive.js') }} "></script> -->
 <!-- <script src=" {{ url_for('static', filename = 'js/multi-line.js') }} "></script> -->
 
