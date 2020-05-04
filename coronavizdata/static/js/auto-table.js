@@ -374,36 +374,54 @@ function renderDynamicTable(data) {
   
   data.map((d) => {
     let dict= {
-      column00 : '', 
-      column01 : 0, 
-      column02 : 0, 
-      column03 : 0, 
-      column04 : 0, 
     }
 
+    const dates = d.dates;
+    // console.log(dates);
     const dailyRecords = d.rollingSumDeaths;
     const numRecords = dailyRecords.length;
-    const slice =Math.round(numRecords*.20);
+    const slice =Math.round(numRecords*.16);
     // console.log(slice);
-    const first = dailyRecords[0];
-    const quad02 = dailyRecords[numRecords-slice-slice];
-    const quad03 = dailyRecords[numRecords-slice];
-    const last = dailyRecords[numRecords-1];
+    const first = dates[0];
+    const t2 = dates[numRecords-slice-slice-slice-slice];
+    const t3 = dates[numRecords-slice-slice-slice];
+    const t4 = dates[numRecords-slice-slice];
+    const t5 = dates[numRecords-slice];
+    const last = dates[numRecords-1];
     
-    
-    dict.column00 = d.name
-    dict.column01 = first 
-    dict.column02 = quad02 
-    dict.column03 = quad03 
-    dict.column04 = last 
+    dict.name = d.name;
+    dict[first] = d.rollingSumDeaths[0];
+    dict[t2] = d.rollingSumDeaths[numRecords-slice-slice-slice-slice];
+    dict[t3] = d.rollingSumDeaths[numRecords-slice-slice-slice];
+    dict[t4] = d.rollingSumDeaths[numRecords-slice-slice];
+    dict[t5] = d.rollingSumDeaths[numRecords-slice];
+    dict[last] = d.rollingSumDeaths[numRecords-1];
     
     rows.push(dict);
   });
 
+  console.log('--- rows ----');
   console.log(rows);
 
+  const $thead = document.querySelector("thead");    
+  $thead.innerHTML = "";
+  let inner = "";
+  var headers = Object.keys(rows[0]);
+  console.log(headers);
+      for (var j = 0; j < headers.length; j++) {
+        var header = headers[j];
+        
+        const part1= '<th>';
+        const      part2= header;
+        const      part3= '</th>';
+      let dummy = part1+part2+part3;
+
+      inner += dummy;
+    }   
+    $thead.innerHTML += inner;
+
+
   const $tbody = document.querySelector("tbody");
-  const $thead = document.querySelector("thead");
   const format = d3.format( ',' );
     $tbody.innerHTML = "";
     for (var i = 0; i < rows.length; i++) {
@@ -414,9 +432,8 @@ function renderDynamicTable(data) {
       var $row = $tbody.insertRow(i);
       for (var j = 0; j < fields.length; j++) {
 
-        // For every field in the currentRow object, create a new cell at set its inner text to be the current value at the current sightings field
-        
         var field = fields[j];
+        // console.log(field);
         condition = (j == 0) // country name is the first field in a row
         var $cell = $row.insertCell(j);
         // condition = (typeof currentRow[field] == "string") // country name is string
@@ -428,7 +445,6 @@ function renderDynamicTable(data) {
         }
       }
     }
-
 }
   
 
@@ -451,6 +467,7 @@ function prepDataFromJS0N( data ) {
   countryArray.forEach( country => {
     let dict = {
       'name': '',
+      'latest': 0,
       'rollingSumDeaths': [],
       // 'rollingSumConfirmed': [],
       'dates': []
@@ -469,10 +486,18 @@ function prepDataFromJS0N( data ) {
         // dict[ 'rollingSumConfirmed' ].push( dailyRecord.confirmed );
         dict[ 'dates' ].push( dailyRecord.date );
       }
+      // added below to sort coutnries
+      dict.latest = dict.rollingSumDeaths[dict.rollingSumDeaths.length-1]
       dictArray.push( dict );
+
   } );
 
+  console.log(dictArray);
   console.log( ' ___ data prep done! ___ ' );
+  
 
-  return dictArray;
+  return dictArray.sort(function(x, y){
+   return d3.descending(x.latest, y.latest);
+})
 }
+
