@@ -4,18 +4,35 @@
 const $countrySelect = document.getElementById('opts'); // selectfield
 let defaultId = 213;  // turkey country code as initial value
 
-timeCirclesUp('Turkey');
+fetchLatestTimeSer('Turkey');
 
 fetchLatestData();
 
 // fetchTestData();
 
+
+function fetchLatestTimeSer(chosenCountryName) {
+  let url = 'https://pomber.github.io/covid19/timeseries.json';
+  d3.json( url, function ( error, data ) {
+    if ( error )
+      throw 'fetch didnt work';
+      const latestData = prepDataFromJSON( data, chosenCountryName );
+      splatJSONTable( latestData );
+      const latestData4Table = prepDataFromJS0N( data, chosenCountryName );
+      renderDynamicTable(latestData4Table);
+  } );
+}
+
+
 function fetchTestData(){
+
   selectOptionsUp(testdata);
   overallCountUp(testdata);
   chosenFiguresUp(testdata, defaultId);
   // table4OnePlease(testdata, defaultId);
-  renderDynamicTable(testdata, defaultId);
+  let defaultCountryName = 'Turkey'
+  renderDynamicTable(prepDataFromJSON( testdata, defaultCountryName ));
+  
   
   d3.select('#opts')
   .on('change', function () {
@@ -27,13 +44,13 @@ function fetchTestData(){
     // table4OnePlease(testdata, chosenId);
     renderDynamicTable(testdata, chosenId);
     let chosenCountryName = testdata.locations[chosenId].country;
-    timeCirclesUp(chosenCountryName);    
+    fetchLatestTimeSer(chosenCountryName);    
   });
 }
 function fetchLatestData() {
   
-  const url = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations';
-  d3.json(url, (error, data) => {
+  const url = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations';d3.json(url, (error, data) => {
+
     if (error) {
       console.log(error);
     }
@@ -42,10 +59,6 @@ function fetchLatestData() {
     
     // function that fills up the options in select element
     selectOptionsUp(data);
-    
-    // table
-    // table4OnePlease(data, defaultId);
-    renderDynamicTable(data, defaultId);
     
     // show selection detail, set to default
     chosenFiguresUp(data, defaultId);
@@ -57,11 +70,9 @@ function fetchLatestData() {
       console.log('chosenId***');
       console.log(chosenId);
       chosenFiguresUp(data, chosenId);
-      // table4OnePlease(data, chosenId);
-      renderDynamicTable(data, chosenId);
       
       let chosenCountryName = data.locations[chosenId].country;
-      timeCirclesUp(chosenCountryName);
+      fetchLatestTimeSer(chosenCountryName);
       
       });
 
@@ -101,7 +112,6 @@ function overallCountUp(data) {
   d3.select('#overallDeaths').text(format(data.latest.deaths));
   d3.select('#overallConfirmed').text(format(data.latest.confirmed));
 }
-
 
 function prepDataFromJSON( data, chosenCountry ) {
 
@@ -201,7 +211,7 @@ function splatJSONTable( data ) {
   console.log('lines drawing...');
   data.forEach( d => {
     
-    console.log( d.name );
+    // console.log( d.name );
     const array = d.rollingSumDeaths;
     
     // line generator
@@ -267,9 +277,9 @@ function splatJSONTable( data ) {
     
 
 
-    console.log(nestedArr);
+    // console.log(nestedArr);
     var position = nestedArr[0].values.length - 1;
-    console.log('position---->>>');
+    console.log('legend index...');
     console.log(position);
     // Add a legend at the end of each line
     chartGroup
@@ -289,16 +299,6 @@ function splatJSONTable( data ) {
 
 }
 
-function timeCirclesUp(chosenCountryName) {
-  let url = 'https://pomber.github.io/covid19/timeseries.json';
-  d3.json( url, function ( error, data ) {
-    if ( error )
-      throw 'fetch didnt work';
-    splatJSONTable( prepDataFromJSON( data, chosenCountryName ) )
-    ;
-  } );
-}
-
 function table4OnePlease(data, chosenId) {
   console.log(' --- Data for Table --- ');
   let dictArray = prepTableData( chosenId, data );
@@ -316,13 +316,13 @@ d3.select("tbody")
   });
 }
 
-
 function prepTableData( chosenId, data ) {
   var countryList = [];
   var populationList = [];
   var deathsList = [];
   var confirmedList = [];
-  var countryIds = [ chosenId, 225, 137, 201 ];
+  // var countryIds = [ chosenId, 225, 137, 201 ];
+  var countryIds = [ chosenId, 225, 137, 201, 116, 120, 223, 158, 187, 98 ];
   console.log( ' -- countryIds -- ' );
   console.log( countryIds );
   countryIds.forEach( id => {
@@ -368,28 +368,111 @@ function prepTableData( chosenId, data ) {
   return dictArray;
 }
 
-
 // renderTable 
-function renderDynamicTable(data, chosenId) {
-  const tableData= prepTableData( chosenId, data );
+function renderDynamicTable(data) {
+  var rows = [];
+  
+  data.map((d) => {
+    let dict= {
+      column00 : '', 
+      column01 : 0, 
+      column02 : 0, 
+      column03 : 0, 
+      column04 : 0, 
+    }
+
+    const dailyRecords = d.rollingSumDeaths;
+    const numRecords = dailyRecords.length;
+    const slice =Math.round(numRecords*.20);
+    // console.log(slice);
+    const first = dailyRecords[0];
+    const quad02 = dailyRecords[numRecords-slice-slice];
+    const quad03 = dailyRecords[numRecords-slice];
+    const last = dailyRecords[numRecords-1];
+    
+    
+    dict.column00 = d.name
+    dict.column01 = first 
+    dict.column02 = quad02 
+    dict.column03 = quad03 
+    dict.column04 = last 
+    
+    rows.push(dict);
+  });
+
+  console.log(rows);
 
   const $tbody = document.querySelector("tbody");
-
+  const $thead = document.querySelector("thead");
+  const format = d3.format( ',' );
     $tbody.innerHTML = "";
-    for (var i = 0; i < tableData.length; i++) {
+    for (var i = 0; i < rows.length; i++) {
       // Get  the sightings object and its fields
-      var CurrentSighting = tableData[i];
-      var fields = Object.keys(CurrentSighting);
+      var currentRow = rows[i];
+      var fields = Object.keys(currentRow);
       // Create a new row in the tbody, set the index to be i + startingIndex
       var $row = $tbody.insertRow(i);
       for (var j = 0; j < fields.length; j++) {
 
-        // For every field in the CurrentSighting object, create a new cell at set its inner text to be the current value at the current sightings field
+        // For every field in the currentRow object, create a new cell at set its inner text to be the current value at the current sightings field
         
         var field = fields[j];
+        condition = (j == 0) // country name is the first field in a row
         var $cell = $row.insertCell(j);
-        $cell.innerText = CurrentSighting[field];
+        // condition = (typeof currentRow[field] == "string") // country name is string
+        if (condition) {
+          $cell.innerText = currentRow[field];  // dont format strings
+           
+        } else {
+          $cell.innerText = format(currentRow[field]);
+        }
       }
     }
+
 }
   
+
+function prepDataFromJS0N( data ) {
+
+  console.log( ' --- prepDataFromJSON --- ' );
+  // console.log(data);
+
+  let countryArray = [];
+
+  const keys = Object.keys( data )
+  for ( const key of keys ) {
+    countryArray.push( key )
+  }
+
+  // console.log(countryArray)
+
+  let dictArray = [];
+
+  countryArray.forEach( country => {
+    let dict = {
+      'name': '',
+      'rollingSumDeaths': [],
+      // 'rollingSumConfirmed': [],
+      'dates': []
+    };
+      dict[ 'name' ] = country;
+
+      let rollingSumDeaths = 0;
+
+      // let rollingSumConfirmed = 0;
+
+      let array = data[ country ];
+
+      for ( let index = 0; index < array.length; index++ ) {
+        const dailyRecord = array[ index ];
+        dict[ 'rollingSumDeaths' ].push( dailyRecord.deaths );
+        // dict[ 'rollingSumConfirmed' ].push( dailyRecord.confirmed );
+        dict[ 'dates' ].push( dailyRecord.date );
+      }
+      dictArray.push( dict );
+  } );
+
+  console.log( ' ___ data prep done! ___ ' );
+
+  return dictArray;
+}
