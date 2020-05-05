@@ -2,25 +2,24 @@
 
 {% block content %}
 
-<div class="row">
 
-  <div class="col-lg-9">
-
-    <div class="jumbotron hero-image"
-      style="background-image: url({{url_for('static', filename='img/world-map-transparent.png')}});">
-      <div class="chart">
+    <div class="jumbotron hero-image m-0"
+    style="background-image: url({{url_for('static', filename='img/world-map-transparent.png')}});opacity: 0.8;"
+      >
+      <div class="chart m-0" id="my_dataviz">
         <svg></svg>
       </div>
     </div>
-      
-    <table class="table table-hover table-striped text-left">
-      <thead>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+    <hr class="my-0 border-success">
   <!-- form to select country and sidebar -->
-  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-lg-9">
+        <table class="table table-hover table-striped text-left">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="col-lg-3">
 
     <!-- showing figures for country -->
     <div class="container-fluid text-center text-uppercase py-1">
@@ -275,8 +274,8 @@
       </div>
     </div>
 
+    </div>
   </div>
-
 </div>
 
 

@@ -1,4 +1,3 @@
-
 console.log(' test');
 
 // user will select country from Select element thus the dynamic dashboard update
@@ -695,13 +694,16 @@ function timeSeriesUp(chosenCountry) {
 
     let rollingSumDeaths = 0;
 
+    let rollingSumConfirmed = 0;
     
     let array = data[country];
 
     for (let index = 0; index < array.length; index++) {
       const dailyRecord = array[index];
-      rollingSumDeaths=dailyRecord.deaths;
+      rollingSumDeaths+=dailyRecord.deaths;
+      rollingSumConfirmed+=dailyRecord.confirmed;
       dict['rollingSumDeaths'].push(rollingSumDeaths);
+      dict['rollingSumConfirmed'].push(rollingSumConfirmed);
       dict['dates'].push(dailyRecord.date);
     }
 
@@ -726,7 +728,7 @@ function timeSeriesUp(chosenCountry) {
 
   trace['name'] = dict.name;
   trace['x']= dict.dates;
-  trace['y']=dict.rollingSumDeaths;
+  trace['y']=dict.rollingSumConfirmed;
   trace['type']= 'scatter';
   trace['mode']= 'lines';
   dataMultiTrace.push(trace);

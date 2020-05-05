@@ -1,80 +1,127 @@
-      .bg-black {
-        background-color: black;
-      }
-
-      .bg-slategray {
-        background-color: #0f3b46d5;
-      }
-
-      .text-silver {
-        color: silver;
-      }
-
-html {
-  font-size: 10px;
+.tooltip {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  padding: 1px;
+  padding-top: 2px;
+  font: 14px sans-serif;
+  color: #2AA198;
+  text-align: center;
+  background: #073642;
+  border:0,
+  border-color: #2AA198;
+  border-width: thin;
+  border-radius: 14px;
+  box-shadow: 0 0.5rem 1rem rgba(2, 211, 243, 0.717) !important;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 14px;
+
+
+.axisGold line {
+    stroke: #B58900;
   }
-}
 
-.container {
-  max-width: 960px;
-}
+  .axisGold path {
+    stroke: #B58900;
+  }
 
-.sidebar-h5 {
-  font-family: initial;
-}
-.sidebar-section {
-  border: 1px solid ;
-  border-radius: 8px;
-  border-color: #2aa198;
-}
+  .axisGold text {
+    fill: #B58900;
 
-/* ----- default for boilerplate from corey's----- */
-body {
-  margin-top: 0rem;
-}
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  /* color: #444444; */
-}
+  .bg-black {
+    background-color: black;
+  }
 
-.bg-steel {
-  background-color: #5f788a;
-}
+  .bg-slategray {
+    background-color: #0f3b46d5;
+  }
 
-.content-section {
-  padding: 10px 20px;
-  border: 2px solid ;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  margin-top: 10px;
-}
+  .text-silver {
+    color: silver;
+  }
 
-.rounded-xl{
-  border-radius: 8px;
-}
-.rounded-2xl{
-  border-radius: 12px;
-}
-.rounded-3xl{
-  border-radius: 16px;
-} 
+  html {
+    font-size: 10px;
+  }
 
-h1, h2, h3, h4, h5, p, i {
-  font-family: unset;
-}
-.rotateimg180 {
-  -webkit-transform:rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
+  @media (min-width: 768px) {
+    html {
+      font-size: 14px;
+    }
+  }
 
-.shadow-gr1d {
+  .container {
+    x-width: 960px;
+  }
+
+  .sidebar-h5 {
+    font-family: initial;
+  }
+
+  .sidebar-section {
+    border: 1px solid;
+    border-radius: 8px;
+    border-color: #2aa198;
+  }
+
+  /* ----- default for boilerplate from corey's----- */
+  body {
+    margin-top: 0rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    /* color: #444444; */
+  }
+
+  .bg-steel {
+    background-color: #5f788a;
+  }
+
+  .content-section {
+    padding: 10px 20px;
+    border: 2px solid;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .rounded-xl {
+    border-radius: 8px;
+  }
+
+  .rounded-2xl {
+    border-radius: 12px;
+  }
+
+  .rounded-3xl {
+    border-radius: 16px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  i {
+    font-family: unset;
+  }
+
+  .rotateimg180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  .shadow-gr1d {
     -webkit-box-shadow: 0 0.5rem 1rem rgba(88, 217, 231, 0.233) !important;
     box-shadow: 0 0.5rem 1rem rgba(67, 251, 248, 0.233) !important;
   }
@@ -83,13 +130,12 @@ h1, h2, h3, h4, h5, p, i {
     background-image: url("https://images8.alphacoders.com/373/thumb-1920-373691.jpg");
     background-color: #002B36;
     width: 100%;
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
     background-size: contain;
     position: relative;
-    border-radius: 1.75rem;
-    border-width: 2rem;
     background-blend-mode: luminosity;
+    vertical-align: top;
   }
 
   .bg-body {
@@ -100,6 +146,7 @@ h1, h2, h3, h4, h5, p, i {
     transition: ease 0.5s;
     font-family: Fcard;
   }
+
   .btn.btn-square:hover {
     transform: scale(1.1, 1.1);
     box-shadow: rgb(188, 143, 250) 0px 15px 15px;
@@ -167,4 +214,3 @@ h1, h2, h3, h4, h5, p, i {
     border-radius: 12px;
     border: 1px solid;
   }
-
