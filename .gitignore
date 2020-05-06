@@ -127,10 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-resources/d3ThinkWithJoins.js
-coronavizdata/static/js/scatter-animated.js
 coronavizdata/static/js/testdata.js
 coronavizdata/static/js/testdatatimeser.js
-coronavizdata/static/js/testdata.js
-coronavizdata/static/js/testdata.js
-coronavizdata/static/js/testdata.js

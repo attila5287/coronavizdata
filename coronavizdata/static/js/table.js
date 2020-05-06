@@ -1,11 +1,12 @@
-// var testDataLatest = testdata;
-var staticTimeSerData = testdaily;
-
 latestTimeSeries();
-// staticTimeSeries( staticTimeSerData );
 
 
-function staticTimeSeries( data ) {
+// staticTimeSeries( );
+
+
+function staticTimeSeries() {
+  // var testDataLatest = testdata;
+  var staticTimeSerData = testdaily;
   name = 'Turkey'; //default before user selection
 
   dropDownUpdate( data );
