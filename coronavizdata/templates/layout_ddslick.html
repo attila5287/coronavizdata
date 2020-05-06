@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='ddslick/ddslick_stylesheet.css') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/solar/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    <link rel="icon" type="image/x-icon" class="favicon" href="
+			https://raw.githubusercontent.com/attila5287/displaytracker_img/master/dtSquare.png" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <!-- set title on route by render_template(... ,title='test') -->
+    {% if title %}
+    <title>Squares - {{ title }}</title>
+    {% else %}
+    <title>Squares&middot;Restock Inv EZ!</title>
+    {% endif %}
+  </head>
+  <body onload="prettyPrint();">
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-purpseethru fixed-top py-1">
+          <a class="navbar-brand mr-4" href="https://displaytracker.herokuapp.com" style="font-family: cursive;">
+          <img class="m-0 p-0" src="{{ url_for('static', filename='/profile_pics/default.png')}}" 
+            style="height: 36px;">            
+          </a>
+        
+          <button 
+          class="navbar-toggler" 
+          type="button" 
+          data-toggle="collapse" 
+          data-target="#navbarToggle"
+          aria-controls="navbarToggle"
+          aria-expanded="false" 
+          aria-label="Toggle navigation"
+          title="py-oop toogle title"
+          >
+            <span class="navbar-toggler-icon">
+            </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('home') }}">
+                <i class="fas fa-envelope-open"></i>
+                PostHome</a>
+              <a class="nav-item nav-link" href="">
+                <i class="fas fa-th-large"></i>
+                InvHome</a>
+              <a class="nav-item nav-link" href="">
+                <i class="fas fa-th-list"></i>
+                InvList</a>                                
+              <a class="nav-item nav-link" href="">
+                <i class="fas fa-th"></i>
+                Squares
+              </a>
+            <a class="nav-item nav-link" href="">
+            <i class="fa fa-tachometer-alt" aria-hidden="true"></i>
+              Dashboard
+            </a>                   
+              <a class="nav-item nav-link" href="">
+                <i class="fas fa-boxes"></i>
+                InvFeed</a>
+              <a class="nav-item nav-link" href="">
+                <i class="fas fa-dolly"></i>
+                ItemForm</a>
+              <a class="nav-item nav-link" href="{{ url_for('about') }}">
+                <i class="fas fa-info-circle    "></i>
+                About</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+            </div>
+          </div>
+      </nav>
+      
+    </header>
+    
+    <!-- this is only cosmetic to give a bottom border to navbar that is not gonna slide down with the real one! -->
+    <nav class="navbar navbar-dark bg-info mt-5 mb-2 py-2 px-4 text-center justify-content-center">
+        <i class="fas fa-battery-empty text-dark mr-2">  &middot; </i>
+        <i class="fas fa-battery-quarter text-dark mr-2">  &middot; &middot; </i>
+        <i class="fas fa-battery-quarter text-dark mr-2">  &middot; &middot; &middot; </i>
+        <i class="fa fa-battery-three-quarters text-dark mr-2"> &middot; &middot; &middot; &middot; </i>
+    </nav>
+    
+    <main role="main" class="container-fluid">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock%}
+    </main>
+    
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/jsmodules/ddslick/master/dist/jquery.ddslick.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.rawgit.com/jsmodules/ddslick/master/dist/jquery.ddslick.min.js"></script>
+    <script src="{{url_for('static', filename='ddslick/jquery.ddslick.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
+
+  </body>
+
+</html>

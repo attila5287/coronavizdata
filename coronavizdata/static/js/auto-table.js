@@ -1,3 +1,4 @@
+
 // d3.select( window ).on( "resize", splatJSONTable );
 // var dataTimeJSON = testdaily;
 // var testdata = testdata; // from testdata.js
@@ -21,6 +22,8 @@ function fetchTestTimeSer( chosenCountryName ) {
   const staticData = prepDataFromJSON( dataTimeJSON, chosenCountryName );
   // splatJSONTable( latestData );
   splatJSONTable( staticData );
+  dropDownUpdate(staticData);
+  
 }
 
 
@@ -35,6 +38,10 @@ function fetchLatestTimeSer( chosenCountryName ) {
     const latestData = prepDataFromJSON( data, chosenCountryName );
     // splatJSONTable( latestData );
     splatJSONTable( latestData );
+
+    dropDownUpdate( latestData );
+
+
   } );
 }
 
@@ -50,7 +57,6 @@ function fetchTestData() {
     .on( 'change', function () {
       let chosenId = eval( d3.select( this ).property( 'value' ) );
 
-      chosenFiguresUp( testdata, chosenId );
       chosenFiguresUp( testdata, chosenId );
       let chosenCountryName = testdata.locations[ chosenId ].country;
 
@@ -127,8 +133,12 @@ function selectOptionsUp( data ) {
 
 function overallCountUp( data ) {
   const format = d3.format( ',' );
-  d3.select( '#overallDeaths' ).text( format( data.latest.deaths ) );
-  d3.select( '#overallConfirmed' ).text( format( data.latest.confirmed ) );
+  // d3.select( '#overallDeaths' ).text( format( data.latest.deaths ) );
+  // d3.select( '#overallConfirmed' ).text( format( data.latest.confirmed ) );
+
+  
+
+
 }
 
 function renderDynamicTable( data ) {
@@ -503,3 +513,33 @@ function splatJSONTable( data ) {
       toolTip.hide('TEST');
     });
 }
+  function dropDownUpdate(data){
+    
+
+  const keys = Object.keys(data);
+  console.log(keys);
+  const format = d3.format( ',' );
+
+  const ddJSON = keys.map((country, i) => {
+
+    return {
+        text: country,
+        value: country,
+         selected: false,
+        description: `deaths: ${format(data[country][data[country].length-1].deaths)} | confirmed: ${format(data[country][data[country].length-1].confirmed)}`,
+        imageSrc: '/static/img/flags/Ensign_Flag_Nation_'+country.toLowerCase().replace(' ','_')+'-128.png'
+    };
+    
+  });
+
+  console.log(ddJSON);
+  
+
+  $('#opts').ddslick({
+    data: ddJSON,
+    width: 360,
+    height: 280,
+    onSelected: function (data) {
+      console.log(data)
+    }});
+  }

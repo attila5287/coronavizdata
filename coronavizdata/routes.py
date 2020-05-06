@@ -25,3 +25,7 @@ def about():
     return render_template('about.html', title='About')
 
 
+@app.route("/ddslick")
+def ddslick():
+    return render_template('ddslick_simple.html', title='DDSlick PlugIn')
+
