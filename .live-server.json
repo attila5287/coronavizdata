@@ -1,0 +1,9 @@
+{
+ 
+ 
+    "root": "/coronavizdata",
+    "open": false,
+    "ignore": "scss,my/templates",
+    "wait": 1000
+ 
+}
