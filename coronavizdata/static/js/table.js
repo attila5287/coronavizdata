@@ -1,29 +1,20 @@
 latestTimeSeries();
 
 
-// staticTimeSeries( );
-
+// staticTimeSeries();
 
 function staticTimeSeries() {
   // var testDataLatest = testdata;
-  var staticTimeSerData = testdaily;
-  name = 'Turkey'; //default before user selection
+  var data = testdaily;
+  let name = 'Turkey'; //default before user selection
 
-  dropDownUpdate( data );
+  dropDownUpdate( data, 'static' );
   overallCountUp( data );
   renderDynamicTable( prepData4TableAll( data ) );
   chosenFiguresUp( data, name );
   splatD3Circles( prepDataFromJSON( data, name ) );
-  d3.select( '#opts' )
-  .on( 'change', function () {
-    let nameSelected = eval( d3.select( this ).property( 'value' ) );
-    
-    chosenFiguresUp( data, nameSelected );
-    splatD3Circles( prepDataFromJSON( data, nameSelected ) );
 
-
-  } );
-
+  
 }
 
 
@@ -32,22 +23,12 @@ function latestTimeSeries (){
   d3.json(url, function(error, data) {
     if (error) throw error;
     let name = 'Turkey'; //default before user selection
-    dropDownUpdate( data );
+    dropDownUpdate( data, 'latest' );
     overallCountUp( data );
     renderDynamicTable( prepData4TableAll( data ) );
-    
     chosenFiguresUp( data, name );
     splatD3Circles( prepDataFromJSON( data, name ) );
 
-  d3.select( '#opts' )
-  .on( 'change', function () {
-    let nameSelected = eval( d3.select( this ).property( 'value' ) );
-    
-    chosenFiguresUp( data, nameSelected );
-    splatD3Circles( prepDataFromJSON( data, nameSelected ) );
-
-
-  } );
     
   });
  }
@@ -486,7 +467,7 @@ function splatD3Circles( data ) {
     } );
 }
 
-function dropDownUpdate( data ) {
+function dropDownUpdate( data, static_or_latest ) {
 
   const keys = Object.keys( data );
   const format = d3.format( ',' );
@@ -503,16 +484,42 @@ function dropDownUpdate( data ) {
 
   } );
 
-
   $( '#opts' ).ddslick( {
     data: ddJSON,
     width: 360,
     height: 280,
     onSelected: function ( d ) {
-      console.log( 'dd --->  data' )
-      console.log( d )
-      chosenFiguresUp( staticTimeSerData, d.selectedData.value );
-      splatD3Circles( prepDataFromJSON( staticTimeSerData, d.selectedData.value ) );
+      // console.log(d.selectedData.value)
+
+      const static = (static_or_latest == 'static');
+      
+      if (static) {
+        console.log('static_or_latest: ', static_or_latest);
+        var data = testdaily;
+        chosenFiguresUp( data, d.selectedData.value );
+        splatD3Circles( prepDataFromJSON( data, d.selectedData.value ) );
+        
+      } else {
+
+        console.log('static pass');
+        
+      }
+
+      const latest = (static_or_latest == 'latest');
+
+      if (latest) {
+        console.log('static_or_latest: ', static_or_latest);
+
+        const name = d.selectedData.value;
+        const url = 'https://pomber.github.io/covid19/timeseries.json';
+        
+        d3.json(url, function(err,data){
+          chosenFiguresUp( data, name );
+          splatD3Circles( prepDataFromJSON( data, name  ) );
+        });
+      } else {
+        console.log('latest pass');
+      }
     }
   } );
 }
