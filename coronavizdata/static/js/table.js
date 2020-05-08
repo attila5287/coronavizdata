@@ -17,7 +17,6 @@ latestTimeSeries();
   splatD3Circles( prepDataFromJSON( data, name ) );
 
   
-}
 
 
 function latestTimeSeries (){
