@@ -127,5 +127,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-coronavizdata/static/js/testdata.js
-coronavizdata/static/js/testdatatimeser.js
