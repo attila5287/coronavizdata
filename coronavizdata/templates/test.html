@@ -1,117 +1,154 @@
-<!-- Code from d3-graph-gallery.com -->
+
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html>
 
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" class="favicon" href="/static/img/co_hex.ico" />
 
-<!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
+    <!-- Bootstrap CSS -->
 
-<!-- Color Scale -->
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/solar/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="/static/navbar.css">
+
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel='stylesheet' type='text/css'>
+
+    <!-- set title on route by render_template(... ,title='test') -->
+    <title>COVID-19-DataViz</title>
+  </head>
+  
+  <body>
+    <style>
+    </style>
+
+    <header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand bg-transparent my-0 ml-0 mr-1 p-0" href="#">
+          <img class="m-0 p-0" src="/static/img/hex_c.png" style="height: 3rem;" alt="navbar-icon">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                  <p class="mb-0"><strong>Dashboard</strong></p>
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">
+                <i class="fas fa-table"></i>
+                  <p class="mb-0"><strong>Table</strong></p>
+                </a>
+            </li>
+          </ul>     
+        <ul class="nav nav-pills nav-fill w-100 mt-2">
+          <li class="nav-item">
+            <a class="nav-link text-success disabled"> 
+              <i class="far fa-flag" aria-hidden="true"></i>
+              <em>Deaths</em>
+              <p class="bg-black rounded-lg px-2 py-1 text-larger" id="countryDeaths">
+              </p>
+            </a>    
+          </li>
+          <a class="nav-item nav-link text-success disabled"> 
+            <i class="far fa-flag" aria-hidden="true"></i>
+            <em>Cases</em>
+            <p class="bg-black rounded-lg px-2 py-1 text-larger" id="countryConfirmed"></p>
+          </a>    
+          <a class="nav-item nav-link text-uppercase" >
+            
+            <i class="fas fa-wifi fa-rotate-270" aria-hidden="true"></i>
+            <i class="fas fa-bullhorn fa-flip-horizontal" aria-hidden="true"></i>
+            Now On Board:
+            <i class="fas fa-bullhorn" aria-hidden="true"></i>
+            <i class="fas fa-wifi fa-rotate-90" aria-hidden="true"></i>
+
+            <p class="bg-black rounded-lg px-2 py-1">
+
+              <i id="countryName" 
+              class="fa animated infinite fadeIn delay-1s text-success my-0 pt-1 pb-0" 
+              style="font-size:1.5rem ;font-family: 'Orbitron', sans-serif;"
+              ></i>
+            
+          </p>
+          </a>    
+          <a class="nav-item nav-link text-success disabled">  
+            <i class="fa fa-globe-americas" aria-hidden="true"></i>
+            <em>Deaths</em>
+            <p class="bg-black rounded-lg px-2 py-1 text-larger" id="overallDeaths"></p>
+        </a>    
+            <a class="nav-item nav-link text-success"> 
+              <i class="fa fa-globe-americas" aria-hidden="true"></i>
+            <em>Cases</em>
+            <p class="bg-black rounded-lg px-2 py-1 text-larger" id="overallConfirmed"></p>
+          </a>
+          <a class="nav-item nav-link text-success"> 
+            <div class="form-group">
+              <select id="opts" class="custom-select form-control-dark mt-1 mb-0" style="vertical-align: middle;">
+              </select>
+            </div>    
+          </a>
+
+        </ul>          
+          <form class="form-inline">
+            <div id="opts"></div>
+          </form>          
+        </div>
+      </nav>
+    </header>
+
+    <main role="main" class="container-fluid" style="margin-top: 60px;">
+      <div class="jumbotron hero-image m-0"
+        style="background-image: url('/static/img/world-map-transparent.png');opacity: 0.8;">
+        <!-- <div class="chart m-0" id="my_dataviz"> -->
+          <svg></svg>
+        </div>
+      </div>
+    </main>
 
 
-<script>
 
-// set the dimensions and margins of the graph
-var margin = {top: 10, right: 100, bottom: 30, left: 30},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
-//Read the data
-d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_connectedscatter.csv", function(data) {
-
-    // List of groups (here I have one group per column)
-    var allGroup = ["valueA", "valueB", "valueC"]
-
-    // Reformat the data: we need an array of arrays of {x, y} tuples
-    var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
-      return {
-        name: grpName,
-        values: data.map(function(d) {
-          return {time: d.time, value: +d[grpName]};
-        })
-      };
-    });
-    // I strongly advise to have a look to dataReady with
-    console.log(dataReady)
-
-    // A color scale: one color for each group
-    var myColor = d3.scaleOrdinal()
-      .domain(allGroup)
-      .range(d3.schemeSet2);
-
-    // Add X axis --> it is a date format
-    var x = d3.scaleLinear()
-      .domain([0,10])
-      .range([ 0, width ]);
-    svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-    // Add Y axis
-    var y = d3.scaleLinear()
-      .domain( [0,20])
-      .range([ height, 0 ]);
-    svg.append("g")
-      .call(d3.axisLeft(y));
-
-    // Add the lines
-    var line = d3.line()
-      .x(function(d) { return x(+d.time) })
-      .y(function(d) { return y(+d.value) })
-    svg.selectAll("myLines")
-      .data(dataReady)
-      .enter()
-      .append("path")
-        .attr("d", function(d){ return line(d.values) } )
-        .attr("stroke", function(d){ return myColor(d.name) })
-        .style("stroke-width", 4)
-        .style("fill", "none")
-
-    // Add the points
-    svg
-      // First we need to enter in a group
-      .selectAll("myDots")
-      .data(dataReady)
-      .enter()
-        .append('g')
-        .style("fill", function(d){ return myColor(d.name) })
-      // Second we need to enter in the 'values' part of this group
-      .selectAll("myPoints")
-      .data(function(d){ return d.values })
-      .enter()
-      .append("circle")
-        .attr("cx", function(d) { return x(d.time) } )
-        .attr("cy", function(d) { return y(d.value) } )
-        .attr("r", 5)
-        .attr("stroke", "white")
-
-    // Add a legend at the end of each line
-    svg
-      .selectAll("myLabels")
-      .data(dataReady)
-      .enter()
-        .append('g')
-        .append("text")
-          .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
-          .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
-          .attr("x", 12) // shift the text a bit more right
-          .text(function(d) { return d.name; })
-          .style("fill", function(d){ return myColor(d.name) })
-          .style("font-size", 15)
-
-})
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <!-- <script src="https://cdn.rawgit.com/jsmodules/ddslick/master/dist/jquery.ddslick.min.js"></script> -->
+    <!-- <script src=" /static/js/testdata.js "></script> -->
+    <script src="/static/js/ddslick.js"></script>
+    <script src="/static/js/testdatatimeser.js"></script>
+    <script src="/static/js/test.js"></script>
 
 
-</script>
+  </body>
+
+</html>
+

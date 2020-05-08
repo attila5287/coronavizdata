@@ -1,20 +1,19 @@
-  // chosenFiguresUp( testdaily, 'Turkey' );
 
-latestTimeSeries();
+// latestTimeSeries();
 //test push gh ext
 
-// staticTimeSeries();
+staticTimeSeries();
 
-// function staticTimeSeries() {
+function staticTimeSeries() {
   // var testDataLatest = testdata;
   var data = testdaily;
   let name = 'Turkey'; //default before user selection
 
   dropDownUpdate( data, 'static' );
   overallCountUp( data );
-  renderDynamicTable( prepData4TableAll( data ) );
+  // renderDynamicTable( prepData4TableAll( data ) );
   chosenFiguresUp( data, name );
-  splatD3Circles( prepDataFromJSON( data, name ) );
+  // splatD3Circles( prepDataFromJSON( data, name ) );
 
   
 }
@@ -470,8 +469,8 @@ function splatD3Circles( data ) {
 }
 
 function dropDownUpdate( data, static_or_latest ) {
-
   const keys = Object.keys( data );
+
   const format = d3.format( ',' );
   const ddJSON = keys.map( ( country, i ) => {
     const array = data[ country ];
@@ -480,16 +479,17 @@ function dropDownUpdate( data, static_or_latest ) {
       text: country,
       value: country,
       selected: false,
-      description: `deaths: ${format(array[lastIndex].deaths)} | confirmed: ${format(array[lastIndex].confirmed)}`,
+      description: `deaths ${format(array[lastIndex].deaths)} cases ${format(array[lastIndex].confirmed)}`,
       imageSrc: '/static/img/flags/Ensign_Flag_Nation_' + country.toLowerCase().replace( ' ', '_' ) + '-128.png'
+
     };
 
   } );
 
   $( '#opts' ).ddslick( {
     data: ddJSON,
-    width: 300,
-    height: 200,
+    defaultSelectedIndex: 150,
+    truncateDescription: true ,
     onSelected: function ( d ) {
       // console.log(d.selectedData.value)
 
@@ -499,7 +499,7 @@ function dropDownUpdate( data, static_or_latest ) {
         console.log('static_or_latest: ', static_or_latest);
         var data = testdaily;
         chosenFiguresUp( data, d.selectedData.value );
-        splatD3Circles( prepDataFromJSON( data, d.selectedData.value ) );
+        // splatD3Circles( prepDataFromJSON( data, d.selectedData.value ) );
         
       } else {
 
