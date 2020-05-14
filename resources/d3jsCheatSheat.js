@@ -33,7 +33,7 @@ d3.select(".link>a").attr("href", "https://d3js.org/").text("d3js.org");
 d3.select(".deeplink").select("a").text();
 
 // Show selectAll
-d3.selectAll("li").nodes();
+d3.selectAll("li"). + ();
 
 // Show setting a style on all nodes
 d3.selectAll("li").style("background-color", "darkblue").style("color", "white");

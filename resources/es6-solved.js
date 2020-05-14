@@ -139,7 +139,7 @@ var multiply2 = (a, b) => {
 multiply2(2, 3);
 
 // Arrow Function Expression - concise
-// without curly brackets, the return statement is implied
+  // without curly brackets, the return statement is implied
 var multiply3 = (a, b) => a * b;
 
 // can omit the parenthesis if there's only a single parameter
@@ -158,7 +158,7 @@ var princesses = [
 princesses.forEach(princess => console.log(`${princess.name}: ${princess.age}`));
 
 // create an array of just the names from the princesses array
-// map: creates a new array with the results of calling a provided function on every element in the calling array
+// map: creates a new array with the results of   ing a provided function on every element in the calling array
 var names = princesses.map(princess => princess.name);
 console.log("names: ", names);
 

@@ -23,7 +23,7 @@
             data: [],
             keepJSONItemsOnTop: false,
             width: 240,
-            height: 80,
+            height: 70,
             background: "#073642",
             selectText: "",
             defaultSelectedIndex: null,
@@ -39,9 +39,9 @@
 
         //CSS for ddSlick
         ddslickCSS = '<style id="css-ddslick" type="text/css">' +
-        '.dd-select{margin-bottom:4; border-radius:4px; border:solid 1px #02a198; position:relative; cursor:pointer;box-shadow:0px 3px 5px #2aa198;}' +
+        '.dd-select{margin-bottom:4; border-radius:4px; border:solid 0px #02a198; position:relative; cursor:pointer;box-shadow:0px 2px 3px #2aa198;}' +
         '.dd-desc { color:#839496; display:block; overflow: hidden; font-weight:normal; line-height: 1em; }' +
-        '.dd-selected{ overflow:hidden; display:block; padding:6px; font-weight:bold;}' +
+        '.dd-selected{ overflow:ellipsis; display:block; padding:2px;padding-bottom:10px; font-weight:bold;}' +
         '.dd-pointer{ width:0; height:0; position:absolute; right:10px; top:50%; margin-top:-3px;}' +
         '.dd-pointer-down{ border:solid 5px transparent; border-top:solid 5px #2aa198; }' +
         '.dd-pointer-up{border:solid 5px transparent !important; border-bottom:solid 5px #02a198 !important; margin-top:-8px;}' +
@@ -51,7 +51,7 @@
         '.dd-option:hover{ sground:#f3f3f3; color:#000;}' +
         '.dd-selected-description-truncated { text-overflow: ellipsis; white-space:normal; }' +
         '.dd-option-selected { background:#f6f6f6; }' +
-        '.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:56px;}' +
+        '.dd-option-image{ vertical-align:middle; float:left; margin-left:10px;  margin-right:5px; max-width:56px;} .dd-selected-image { vertical-align:middle; float:left; margin-top:0px;   margin-left:10px;  margin-right:5px; max-width:48px;}' +
         '.dd-image-right { float:right; margin-right:10px; margin-left:10px;}' +
         '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
 
@@ -258,7 +258,7 @@
         if ( settings.showSelectedHTML ) {
             ddSelected.html(
                 ( selectedData.imageSrc ? '<img class="dd-selected-image' + ( settings.imagePosition == "right" ? ' dd-image-right' : '' ) + '" src="' + selectedData.imageSrc + '" />' : '' ) +
-                ( selectedData.text ? '<label class="dd-selected-text">' + selectedData.text + '</label>' : '' ) +
+                ( selectedData.text ? '<label class="dd-selected-text" style="margin-bottom:4px;">' + selectedData.text + '</label>' : '' ) +
                 ( selectedData.description ? '<small class="dd-selected-description dd-desc' + ( settings.truncateDescription ? ' dd-selected-description-truncated' : '' ) + '" >' + selectedData.description + '</small>' : '' )
             );
 

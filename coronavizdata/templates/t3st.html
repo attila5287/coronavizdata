@@ -25,10 +25,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
     
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel='stylesheet' type='text/css'>
+
     <title>COVID-19-DataViz</title>
 
   </head>
@@ -37,75 +36,83 @@
     <style>
     </style>
 
-<header>
-        <!-- Fixed navbar -->
+    <header>
+      <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a 
-        class="navbar-brand bg-dark mx-0 p-0 border-0 rounded-xl add-anime"
-        href="https://coronavizdata.herokuapp.com/"
-        >
-          <img class="m-0 px-0 py-1" src="/static/img/hex_c.png" style="height: 3.75rem;" alt="navbar-icon">
+        <a class="navbar-brand bg-transparent my-0 ml-0 mr-1 p-0" href="#">
+          <img class="m-0 p-0" src="/static/img/hex_c.png" style="height: 3rem;" alt="navbar-icon">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse text-center bg-dark" id="navbarCollapse">
+        <div class="collapse navbar-collapse text-center" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
-            <a class="nav-item nav-link rounded-xl add-anime" href="/dashboard">
-              <i class="fas fa-tachometer-alt fa-fw text-wrap"></i>
-              <p class="mb-0 text-balo text-sm">
-                Dashboard
-              </p>
-            </a>
-            <a class="nav-item nav-link rounded-xl add-anime" href="/table">
-              <i class="fas fa-table fa-fw"></i>
-              <p class="mb-0 text-balo text-sm">Table</p>
-            </a>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <p class="mb-0"><strong>Dashboard</strong></p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">
+                <i class="fas fa-table"></i>
+                <p class="mb-0"><strong>Table</strong></p>
+              </a>
+            </li>
           </ul>
-          <ul class="nav nav-pills nav-fill text-success w-100">
+          <ul class="nav nav-pills nav-fill w-100 mt-2">
 
-            <a class="nav-item nav-link text-sm">
+            <a class="nav-item nav-link text-success">
               <i class="fa fa-globe-americas" aria-hidden="true"></i>
               <em>Deaths</em>
-              <p class="bg-black rounded-lg text-larger text-digi" id="overallDeaths"></p>
+              <p class="bg-black rounded-lg px-2 py-1 text-larger text-digi" id="overallDeaths"></p>
             </a>
-            <a class="nav-item nav-link text-sm">
+            <a class="nav-item nav-link text-success">
               <i class="fa fa-globe-americas" aria-hidden="true"></i>
-              <em>Cases</em>              
-              <p class="bg-black rounded-lg text-larger text-digi" id="overallConfirmed"></p>
+              <em>Cases</em>
+              <p class="bg-black rounded-lg px-2 py-1 text-larger text-digi" id="overallConfirmed"></p>
             </a>
             <a class="nav-item nav-link text-uppercase">
-              <div class="card infoboard-section bg-dark border-success  shadow-gold text-success text-center rounded-lg mt-1">
+              <div class="d-flex flex-row justify-content-around mt-0 text-xs mb-1">
+                <small>
+                  <i class="fas fa-wifi fa-rotate-270" aria-hidden="true"></i>
+                  <i class="fas fa-bullhorn fa-flip-horizontal" aria-hidden="true"></i>
+                  Now On Board:
+                  <i class="fas fa-bullhorn" aria-hidden="true"></i>
+                  <i class="fas fa-wifi fa-rotate-90" aria-hidden="true"></i>
+                </small>
+              </div>
+              <div class="card infoboard-section bg-dark border-success  shadow-gold text-success text-center rounded-lg">
                 <div class="card-body bg-black py-1 m-1 rounded-lg text-larger">
-                    <i id="countryName" class="fa animated infinite fadeIn delay-1s text-success my-0 pt-1 pb-0"
+                  <i id="countryName" class="fa animated infinite fadeIn delay-1s text-success my-0 pt-1 pb-0"
                     style="font-size:1.5rem ;font-family: 'Orbitron', sans-serif;">
                   </i>
                 </div>
               </div>
 
             </a>
-            <a class="nav-item nav-link text-sm">
+            <a class="nav-item nav-link text-success">
               <i class="far fa-flag" aria-hidden="true"></i>
               <em>Deaths</em>
-              <p class="bg-black rounded-lg text-larger text-digi" id="countryDeaths">
+              <p class="bg-black rounded-lg px-2 py-1 text-larger text-digi" id="countryDeaths">
               </p>
             </a>
-            <a class="nav-item nav-link text-sm">
+            <a class="nav-item nav-link text-success">
               <i class="far fa-flag" aria-hidden="true"></i>
               <em>Cases</em>
-              <p class="bg-black rounded-lg text-larger text-digi" id="countryConfirmed"></p>
+              <p class="bg-black rounded-lg px-2 py-1 text-larger text-digi" id="countryConfirmed"></p>
             </a>
-            <a class="nav-item nav-link">
-              <select id="opts">
+            <a class="nav-item nav-link text-success">
+              <select id="opts" class="custom-control" style="vertical-align: bottom;">
               </select>
             </a>
           </ul>
         </div>
       </nav>
-</header>
+    </header>
 
-    <main role="main" class="container-fluid" style="margin-top: 60px;">
+    <main role="main" class="container-fluid" style="margin-top: 70px;">
       <div class="jumbotron hero-image m-0 text-left"
         style="background-image: url('/static/img/world-map-transparent.png');opacity: 0.9;">
         <div class="chart m-0" id="my_dataviz">

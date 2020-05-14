@@ -1,3 +1,58 @@
+.add-anime {
+  transition: ease 0.5s;
+}
+
+.add-anime:hover {
+  color:#2aa198;
+  transform: scale(1.1, 1.1);
+  box-shadow: rgb(188, 143, 250) 0px 15px 15px;
+}
+
+.add-anime:hover:first-child {
+  box-shadow: rgb(65, 237, 243) -5px 15px 15px;
+}
+
+.add-anime:hover:last-child {
+  box-shadow: rgb(80, 224, 167) 5px 15px 15px;
+}
+.text-larger {
+  font-size: 1.25rem;
+}
+.text-xlarger {
+  font-size: 1.50rem;
+}
+.text-2xl {
+  font-size: 1.50rem;
+}
+.text-sm {
+  font-size: 0.80rem;
+}
+.text-xs {
+  font-size: 0.70rem;
+}
+
+.text-2xs {
+  font-size: 0.60rem;
+}
+
+.text-3xs {
+  font-size: 0.50rem;
+}
+
+.text-digi {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.text-cond {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.text-robo {
+  font-family: 'Roboto', sans-serif;
+}
+.text-balo {
+  font-family: 'Baloo 2', sans-serif;
+}
+
 .tooltip {
   position: absolute;
   width: 100px;
@@ -8,8 +63,8 @@
   color: #2AA198;
   text-align: center;
   background: #073642;
-  border:0,
-  border-color: #2AA198;
+  border: 0,
+    border-color: #2AA198;
   border-width: thin;
   border-radius: 14px;
   box-shadow: 0 0.5rem 1rem rgba(2, 211, 243, 0.717) !important;
@@ -17,200 +72,201 @@
 
 
 .axisGold line {
-    stroke: #B58900;
-  }
+  stroke: #B58900;
+}
 
-  .axisGold path {
-    stroke: #B58900;
-  }
+.axisGold path {
+  stroke: #B58900;
+}
 
-  .axisGold text {
-    fill: #B58900;
+.axisGold text {
+  fill: #B58900;
 
-  }
+}
 
-  .bg-black {
-    background-color: black;
-  }
+.bg-black {
+  background-color: black;
+}
 
-  .bg-slategray {
-    background-color: #0f3b46d5;
-  }
+.bg-slategray {
+  background-color: #0f3b46d5;
+}
 
-  .text-silver {
-    color: silver;
-  }
 
+html {
+  font-size: 10px;
+}
+
+@media (min-width: 768px) {
   html {
-    font-size: 10px;
+    font-size: 14px;
   }
+}
 
-  @media (min-width: 768px) {
-    html {
-      font-size: 14px;
-    }
-  }
+.container {
+  x-width: 960px;
+}
 
-  .container {
-    x-width: 960px;
-  }
+.sidebar-h5 {
+  font-family: initial;
+}
 
-  .sidebar-h5 {
-    font-family: initial;
-  }
+.sidebar-section {
+  border: 1px solid;
+  border-radius: 8px;
+  border-color: #2aa198;
+}
 
-  .sidebar-section {
-    border: 1px solid;
-    border-radius: 8px;
-    border-color: #2aa198;
-  }
+/* ----- default for boilerplate from corey's----- */
+body {
+  margin-top: 0rem;
+}
 
-  /* ----- default for boilerplate from corey's----- */
-  body {
-    margin-top: 0rem;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #2aa198;
+  font-family: 'Baloo 2' , sans-serif;
+  margin: 2px;
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    /* color: #444444; */
-  }
+.bg-steel {
+  background-color: #5f788a;
+}
 
-  .bg-steel {
-    background-color: #5f788a;
-  }
+.content-section {
+  padding: 10px 20px;
+  border: 2px solid;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
 
-  .content-section {
-    padding: 10px 20px;
-    border: 2px solid;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-  }
+.rounded-xl {
+  border-radius: 8px;
+}
 
-  .rounded-xl {
-    border-radius: 8px;
-  }
+.rounded-2xl {
+  border-radius: 12px;
+}
 
-  .rounded-2xl {
-    border-radius: 12px;
-  }
+.rounded-3xl {
+  border-radius: 16px;
+}
 
-  .rounded-3xl {
-    border-radius: 16px;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+i {
+  font-family: unset;
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  p,
-  i {
-    font-family: unset;
-  }
+.rotateimg180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
 
-  .rotateimg180 {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
+.shadow-gr1d {
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(88, 217, 231, 0.233) !important;
+  box-shadow: 0 0.5rem 1rem rgba(67, 251, 248, 0.233) !important;
+}
 
-  .shadow-gr1d {
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(88, 217, 231, 0.233) !important;
-    box-shadow: 0 0.5rem 1rem rgba(67, 251, 248, 0.233) !important;
-  }
+.hero-image {
+  background-image: url("https://images8.alphacoders.com/373/thumb-1920-373691.jpg");
+  background-color: #002B36;
+  width: 100%;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  background-blend-mode: luminosity;
+  vertical-align: top;
+}
 
-  .hero-image {
-    background-image: url("https://images8.alphacoders.com/373/thumb-1920-373691.jpg");
-    background-color: #002B36;
-    width: 100%;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: relative;
-    background-blend-mode: luminosity;
-    vertical-align: top;
-  }
+.bg-body {
+  background-color: #002B36;
+}
 
-  .bg-body {
-    background-color: #002B36;
-  }
+.btn.btn-square:hover {
+  transform: scale(1.1, 1.1);
+  box-shadow: rgb(188, 143, 250) 0px 15px 15px;
+}
 
-  .card.infoboard-section {
-    transition: ease 0.5s;
-    font-family: Fcard;
-  }
 
-  .btn.btn-square:hover {
-    transform: scale(1.1, 1.1);
-    box-shadow: rgb(188, 143, 250) 0px 15px 15px;
-  }
+.card.infoboard-section {
+  transition: ease 0.5s;
+  font-family: Fcard;
+}
 
-  .card.infoboard-section:hover {
-    transform: scale(1.1, 1.1);
-    box-shadow: rgb(188, 143, 250) 0px 15px 15px;
-  }
 
-  .card.infoboard-section:hover:first-child {
-    box-shadow: rgb(65, 237, 243) -5px 15px 15px;
-  }
+.card.infoboard-section:hover {
+  transform: scale(1.1, 1.1);
+  box-shadow: rgb(188, 143, 250) 0px 15px 15px;
+}
 
-  .card.infoboard-section:hover:last-child {
-    box-shadow: rgb(80, 224, 167) 5px 15px 15px;
-  }
+.card.infoboard-section:hover:first-child {
+  box-shadow: rgb(65, 237, 243) -5px 15px 15px;
+}
 
-  .btn-grid {
-    border-radius: 1.25rem;
-    border-width: 1px;
-  }
+.card.infoboard-section:hover:last-child {
+  box-shadow: rgb(80, 224, 167) 5px 15px 15px;
+}
 
-  .btn-square {
-    border-radius: 0.75rem;
-  }
+.btn-grid {
+  border-radius: 1.25rem;
+  border-width: 1px;
+}
 
-  .dash-section {
-    padding: 12px;
-  }
+.btn-square {
+  border-radius: 0.75rem;
+}
 
-  .shadow-turqoise {
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(147, 190, 189, 0.233) !important;
-    box-shadow: 0 0.5rem 1rem rgba(147, 190, 189, 0.233) !important;
-  }
+.dash-section {
+  padding: 12px;
+}
 
-  .shadow-gold {
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(190, 170, 147, 0.271) !important;
-    box-shadow: 0 0.5rem 1rem rgba(190, 170, 147, 0.271) !important;
-  }
+.shadow-turqoise {
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(147, 190, 189, 0.233) !important;
+  box-shadow: 0 0.5rem 1rem rgba(147, 190, 189, 0.233) !important;
+}
 
-  .shadow-before {
-    -webkit-box-shadow: 0 0.125rem 0.25rem rgba(190, 47, 195, 0.231) !important;
-    box-shadow: 0 0.125rem 0.25rem rgba(190, 47, 195, 0.231) !important;
-  }
+.shadow-gold {
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(190, 170, 147, 0.271) !important;
+  box-shadow: 0 0.5rem 1rem rgba(190, 170, 147, 0.271) !important;
+}
 
-  .shadow-after {
-    -webkit-box-shadow: 0 1rem 2rem rgba(190, 47, 195, 0.371) !important;
-    box-shadow: 0 1rem 2rem rgba(190, 47, 195, 0.371) !important;
-  }
+.shadow-before {
+  -webkit-box-shadow: 0 0.125rem 0.25rem rgba(190, 47, 195, 0.231) !important;
+  box-shadow: 0 0.125rem 0.25rem rgba(190, 47, 195, 0.231) !important;
+}
 
-  .info-section {
-    border-radius: 4px;
-    margin-top: 4px;
-    margin-bottom: 8px;
-    margin-right: 4px;
-    margin-left: 4px;
-    padding-right: 8px;
-    padding-left: 8px;
-    padding-top: 4px;
-    padding-bottom: 8px;
-  }
+.shadow-after {
+  -webkit-box-shadow: 0 1rem 2rem rgba(190, 47, 195, 0.371) !important;
+  box-shadow: 0 1rem 2rem rgba(190, 47, 195, 0.371) !important;
+}
 
-  .infoboard-section {
-    border-radius: 12px;
-    border: 1px solid;
-  }
+.info-section {
+  border-radius: 4px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  margin-right: 4px;
+  margin-left: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 8px;
+}
+
+.infoboard-section {
+  border-radius: 12px;
+  border: 1px solid;
+}
