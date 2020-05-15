@@ -289,7 +289,7 @@ function dropDownUpdate( data, static_or_latest ) {
       value: country,
       selected: false,
       description: `deaths ${format(array[lastIndex].deaths)} cases ${format(array[lastIndex].confirmed)}`,
-      imageSrc: '/assets/img/flags/Ensign_Flag_Nation_' + country.toLowerCase().replace( ' ', '_' ) + '-128.png'
+      imageSrc: '/static/img/flags/Ensign_Flag_Nation_' + country.toLowerCase().replace( ' ', '_' ) + '-128.png'
 
     };
 
