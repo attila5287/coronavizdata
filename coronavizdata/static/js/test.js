@@ -1,4 +1,6 @@
+
 // latestTimeSeries();
+
 var allJSON = testdata.locations.map((d) => {
   return {
   name: d.country,
@@ -18,8 +20,8 @@ function staticTimeSeries() {
   overallCountUp( data );
   renderDynamicTable( prepData4TableAll( data ) );
   chosenFiguresUp( data, name );
-  d3MovingAxes( prepDataFromJSON( data, name ) );
-  // metalBandEx();
+  d3InterActiveAxes();
+  // d3MovingAxes( prepData4Scatter( data, name ) );
 }
 
 function geoMapFinder(name) {
@@ -50,7 +52,7 @@ function latestTimeSeries (){
     overallCountUp( data );
     renderDynamicTable( prepData4TableAll( data ) );
     chosenFiguresUp( data, name );
-    d3MovingAxes( prepDataFromJSON( data, name ) );
+    d3MovingAxes( prepData4Scatter( data, name ) );
 
     
   });
@@ -198,8 +200,6 @@ function renderDynamicTable( data ) {
 
 function prepData4TableAll( data ) {
 
-  // console.log( ' --- prepDataFromJSON --- ' );
-  // console.log(data);
 
   let countryArray = [];
 
@@ -279,7 +279,6 @@ function prepDataFromJSON( data, chosenCountry ) {
   } )
 }
 
-
 function dropDownUpdate( data, static_or_latest ) {
   const keys = Object.keys( data );
 
@@ -307,21 +306,21 @@ function dropDownUpdate( data, static_or_latest ) {
       const static = (static_or_latest == 'static');
       
       if (static) {
-        console.log('dropdown static_or_latest: ', static_or_latest);
+        // console.log('dropdown static_or_latest: ', static_or_latest);
         var data = testdaily;
         chosenFiguresUp( data, d.selectedData.value );
         // d3MovingAxes( prepDataFromJSON( data, d.selectedData.value ) );
         
       } else {
 
-        console.log('dropdown not static');
+        // console.log('dropdown not static');
         
       }
 
       const latest = (static_or_latest == 'latest');
 
       if (latest) {
-        console.log('dropdown static_or_latest: ', static_or_latest);
+        // console.log('dropdown static_or_latest: ', static_or_latest);
 
         const name = d.selectedData.value;
         const url = 'https://pomber.github.io/covid19/timeseries.json';
@@ -331,45 +330,44 @@ function dropDownUpdate( data, static_or_latest ) {
           d3MovingAxes( prepDataFromJSON( data, name  ) );
         });
       } else {
-        console.log('dropdown latest pass');
+        // console.log('dropdown latest pass');
       }
     }
   } );
 }
 
-// ########################################
-// ########################################
-function metalBandEx () {
-var svgWidth = 960;
-var svgHeight = 500;
+function prepData4Scatter( data, chosenCountry ) {
+// hair_length: 35
+// num_albums: 10
+// num_hits: 20
+// rockband: "Def Leppard"
 
-var margin = {
-  top: 20,
-  right: 40,
-  bottom: 80,
-  left: 100
-};
+  // console.log(data);
+  // const keys = Object.keys( data )
 
-var width = svgWidth - margin.left - margin.right;
-var height = svgHeight - margin.top - margin.bottom;
+  const keys = ['US', 'Italy',  'France', 'Brazil', 'Germany', 'Canada', 'China', chosenCountry]
 
-// Create an SVG wrapper, append an SVG group that will hold our chart,
-// and shift the latter by left and top margins.
-var svg = d3
-  .select(".chart")
-  .append("svg")
-  .attr("width", svgWidth)
-  .attr("height", svgHeight);
+  const dataReady = keys.map( ( country ) => {
+    return {
+      name: country,
+      values: data[ country ]
+      .filter((v,i) => i % 2)
+      .filter((v,i) => i % 2)
+              .map((obj, i) => {
+          return {
+            date: obj.date,
+            deaths: +obj.deaths,
+            confirmed: +obj.confirmed,
+          }
+        } 
 
-// Append an SVG group
-var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+        )
+    }
 
-// Initial Params
-var chosenXAxis = "hair_length";
-
-// function used for updating x-scale var upon click on axis label
-function xScale(hairData, chosenXAxis) {
+  } );
+  return dataReady.sort( function ( x, y ) {function xScale(hairData, chosenXAxis) {
+  console.log(' --- hairData --- ');
+  console.log(hairData);
   // create scales
   var xLinearScale = d3.scaleLinear()
     .domain([d3.min(hairData, d => d[chosenXAxis]) * 0.8,
@@ -380,391 +378,6 @@ function xScale(hairData, chosenXAxis) {
   return xLinearScale;
 
 }
-
-// function used for updating xAxis var upon click on axis label
-function renderAxes(newXScale, xAxis) {
-  var bottomAxis = d3.axisBottom(newXScale);
-
-  xAxis.transition()
-    .duration(1000)
-    .call(bottomAxis);
-
-  return xAxis;
-}
-
-// function used for updating circles group with a transition to
-// new circles
-function renderCircles(circlesGroup, newXScale, chosenXaxis) {
-
-  circlesGroup.transition()
-    .duration(1000)
-    .attr("cx", d => newXScale(d[chosenXAxis]));
-
-  return circlesGroup;
-}
-
-// function used for updating circles group with new tooltip
-function updateToolTip(chosenXAxis, circlesGroup) {
-
-  if (chosenXAxis === "hair_length") {
-    var label = "Hair Length:";
-  }
-  else {
-    var label = "# of Albums:";
-  }
-
-  var toolTip = d3.tip()
-    .attr("class", "tooltip")
-    .offset([80, -60])
-    .html(function(d) {
-      return (`${d.rockband}<br>${label} ${d[chosenXAxis]}`);
-    });
-
-  circlesGroup.call(toolTip);
-
-  circlesGroup.on("mouseover", function(data) {
-    toolTip.show(data);
-  })
-    // onmouseout event
-    .on("mouseout", function(data, index) {
-      toolTip.hide(data);
-    });
-
-  return circlesGroup;
-}
-
-// Retrieve data from the CSV file and execute everything below
-d3.csv("hairData.csv", function(err, hairData) {
-  if (err) throw err;
-
-  // parse data
-  hairData.forEach(function(data) {
-    data.hair_length = +data.hair_length;
-    data.num_hits = +data.num_hits;
-    data.num_albums = +data.num_albums;
-  });
-
-  // xLinearScale function above csv import
-  var xLinearScale = xScale(hairData, chosenXAxis);
-
-  // Create y scale function
-  var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(hairData, d => d.num_hits)])
-    .range([height, 0]);
-
-  // Create initial axis functions
-  var bottomAxis = d3.axisBottom(xLinearScale);
-  var leftAxis = d3.axisLeft(yLinearScale);
-
-  // append x axis
-  var xAxis = chartGroup.append("g")
-    .classed("x-axis", true)
-    .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
-
-  // append y axis
-  chartGroup.append("g")
-    .call(leftAxis);
-
-  // append initial circles
-  var circlesGroup = chartGroup.selectAll("circle")
-    .data(hairData)
-    .enter()
-    .append("circle")
-    .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d.num_hits))
-    .attr("r", 20)
-    .attr("fill", "pink")
-    .attr("opacity", ".5");
-
-  // Create group for  2 x- axis labels
-  var labelsGroup = chartGroup.append("g")
-    .attr("transform", `translate(${width / 2}, ${height + 20})`);
-
-  var hairLengthLabel = labelsGroup.append("text")
-    .attr("x", 0)
-    .attr("y", 20)
-    .attr("value", "hair_length") // value to grab for event listener
-    .classed("active", true)
-    .text("Hair Metal Ban Hair Length (inches)");
-
-  var albumsLabel = labelsGroup.append("text")
-    .attr("x", 0)
-    .attr("y", 40)
-    .attr("value", "num_albums") // value to grab for event listener
-    .classed("inactive", true)
-    .text("# of Albums Released");
-
-  // append y axis
-  chartGroup.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .classed("axis-text", true)
-    .text("Number of Billboard 500 Hits");
-
-  // updateToolTip function above csv import
-  var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
-
-  // x axis labels event listener
-  labelsGroup.selectAll("text")
-    .on("click", function() {
-      // get value of selection
-      var value = d3.select(this).attr("value");
-      if (value !== chosenXAxis) {
-
-        // replaces chosenXAxis with value
-        chosenXAxis = value;
-
-        // console.log(chosenXAxis)
-
-        // functions here found above csv import
-        // updates x scale for new data
-        xLinearScale = xScale(hairData, chosenXAxis);
-
-        // updates x axis with transition
-        xAxis = renderAxes(xLinearScale, xAxis);
-
-        // updates circles with new x values
-        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
-
-        // updates tooltips with new info
-        circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
-
-        // changes classes to change bold text
-        if (chosenXAxis === "num_albums") {
-          albumsLabel
-            .classed("active", true)
-            .classed("inactive", false);
-          hairLengthLabel
-            .classed("active", false)
-            .classed("inactive", true);
-        }
-        else {
-          albumsLabel
-            .classed("active", false)
-            .classed("inactive", true);
-          hairLengthLabel
-            .classed("active", true)
-            .classed("inactive", false);
-        }
-      }
-    });
-});
-
-}
-
-
-// ###6*45*PM*WED########
-function d3MovingAxes( data ) {
-  // When the browser window is resized, responsify() is called.
-  const format = d3.format( ',' );
-  const formatDecimal = d3.format( '.4' );
-  const dateFormatter = d3.timeFormat( "%d-%b" );
-
-  // console.log( ' #### SPLAT-JSON-TABLE- ####' );
-  const dataReady = data;
-  // console.log( dataReady );
-  const arrayForScale = dataReady[ 0 ].values
-    .map( ( item ) => {
-      return item.deaths;
-
-    } );
-  // console.log( ' --- arrayForScale ---' );
-  // console.log( arrayForScale );
-  var allGroup = data.map( ( d ) => {
-    return d.name
-  } );
-  // console.log( allGroup );
-  // set the dimensions and margins of the graph
-  var margin = {
-      top: 10,
-      right: 100,
-      bottom: 30,
-      left: 50
-    },
-    width = window.innerWidth - margin.left - margin.right;
-  height = window.innerHeight - margin.top - margin.bottom;
-
-  // append the svg object to the body of the page
-  var svg = d3.select( "#my_dataviz" )
-    .append( "svg" )
-    .attr( "width", width + margin.left + margin.right )
-    .attr( "height", height + margin.top + margin.bottom )
-    .append( "g" )
-    .attr( "transform",
-      "translate(" + margin.left + "," + margin.top + ")" );
-
-
-  // if the SVG area isn't empty when the browser loads, remove it
-  // and replace it with a resized version of the chart
-  var svgArea = d3.select( "body" ).select( "#my_dataviz" ).select( "svg" );
-  if ( !svgArea.empty() ) {
-    svgArea.remove();
-  }
-
-  // A color scale: one color for each group
-  var myColor = d3.scaleOrdinal()
-    .domain( data.length )
-    .range( d3.schemeSet3 );
-
-  // scales
-  var x = d3.scaleLinear()
-    .domain( [ 0, arrayForScale.length ] )
-    .range( [ 0, width ] );
-  var y = d3.scaleLinear()
-    .domain( [ 0, d3.max( arrayForScale ) ] )
-    .range( [ height, 0 ] );
-
-  svg.append( "g" )
-    .attr( "transform", "translate(0," + height + ")" )
-    .attr( "class", "axisGold" )
-    .call( d3.axisBottom( x ) );
-
-  svg.append( "g" )
-    .attr( "transform", "translate(0,15)" )
-    .attr( "class", "axisGold" )
-    .call( d3.axisTop( x ) )
-
-  ;
-
-  svg.append( "g" )
-    .attr( "class", "axisGold" )
-    .attr( "transform", "translate(" + width + ",0)" )
-    .call( d3.axisRight( y ) );
-
-
-
-  // Add the lines
-  var line = d3.line()
-    .x( function ( d, i ) {
-      return x( i )
-    } )
-    .y( function ( d ) {
-      return y( +d.deaths )
-    } )
-  svg.selectAll( "myLines" )
-    .data( dataReady )
-    .enter()
-    .append( "path" )
-    .attr( "d", function ( d ) {
-      return line( d.values )
-    } )
-    .attr( "stroke", function ( d ) {
-      return myColor( d.name )
-    } )
-    .style( "stroke-width", 2 )
-    .style( "fill", "none" )
-
-  // Add the points
-  var circlesGroup = svg
-    // First we need to enter in a group
-    .selectAll( "myDots" )
-    .data( dataReady )
-    .enter()
-    .append( 'g' )
-    .style( "fill", function ( d ) {
-      return myColor( d.name )
-    } )
-    // Second we need to enter in the 'values' part of this group
-    .selectAll( "myPoints" )
-    .data( function ( d ) {
-      return d.values
-    } )
-    .enter()
-    .append( "circle" )
-    .attr( "r", 5 )
-    .attr( "stroke", "#002B36" )
-    .attr( "stroke-width", "1" );
-
-  // console.log( ' --- circlesGroup ---' );
-  // console.log( circlesGroup );
-
-  circlesGroup
-    .transition()
-    .duration( 1000 )
-    .attr( "cx", ( d, i ) => x( i ) )
-    .attr( "cy", d => y( d.deaths ) );
-
-
-  // Add a legend at the end of each line
-  var position = data[ 0 ].values.length - 1;
-  // console.log( 'position -->> ' + position );
-  svg
-    .selectAll( "myLabels" )
-    .data( dataReady )
-    .enter()
-    .append( 'g' )
-    .append( "text" )
-    .datum( function ( d ) {
-      return {
-        name: d.name,
-        value: d.values[ d.values.length - 1 ]
-      };
-    } ) // keep only the last value of each time series
-    .attr( "transform", function ( d, i ) {
-      return "translate(" + x( position ) + "," + y( d.value.deaths ) + ")";
-    } ) // Put the text at the position of the last point
-    .attr( "x", 8 ) // shift the text a bit more right
-    .text( function ( d ) {
-      return d.name;
-    } )
-    .style( "fill", function ( d ) {
-      return myColor( d.name )
-    } )
-    .style( "font-size", 16 )
-    .style( "font-style", 'bold' )
-    .style( "font-style", 'italic' );
-
-
-
-  // X axis label 'Days' on top
-  svg.append( "text" )
-    .attr( "text-anchor", "middle" ) // this makes it easy to centre the text as the transform is applied to the anchor
-    .attr( "transform", "translate(" + ( width / 1.9 ) + ",0)" ) // centre below axis
-    .style( 'fill', '#B58900' )
-    .style( "font-size", 18 )
-    .text( "Days" )
-    .style( "font-family", 'Arial' )
-    .style( "font-style", 'bold' )
-    .style( "font-style", 'italic' );
-
-  // Y axis label on top
-  svg.append( "text" )
-    .attr( "text-anchor", "middle" ) // this makes it easy to centre the text as the transform is 
-    .attr( "transform", "translate(" + ( width * 0.97 ) + "," + height / 1.95 + ")" ) // centre below axis
-    .style( 'fill', '#B58900' )
-    .text( "Deaths" )
-    .style( "font-size", 18 )
-    .style( "font-family", 'Arial' )
-    .style( "font-style", 'bold' )
-    .style( "font-style", 'italic' );
-
-
-  var toolTip = d3
-    .tip()
-    .attr( "class", "tooltip" )
-    .offset( [ 80, -60 ] )
-    .html( function ( d, i ) {
-      return ( '<strong>' + format( d.deaths ) + '</strong><hr class="border-success my-1"><strong>' + d.date + '</strong>' );
-    } );
-
-  // console.log( ' --- toolTip --- O' );
-  // console.log( toolTip );
-
-  circlesGroup.call( toolTip );
-
-  // console.log(toolTip);
-
-  circlesGroup.on( "mouseover", function ( d, i ) {
-      // console.log( ' ^^^^^^^^^ MOUSE-OVER ^^^^^^^^^' )
-      console.log( i );
-      toolTip.show( d );
-    } )
-    // onmouseout event
-    .on( "mouseout", function ( data, index ) {
-      // console.log( ' ________MOUSE_OUT________' );
-      toolTip.hide( 'TEST' );
-    } );
+    return d3.descending( x.latest, y.latest );
+  } )
 }

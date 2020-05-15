@@ -1,7 +1,4 @@
-console.log('testdatatimeser...')
-
-
-
+// console.log('testdatatimeser...')
 var testdaily = 
 {
   "Afghanistan": [
@@ -123801,5 +123798,4 @@ var testdaily =
 }
 ;
 
-
-console.log('static JSON uploaded...')
+// console.log('testdatatimeser loaded...')

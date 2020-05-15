@@ -1,3 +1,52 @@
+#hairmetal {
+  border-radius: 8px;
+}
+
+.chart::before {
+  position: absolute;
+  top: 50px;
+  left: 300px;
+  z-index: -1;
+  display: block;
+  width: 400px;
+  height: 300px;
+  content: " ";
+  background-image: url("maxresdefault.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+  opacity: 0.3;
+}
+
+
+
+.axis-text {
+  font-family: sans-serif;
+  font-weight: bold;
+  fill: #2aa198;
+  text-anchor: middle;
+}
+
+.active {
+  font-weight: bold;
+  fill: #2aa198;
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+}
+
+.inactive {
+  font-weight: lighter;
+  fill: #551aaf;
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+}
+
+.inactive:hover {
+  fill: #e75480;
+  cursor: pointer;
+}
+
+/* ------------------------- */
 .add-anime {
   transition: ease 0.5s;
 }
@@ -52,11 +101,10 @@
 .text-balo {
   font-family: 'Baloo 2', sans-serif;
 }
-
 .tooltip {
   position: absolute;
   width: 100px;
-  height: 50px;
+  height: 60px;
   padding: 1px;
   padding-top: 2px;
   font: 14px sans-serif;
@@ -64,7 +112,7 @@
   text-align: center;
   background: #073642;
   border: 0,
-    border-color: #2AA198;
+  border-color: #2AA198;
   border-width: thin;
   border-radius: 14px;
   box-shadow: 0 0.5rem 1rem rgba(2, 211, 243, 0.717) !important;
@@ -81,6 +129,20 @@
 
 .axisGold text {
   fill: #B58900;
+
+}
+
+
+.axisTurq line {
+  stroke: #2aa198;
+}
+
+.axisTurq path {
+  stroke: #2aa198;
+}
+
+.axisTurq text {
+  fill: #2aa198;
 
 }
 
@@ -185,13 +247,13 @@ i {
   background-color: #002B36;
   width: 100%;
   background-position: top;
-  background-repeat: no-repeat;
   background-size: contain;
+  background-repeat: no-repeat;
   position: relative;
-  background-blend-mode: luminosity;
+  background-blend-mode: screen;
   vertical-align: top;
 }
-
+-
 .bg-body {
   background-color: #002B36;
 }
