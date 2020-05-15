@@ -18,7 +18,7 @@ function staticTimeSeries() {
   let name = 'Turkey'; //default before user selection
   dropDownUpdate( data, 'static' );
   overallCountUp( data );
-  renderDynamicTable( prepData4TableAll( data ) );
+  // renderDynamicTable( prepData4TableAll( data ) );
   chosenFiguresUp( data, name );
 }
 

@@ -5,14 +5,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" class="favicon" href="
-			https://raw.githubusercontent.com/attila5287/displaytracker_img/master/dtSquare.png" />
+    <link rel="icon" type="image/x-icon" class="favicon" href="assets/img/site/c_hex_aquamarine.ico" />
+    <link rel="icon" type="image/x-icon" class="favicon" href="favicon.ico" />
 
     <!-- Bootstrap CSS -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/solar/bootstrap.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('assets', filename='styles/main.css') }}">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
@@ -39,7 +39,7 @@
         <small>
           CoronaVizData
         </small>
-        <img class="m-0 p-0" src="{{ url_for('static', filename='img/co_hex.png') }}" style="height: 2.75rem;">
+        <img class="m-0 p-0" src="{{ url_for('assets', filename='img/site/co_hex.png') }}" style="height: 2.75rem;">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-item nav-link" href="{{ url_for('dashboard') }}">
+            <a class="nav-item nav-link" href="/dashboard">
               <i class="fas fa-tachometer-alt"></i>
               Dashboard
             </a>
