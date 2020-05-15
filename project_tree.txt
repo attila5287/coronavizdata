@@ -1,35 +1,33 @@
-# projectLayout: take a quick look at below tree for better understanding of the boilerplate if any further questions contact dev
+# projectLayout: 
 
-displaytracker
+
+
+coronavizdata
 │
-├── squares/
+├── coronavizdata
 │   ├── __init__.py
-│   ├── forms.py
 │   ├── config.py
-│   ├── models.py
 │   ├── routes.py
-│   ├── site.db
 │   │
 │   ├── static/
 │   │   └── profile_pics/
 │   │   │   ├── admin.png
+│   │   │   └── default.png
+│   │   │   
+│   │   └── img/
+│   │   │   ├── admin.png
 │   │   │   ├── custom.png
 │   │   │   └── default.png
-│   │   ├── holder-js.js
-│   │   ├── jquery-3.js
-│   │   ├── popper.js
 │   │   └── main.css
 │   │
 │   └── templates/
 │       ├── about.html
-│       ├── account.html
-│       ├── create_post.html
-│       ├── home.html
 │       ├── layout.html
-│       ├── login.html
-│       ├── post.html
-│       ├── register.html
-│       └──user_posts.html
+│       ├── layout_dash.html
+│       ├── interactive-axis.html
+│       ├── table.html
+│       ├── test.html
+│       └──dashboard.html
 │           
 │       
 ├── .gitignore 

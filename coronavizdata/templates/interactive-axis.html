@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" class="favicon" href="/assets/img/co_hex.ico" />
+    <link rel="icon" type="image/x-icon" class="favicon" href="/static/img/co_hex.ico" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/solar/bootstrap.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="/assets/styles/main.css">
-    <link rel="stylesheet" type="text/css" href="/assets/styles/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/static/table.css">
 
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
@@ -28,7 +28,7 @@
     <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
-
+    
     <title>COVID-19-DataViz</title>
 
   </head>
@@ -37,12 +37,14 @@
     <style>
     </style>
 
-    <header>
-      <!-- Fixed navbar -->
+<header>
+        <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand bg-dark mx-0 p-0 border-0 rounded-xl add-anime"
-          href="https://coronavizdata.herokuapp.com/">
-          <img class="m-0 px-0 py-1" src="/assets/img/site/hex_c.png" style="height: 3.75rem;" alt="navbar-icon">
+        <a 
+        class="navbar-brand bg-dark mx-0 p-0 border-0 rounded-xl add-anime"
+        href="https://coronavizdata.herokuapp.com/"
+        >
+          <img class="m-0 px-0 py-1" src="/static/img/hex_c.png" style="height: 3.75rem;" alt="navbar-icon">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,14 +76,13 @@
             </a>
             <a class="nav-item nav-link text-sm">
               <i class="fa fa-globe-americas" aria-hidden="true"></i>
-              <em>Cases</em>
+              <em>Cases</em>              
               <p class="bg-black rounded-lg text-larger text-digi" id="overallConfirmed"></p>
             </a>
             <a class="nav-item nav-link text-uppercase">
-              <div
-                class="card infoboard-section bg-dark border-success  shadow-gold text-success text-center rounded-lg mt-1">
+              <div class="card infoboard-section bg-dark border-success  shadow-gold text-success text-center rounded-lg mt-1">
                 <div class="card-body bg-black py-1 m-1 rounded-lg text-larger">
-                  <i id="countryName" class="fa animated infinite fadeIn delay-1s text-success my-0 pt-1 pb-0"
+                    <i id="countryName" class="fa animated infinite fadeIn delay-1s text-success my-0 pt-1 pb-0"
                     style="font-size:1.5rem ;font-family: 'Orbitron', sans-serif;">
                   </i>
                 </div>
@@ -106,15 +107,78 @@
           </ul>
         </div>
       </nav>
-    </header>
+</header>
 
-    <main role="main" class="container-fluid" style="margin-top: 60px;">
+    <main role="main" class="container-fluid mt-0">
       <div class="jumbotron hero-image m-0 text-left"
-        style="background-image: url('/assets/img/site/world-map-transparent-flu.png');opacity: 0.9;">
+        style="background-image: url('/static/img/world-map-transparent.png');opacity: 0.9;">
         <div class="chart m-0" id="my_dataviz">
           <svg></svg>
         </div>
       </div>
+      <div class="container-fluid text-center py-1">
+        <div class="row">
+          <div class="col-sm-4 offset-4">
+          <!-- INFO CARD GENERAL -->
+          <div class="card infoboard-section bg-transparent border-success text-success text-center mt-2">
+            <div class="card-header pt-1 pb-0 my-0">
+              <div class="row my-0">
+                <div class="col-sm-2 text-center">
+                  <hr class="border-success" style="border-width: thin;">
+                </div>
+
+                <div class="col-sm-1 text-center">
+                  <i class="fa fa-info-circle fa-2x text-robo text-sm ml-2" ></i>
+                </div>
+                <div class="col-sm-7 text-center">
+                  <p class="bg-black rounded-xl mb-0 mt-1 px-2 py-1 text-sm">
+                   <strong> What was so interactive again? </strong>
+                  <i class="fa fa-arrow-up animated infinite bounce text-larger text-primary delay-1s">
+                  </i>                  
+                  </p>
+
+                </div>
+                <div class="col-sm-2 text-center">
+                  <hr class="border-success" style="border-width: thin;">
+                </div>
+              </div>
+            </div>
+            <div class="card-body mt-0 mb-1 pt-0 pb-2">
+              <ul class="list-inline text-left text-secondary my-0"
+                style="font-weight: lighter;font-size: smaller;font-style: italic;">
+                <li class="list-inline-item">
+                  <i class="fa fa-ruler-vertical text-success" aria-hidden="true"></i>
+                 Vertical Axis is Y: Num of fatality cases.
+                </li>                
+                <li class="list-inline-item">
+                  <i class="fa fa-ruler-horizontal text-success" aria-hidden="true"></i>
+                 A bit unusual if noticed two labels on X axis
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-swatchbook text-success" aria-hidden="true"></i>
+                 X: Num of persons with virus and num of those who recovered
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-info-circle text-success" aria-hidden="true"></i>
+                 Click on X axis Labels: 
+                </li>
+
+                <li class="list-inline-item">
+                  <i class="fa fa-info-circle text-success" aria-hidden="true"></i>
+                  Our beloved d3 circles will fly through!
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-info-circle text-success" aria-hidden="true">
+                  </i>
+                  However, not much data to compare in same units
+                </li>
+
+              </ul>
+            </div>
+          </div>                
+          </div>      
+          </div>      
+          </div>      
       <table class="table table-hover table-striped text-left">
         <thead></thead>
         <tbody></tbody>
@@ -135,11 +199,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-
-    <script src="/assets/plugins/ddslick.js"></script>
-    <script src="/assets/data/testdatatimeser.js"></script>
-    <script src="/assets/data/testdata.js "></script>
-    <script src="/assets/app/test.js"></script>
+    
+    <script src="/static/js/ddslick.js"></script>
+    <script src="/static/js/testdatatimeser.js"></script>
+    <script src="/static/js/testdata.js "></script>
+    <script src="/static/js/interactive-axis.js"></script>
 
   </body>
 
