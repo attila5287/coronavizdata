@@ -23,10 +23,14 @@ def interactive_axis():
     return render_template('interactive-axis.html', title='Interactive Axis')
 
 
+@app.route("/leaflet/bubble")
+def leaflet_bubble():
+    return render_template('leaflet-bubble.html', title='BubbleWorldMap')
+
+@app.route("/leaflet/choropleth")
+def leaflet_choropleth():
+    return render_template('leaflet-choropleth.html', title='Choropleth Map')
+
 @app.route("/test")
 def test():
     return render_template('test.html', title='Test')
-
-@app.route("/d3")
-def d3TipMaster():
-    return render_template('d3.html', title='D3')

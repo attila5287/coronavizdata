@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cell Towers</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="leaflet-heat.js"></script>
+
+  </head>
+<body>
+
+<div id="map"></div>
+
+<style>
+
+  body {
+    padding: 0px;
+    margin: 0px;
+  }
+
+  #map,
+  body,
+  html {
+    height: 100%;
+  }
+
+</style>
+
+<script type="text/javascript">
+
+var mapbox = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnVtYmFsb3JkIiwiYSI6ImNqaWNhZ2d1bjAxOHoza3BqcDQzMHR3Z3AifQ.KzBDaZozIdwa38NsQZslfw'
+
+var myMap = L.map('map', {
+  center: [37.7749, -122.4194],
+  zoom: 13
+});
+
+L.tileLayer(mapbox).addTo(myMap);
+
+var url = "https://data.sfgov.org/resource/gxxq-x39z.json?$limit=10000"
+
+d3.json(url, function(response){
+
+  console.log(response);
+
+  var heatArray = [];
+
+  for (var i = 0; i < response.length; i++) {
+    var location = response[i].location;
+
+    if (location) {
+      heatArray.push([location.latitude, location.longitude])
+    }
+  }
+
+  var heat = L.heatLayer(heatArray).addTo(myMap)
+
+});
+
+</script>
+
+</body>
+</html>

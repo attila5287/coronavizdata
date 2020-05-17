@@ -4,9 +4,11 @@
 var allJSON = testdata.locations.map((d) => {
   return {
   name: d.country,
-  lat: +d.coordinates.latitude, 
-  lon: +d.coordinates.longitude, 
-  pop: +d.country_population, 
+  locations: [
+    +d.coordinates.latitude,  
+    +d.coordinates.longitude, 
+  ],
+  population: +d.country_population, 
   };
 });
 
