@@ -34,8 +34,8 @@ function markerSize(population) {
   cities.forEach(city => {
   L.circle(city.location,{
     fillOpacity: 0.25,
-    color: "#002B36",
-    fillColor: "#2AA198",
+    color: "002B36",
+    fillColor: "#B58900",
     radius: markerSize(city.population)
   }).bindPopup(`<h1>${city.name}</h1><hr><h3>Population:${city.population}</h3>`).addTo(myMap);
 })

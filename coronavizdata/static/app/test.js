@@ -1,4 +1,3 @@
-
 // latestTimeSeries();
 
 var allJSON = testdata.locations.map((d) => {
