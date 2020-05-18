@@ -25,11 +25,12 @@ def interactive_axis():
 
 @app.route("/leaflet/bubble")
 def leaflet_bubble():
-    return render_template('leaflet-bubble.html', title='BubbleWorldMap')
+    return render_template('map-bubble-world.html', title='BubbleWorldMap')
 
 @app.route("/leaflet/choropleth")
 def leaflet_choropleth():
-    return render_template('leaflet-choropleth.html', title='Choropleth Map')
+    return render_template('map-choropleth-usa.html', title='Choropleth Map')
+
 
 @app.route("/test")
 def test():
