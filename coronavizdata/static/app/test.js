@@ -1,5 +1,4 @@
 // latestTimeSeries();
-
 var allJSON = testdata.locations.map((d) => {
   return {
   name: d.country,
