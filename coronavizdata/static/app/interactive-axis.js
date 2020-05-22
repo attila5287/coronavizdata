@@ -1,5 +1,4 @@
-
-// latestTimeSeries();
+latestTimeSeries();
 
 var allJSON = testdata.locations.map((d) => {
   return {
@@ -12,7 +11,7 @@ var allJSON = testdata.locations.map((d) => {
   };
 });
 
-staticTimeSeries();
+// staticTimeSeries();
 
 function staticTimeSeries() { 
   // var testDataLatest = testdata;
@@ -20,10 +19,8 @@ function staticTimeSeries() {
   let name = 'Turkey'; //default before user selection
   dropDownUpdate( data, 'static' );
   overallCountUp( data );
-  renderDynamicTable( prepData4TableAll( data ) );
   chosenFiguresUp( data, name );
   d3InterActiveAxes();
-  // d3MovingAxes( prepData4Scatter( data, name ) );
 }
 
 function geoMapFinder(name) {
@@ -52,11 +49,8 @@ function latestTimeSeries (){
     let name = 'Turkey'; //default before user selection
     dropDownUpdate( data, 'latest' );
     overallCountUp( data );
-    renderDynamicTable( prepData4TableAll( data ) );
     chosenFiguresUp( data, name );
-    d3MovingAxes( prepData4Scatter( data, name ) );
-
-    
+    d3InterActiveAxes();
   });
  }
 
@@ -294,7 +288,6 @@ function dropDownUpdate( data, static_or_latest ) {
       selected: false,
       description: `deaths ${format(array[lastIndex].deaths)} cases ${format(array[lastIndex].confirmed)}`,
       imageSrc: '/static/img/flags/Ensign_Flag_Nation_' + country.toLowerCase().replace( ' ', '_' ) + '-128.png'
-
     };
 
   } );
@@ -311,7 +304,6 @@ function dropDownUpdate( data, static_or_latest ) {
         // console.log('dropdown static_or_latest: ', static_or_latest);
         var data = testdaily;
         chosenFiguresUp( data, d.selectedData.value );
-        // d3MovingAxes( prepDataFromJSON( data, d.selectedData.value ) );
         
       } else {
 
@@ -329,7 +321,6 @@ function dropDownUpdate( data, static_or_latest ) {
         
         d3.json(url, function(err,data){
           chosenFiguresUp( data, name );
-          d3MovingAxes( prepDataFromJSON( data, name  ) );
         });
       } else {
         // console.log('dropdown latest pass');
