@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-	
-	<title>Choropleth Tutorial - Leaflet</title>
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+
+    <title>Choropleth Tutorial - Leaflet</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" class="favicon" href="/static/img/site/c_hex_aquamarine.ico" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css"
@@ -18,15 +19,17 @@
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
 
-   <!-- FONTS -->
+    <!-- FONTS -->
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -35,8 +38,9 @@
     <title>COVID-19-DataViz</title>
 
 
-</head>
-<body style="margin-top: 70px;">
+  </head>
+
+  <body style="margin-top: 70px;">
     <header>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
@@ -65,11 +69,11 @@
               <p class="py-0 my-0 text-balo text-sm">Interactive</p>
             </a>
             <a class="nav-item nav-link rounded-xl add-anime" href="/leaflet/bubble">
-                <i class="fas fa-globe-americas fa-fw"></i>
+              <i class="fas fa-globe-americas fa-fw"></i>
               <p class="py-0 my-0 text-balo text-sm">Bubble</p>
             </a>
             <a class="nav-item nav-link rounded-xl add-anime" href="/leaflet/choropleth">
-                <i class="fas fa-globe fa-fw"></i>
+              <i class="fas fa-globe fa-fw"></i>
               <p class="py-0 my-0 text-balo text-sm">Choropleth</p>
             </a>
           </ul>
@@ -115,46 +119,80 @@
         </div>
       </nav>
     </header>
-	<style>
-		#map { width: 800px; height: 500px; }
-.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
-.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
-</style>
+    <style>
+      #map {
+        width: 800px;
+        height: 500px;
+      }
 
-<style>
-      .legend {
-    line-height: 18px;
-    color: #555;
-}
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
-}
       .info {
-    padding: 6px 8px;
-    font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
-}
-.info h4 {
-    margin: 0 0 5px;
-    color: #777;
-}
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+      }
+
+      .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+      }
+
+      .legend {
+        text-align: left;
+        line-height: 18px;
+        color: #555;
+      }
+
+      .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+      }
     </style>
-    
-<div id='map'></div>
+
+    <style>
+      .legend {
+        line-height: 12px;
+        color: #555;
+
+      }
+
+      .legend i {
+        font-size: 8px;
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+      }
+
+      .info {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+      }
+
+      .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+      }
+    </style>
+      <div id='map'></div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
@@ -163,16 +201,17 @@
     </script>
 
     <script src="/static/plugins/ddslick.js"></script>
-    
-    <script type="text/javascript" src="/static/data/timeseries.js"></script>
-    <script type="text/javascript" src="/static/data/locations.js "></script>
-    <script type="text/javascript" src="/static/data/prep-geo.js"></script>
-    <script type="text/javascript" src="/static/data/us-states.js"></script> 
-    
-    <script type="text/javascript" src="/static/app/test.js"></script>
-    
-    <script type="text/javascript" src="/static/app/leaflet-choro.js"></script>
-    
-    <script type="text/javascript" src="/static/data/merge-states.js"></script>
-</body>
+
+    <script src="/static/data/timeseries.js"></script>
+    <script src="/static/data/locations.js "></script>
+    <script src="/static/data/prep-geo.js"></script>
+    <script src="/static/data/us-states.js"></script>
+
+
+    <script src="/static/app/navbar-countries.js"></script>
+    <script src="/static/app/states.js"></script>
+
+  </body>
+
 </html>
+-
