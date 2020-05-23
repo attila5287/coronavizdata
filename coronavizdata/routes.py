@@ -36,7 +36,7 @@ def leaflet_choropleth_europe():
     return render_template('europe.html', title='Choropleth Europe')
 
 @app.route("/leaflet/asia")
-def leaflet_choropleth_europe():
+def leaflet_choropleth_asia():
     return render_template('asia.html', title='Choropleth Asia')
 
 @app.route("/test")
