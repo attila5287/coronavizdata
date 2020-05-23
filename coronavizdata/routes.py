@@ -31,6 +31,9 @@ def leaflet_bubble():
 def leaflet_choropleth():
     return render_template('states.html', title='Choropleth US States')
 
+@app.route("/leaflet/europe")
+def leaflet_choropleth_europe():
+    return render_template('europe.html', title='Choropleth US States')
 
 @app.route("/test")
 def test():

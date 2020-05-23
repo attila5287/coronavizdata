@@ -1,34 +1,60 @@
+latestEurope();
+
 const format = d3.format( ',' );
 const formatDecimal = d3.format( '.4' );
-let strdate = getOffsetDate( 1, "mm-dd-yyyy" );
-console.log( 'strdate :>> ', strdate );
-// console.log('statesData :>> ', statesData);
-var urlBase = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/';
 
-let urlCompiled = urlBase + strdate + ".csv";
 
-d3.csv( urlCompiled,
-    ( error, csvData ) => {
-        if ( error ) {
-            console.error( error );
-        } else {
-            let dictDeaths = {};
-            let dictConfirmed = {};
-            for ( let index = 0; index < csvStateNames.length; index++ ) {
-                const name = csvStateNames[ index ];
-                const row = csvData[ index ];
-                dictDeaths[ name ] = +row.Deaths;
-                dictConfirmed[ name ] = +row.Confirmed;
-            }
-            statesData.features.forEach( stateJSON => {
-                stateJSON.properties[ 'deaths' ] = dictDeaths[ stateJSON.properties.name ]
-                stateJSON.properties[ 'confirmed' ] = dictConfirmed[ stateJSON.properties.name ]
 
-            } );
-            console.log( 'statesData AFTER :>> ', statesData );
+function dictNameDeaths( data ) {
+    const keys = Object.keys( data )
+    const length = data[ 'US' ].length;
+    // console.log( 'length --> ' + length );
+    dictNameObj = {};
+    keys.map( ( country ) => {
+        dictNameObj[ country ]= +data[ country ][ length - 1 ].deaths;
+    } );
+
+    return dictNameObj;
+}
+
+function dictNameConfirmed( data ) {
+    const keys = Object.keys( data )
+    const length = data[ 'US' ].length;
+    // console.log( 'length --> ' + length );
+    let dictNameObj = {};
+    keys.forEach( ( country ) => {
+            dictNameObj[ country ]= +data[ country ][ length - 1 ].confirmed;
+    } );
+    return dictNameObj;
+}
+
+function latestEurope() {
+    const url = 'https://pomber.github.io/covid19/timeseries.json';
+    d3.json( url, function ( error, data ) {
+        if ( error ) throw error;
+        const dictDeaths = dictNameDeaths( data );
+        const  dictConfirmed =   dictNameConfirmed( data );
+        // console.log( 'countriesData :>> ', countriesData );
+
+        console.log('dictDeaths :>> ', dictDeaths);
+        console.log('dictConfirmed :>> ', dictConfirmed);
+        countryNames = countriesData.features.map( ( country, index, array ) => {
+            return country.properties.name;
+        } );
+        // console.log( 'countryNames :>> ', countryNames );
+
+        countriesData.features.forEach((country) => {
+
+            country.properties['deaths'] = +dictDeaths[country.properties.name];
+
+            country.properties['confirmed'] = +dictConfirmed[country.properties.name];
+
+        })
+
+        // console.log('countriesData:>> ', countriesData);
 
             var mapboxAccessToken = "pk.eyJ1IjoiYXR0aWxhNTIiLCJhIjoiY2thOTE3N3l0MDZmczJxcjl6dzZoNDJsbiJ9.bzXjw1xzQcsIhjB_YoAuEw";
-            var map = L.map( 'map' ).setView( [ 37.8, -96 ], 4 );
+            var map = L.map( 'map' ).setView( [46.2276, 2.2137], 4 );
 
             L.tileLayer( 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
                 id: 'mapbox/dark-v10',
@@ -36,10 +62,18 @@ d3.csv( urlCompiled,
                     'Imagery © ' + '<a href="https://www.mapbox.com/">Mapbox</a>',
                 tileSize: 512,
                 zoomOffset: -1
-            } ).addTo( map );
+            } ).addTo( map );        
+
+            map.createPane('labels');
+            map.getPane('labels').style.zIndex = 650;
+            map.getPane('labels').style.pointerEvents = 'none';    
+
+            var positronLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+                    attribution: '©OpenStreetMap, ©CartoDB',
+                    pane: 'labels'
+            }).addTo(map);            
 
 
-            
             // feature fill colors gets colors from obj-prop-deaths value
             function style( feature ) {
                 return {
@@ -92,7 +126,7 @@ d3.csv( urlCompiled,
             };
 
             info.update = function ( props ) {
-                this._div.innerHTML = '<h4>US States COVID-19</h4>' + ( props ?
+                this._div.innerHTML = '<h4>Europe COVID-19</h4>' + ( props ?
                     '<b>' + props.name + '</b><br />' + format( props.deaths ) + ' deaths ' + format( props.confirmed ) + ' confirmed' :
                     'Hover over a state' );
             };
@@ -120,7 +154,7 @@ d3.csv( urlCompiled,
 
             legend.addTo( map );
 
-            geojson = L.geoJson( statesData, {
+            geojson = L.geoJson( countriesData, {
                 style: style,
                 onEachFeature: onEachFeature
             } ).addTo( map );
@@ -139,47 +173,11 @@ d3.csv( urlCompiled,
             }
 
 
-            geojson = L.geoJson( statesData, {
+            geojson = L.geoJson( countriesData, {
                 style: style,
                 onEachFeature: onEachFeature
             } ).addTo( map );
 
-            map.createPane('labels');
-            map.getPane('labels').style.zIndex = 650;
-            map.getPane('labels').style.pointerEvents = 'none';    
 
-            var positronLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-                    attribution: '©OpenStreetMap, ©CartoDB',
-                    pane: 'labels'
-            }).addTo(map);              
-        }
     } );
-
-//function to get date string with offset and format
-function getOffsetDate( offset, format ) {
-    var tday;
-    var today = new Date();
-
-    today.setDate( today.getDate() - offset );
-    var dd = today.getDate();
-
-    var mm = today.getMonth() + 1;
-    var yyyy = today.getFullYear();
-
-    if ( dd < 10 ) {
-        dd = '0' + dd;
-    }
-
-    if ( mm < 10 ) {
-        mm = '0' + mm;
-    }
-
-    if ( format == "yyyy-mm-dd" )
-        tday = yyyy + '-' + mm + '-' + dd;
-    else if ( format == "mm-dd-yyyy" )
-        tday = mm + '-' + dd + '-' + yyyy;
-    else
-        tday = yyyy + '-' + mm + '-' + dd;
-
-    return tday;
 }
