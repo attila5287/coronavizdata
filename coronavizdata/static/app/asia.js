@@ -1,4 +1,3 @@
-
 choroplethByGeoJSON(asia);
 
 const format = d3.format( ',' );
@@ -50,7 +49,7 @@ function choroplethByGeoJSON(geoJSON) {
 
 
         var mapboxAccessToken = "pk.eyJ1IjoiYXR0aWxhNTIiLCJhIjoiY2thOTE3N3l0MDZmczJxcjl6dzZoNDJsbiJ9.bzXjw1xzQcsIhjB_YoAuEw";
-        var map = L.map( 'map' ).setView( [ 44, 66 ], 4 );
+        var map = L.map( 'map' ).setView( [ 32, 66 ], 4 );
 
         L.tileLayer( 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
             id: 'mapbox/dark-v10',
