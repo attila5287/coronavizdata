@@ -23,7 +23,6 @@ d3.csv( urlCompiled,
             statesData.features.forEach( stateJSON => {
                 stateJSON.properties[ 'deaths' ] = dictDeaths[ stateJSON.properties.name ]
                 stateJSON.properties[ 'confirmed' ] = dictConfirmed[ stateJSON.properties.name ]
-
             } );
             console.log( 'statesData AFTER :>> ', statesData );
 
@@ -38,7 +37,15 @@ d3.csv( urlCompiled,
                 zoomOffset: -1
             } ).addTo( map );
 
+            map.createPane('labels');
+            map.getPane('labels').style.zIndex = 650;
+            map.getPane('labels').style.pointerEvents = 'none';    
 
+            var positronLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+                    attribution: '©OpenStreetMap, ©CartoDB',
+                    pane: 'labels'
+            }).addTo(map);              
+        }
             
             // feature fill colors gets colors from obj-prop-deaths value
             function style( feature ) {
@@ -144,15 +151,7 @@ d3.csv( urlCompiled,
                 onEachFeature: onEachFeature
             } ).addTo( map );
 
-            map.createPane('labels');
-            map.getPane('labels').style.zIndex = 650;
-            map.getPane('labels').style.pointerEvents = 'none';    
 
-            var positronLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-                    attribution: '©OpenStreetMap, ©CartoDB',
-                    pane: 'labels'
-            }).addTo(map);              
-        }
     } );
 
 //function to get date string with offset and format
