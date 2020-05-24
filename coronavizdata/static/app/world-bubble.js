@@ -1,4 +1,3 @@
-coronavirus-tracker-api.herokuapp.com/v2/locations
 const url = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations';
 d3.json(url, function(error, data) {
   if (error) {
