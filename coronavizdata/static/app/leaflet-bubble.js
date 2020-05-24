@@ -31,7 +31,8 @@ function markerSize(population) {
 // name: "New York",
 // population: 8550405
     // location: [40.7128, -74.0059],
-  cities.forEach(city => {
+  
+    cities.forEach(city => {
   L.circle(city.location,{
     fillOpacity: 0.25,
     color: "#002B36",

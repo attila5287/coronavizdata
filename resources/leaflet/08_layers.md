@@ -19,3 +19,4 @@ In this activity we will utilize overlay and base layers in a Leaflet map.
    1. `baseMaps` contains layers that can be shown only one a time. In this case, we can either show light maps or dark maps, but never both at the same time. One base layer must always be visible.
 
    2. `overlayMaps` contains layers that can appear simultaneously with other layers of the same type and can be toggled off completely. Generally this refers to markers. Note how we can toggle cities on and off.
+
