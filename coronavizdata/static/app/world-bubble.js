@@ -1,6 +1,12 @@
-const url = 'http://coronavirus-tracker-api.herokuapp.com/v2/locations';
-d3.json(url, function(err, data) {
-  bubbleUpMyWorld(data);
+coronavirus-tracker-api.herokuapp.com/v2/locations
+const url = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations';
+d3.json(url, function(error, data) {
+  if (error) {
+    console.log('error :>> ', error);
+  } else {
+    
+    bubbleUpMyWorld(data);
+  }
 });
 
 
