@@ -1,9 +1,18 @@
-const format = d3.format( ',' );
+const url = 'http://coronavirus-tracker-api.herokuapp.com/v2/locations';
+d3.json(url, function(err, data) {
+  bubbleUpMyWorld(data);
+});
+
+
+// bubbleUpMyWorld(testdata);
+
+function bubbleUpMyWorld(data) {
+  const format = d3.format( ',' );
 let coordByName = {},
     abCodeByName = {},
     popByName = {};
 
-testdata.locations.forEach(d => { 
+data.locations.forEach(d => { 
   const name = d.country;
   coordByName[name] = d.coordinates;
   popByName[name] = +d.country_population;
@@ -16,7 +25,7 @@ testdata.locations.forEach(d => {
 const groupedByDeaths = d3.nest()
   .key(function(d) { return d.country; })
   .rollup(function(v) { return d3.sum(v, function(d) { return d.latest.deaths; }); })
-  .entries(testdata.locations);
+  .entries(data.locations);
   // console.log('groupedByDeaths :>> ', groupedByDeaths.length);
 
 const names = groupedByDeaths.map((d) => d.key);
@@ -25,7 +34,7 @@ const names = groupedByDeaths.map((d) => d.key);
 const groupedByConfirmed = d3.nest()
   .key(function(d) { return d.country; })
   .rollup(function(v) { return d3.sum(v, function(d) { return d.latest.confirmed; }); })
-  .entries(testdata.locations);
+  .entries(data.locations);
 // console.log('groupedByConfirmed :>> ', groupedByConfirmed.length);
 
 let deathsByName = {},
@@ -136,3 +145,6 @@ var myMap = L.map( "map", {
 L.control.layers( baseMaps, overlayMaps, {
   collapsed: false
 } ).addTo( myMap );
+
+  
+}

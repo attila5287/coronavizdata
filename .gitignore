@@ -128,3 +128,17 @@ dmypy.json
 # Pyre type checker
 .pyre/
 coronavizdata/static/geojson/countries.geojson
+09_Stu_City_Population_Layers/city-population-layers.html
+09_Stu_City_Population_Layers/logic.js
+09_Stu_City_Population_Layers/README.md
+09_Stu_City_Population_Layers/style.css
+09_Stu_City_Population_Layers/Solved/city-population-layers.html
+09_Stu_City_Population_Layers/Solved/logic.js
+09_Stu_City_Population_Layers/Solved/style.css
+coronavizdata/09_Stu_City_Population_Layers/city-population-layers.html
+coronavizdata/09_Stu_City_Population_Layers/logic.js
+coronavizdata/09_Stu_City_Population_Layers/README.md
+coronavizdata/09_Stu_City_Population_Layers/style.css
+coronavizdata/09_Stu_City_Population_Layers/Solved/city-population-layers.html
+coronavizdata/09_Stu_City_Population_Layers/Solved/logic.js
+coronavizdata/09_Stu_City_Population_Layers/Solved/style.css
