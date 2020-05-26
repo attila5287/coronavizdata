@@ -38,16 +38,13 @@ function choroplethByGeoJSON(geoJSON) {
         countryNames = geoJSON.features.map( ( country, index, array ) => {
             return country.properties.name;
         } );
-
+        console.log('country :>> ', country);
+        // --- map --- map --- map --- map --- map
         geoJSON.features.forEach( ( country ) => {
-
             country.properties[ 'deaths' ] = +dictDeaths[ country.properties.name ];
-
             country.properties[ 'confirmed' ] = +dictConfirmed[ country.properties.name ];
-
         } )
-
-
+        // --- map --- map --- map --- map --- map
         var mapboxAccessToken = "pk.eyJ1IjoiYXR0aWxhNTIiLCJhIjoiY2thOTE3N3l0MDZmczJxcjl6dzZoNDJsbiJ9.bzXjw1xzQcsIhjB_YoAuEw";
         var map = L.map( 'map' ).setView( [ 32, 66 ], 4 );
 

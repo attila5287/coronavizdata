@@ -1,3 +1,11 @@
+const mapAccessToken = d3.json('/fetch/maptoken', function(err, data) {
+  console.log('data :>> ', 
+  function () {return data;}
+  );
+});
+
+console.log('mapAccessToken :>> ', mapAccessToken);
+
 const format = d3.format( ',' );
 let coordByName = {},
     abCodeByName = {},

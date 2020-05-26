@@ -1,4 +1,5 @@
-from flask import render_template, url_for, flash, redirect, request, abort
+import os
+from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 from coronavizdata import app, db
 
 @app.route("/")
@@ -42,3 +43,16 @@ def leaflet_choropleth_asia():
 @app.route("/test")
 def test():
     return render_template('test.html', title='Test')
+
+
+# squares for dynamic field
+@app.route('/fetch/but', methods=['GET', 'POST'])
+def jsonify_maptoken():
+    ''' RETURNS JSONIFIED DATA FOR SQUARES-HOME SELECT ELEMENT'''
+    pass
+    mapAccessToken = os.environ.get('MAP_ACCESS_TOKEN')
+    
+    # print(' --- mapAccessToken ---')
+    # print(mapAccessToken)
+    
+    return jsonify({'doNotTell': mapAccessToken})

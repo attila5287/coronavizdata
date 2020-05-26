@@ -9,8 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
-develop-eggs/
-dist/
+develop-eggs/dist/
 downloads/
 eggs/
 .eggs/
@@ -142,3 +141,4 @@ coronavizdata/09_Stu_City_Population_Layers/style.css
 coronavizdata/09_Stu_City_Population_Layers/Solved/city-population-layers.html
 coronavizdata/09_Stu_City_Population_Layers/Solved/logic.js
 coronavizdata/09_Stu_City_Population_Layers/Solved/style.css
+coronavizdata/static/data/mapAccessToken.js

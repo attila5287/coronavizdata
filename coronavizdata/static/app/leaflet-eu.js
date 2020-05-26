@@ -36,8 +36,8 @@ function latestEurope() {
         const  dictConfirmed =   dictNameConfirmed( data );
         // console.log( 'countriesData :>> ', countriesData );
 
-        console.log('dictDeaths :>> ', dictDeaths);
-        console.log('dictConfirmed :>> ', dictConfirmed);
+        // console.log('dictDeaths :>> ', dictDeaths);
+        // console.log('dictConfirmed :>> ', dictConfirmed);
         countryNames = countriesData.features.map( ( country, index, array ) => {
             return country.properties.name;
         } );
