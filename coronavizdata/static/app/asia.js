@@ -33,12 +33,11 @@ function choroplethByGeoJSON(geoJSON) {
         const dictDeaths = dictNameDeaths( data );
         const dictConfirmed = dictNameConfirmed( data );
 
-        console.log( 'dictDeaths :>> ', dictDeaths );
-        console.log( 'dictConfirmed :>> ', dictConfirmed );
+        // console.log( 'dictDeaths :>> ', dictDeaths );
+        // console.log( 'dictConfirmed :>> ', dictConfirmed );
         countryNames = geoJSON.features.map( ( country, index, array ) => {
             return country.properties.name;
         } );
-        console.log('country :>> ', country);
         // --- map --- map --- map --- map --- map
         geoJSON.features.forEach( ( country ) => {
             country.properties[ 'deaths' ] = +dictDeaths[ country.properties.name ];

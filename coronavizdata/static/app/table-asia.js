@@ -1,9 +1,9 @@
-const europeanCountries = [
+const namesEurope = [
   "Albania", "Austria", "Belgium", "Bulgaria", "Bosnia and Herzegovina", "Belarus", "Switzerland", "Czechia", "Denmark", "Germany", "Spain", "Estonia", "Finland", "France", "United Kingdom", "Greece", "Croatia", "Hungary", "Ireland", "Iceland", "Italy", "Kosovo", "Lithuania", "Luxembourg", "Latvia", "Moldova", "North Macedonia", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Slovakia", "Sweden", "Slovenia", "Ukraine", "Turkey"
 ];
 
-function prepDataForUnique( data ) {
-  console.log( '--------- TABLE-EU ---------------- :>> ' );
+function prepRowsFromJSON( data ) {
+  console.log( '--------- TABLE-ASIA ---------------- :>> ' );
   const format = d3.format( ',' );
   let abCodeByName = {},
     popByName = {};
@@ -53,13 +53,12 @@ function prepDataForUnique( data ) {
     confirmedByName[ d.key ] = +d.value;
   } )
 
-  // console.log('deathsByName :>> ', deathsByName);
-  // console.log('confirmedBy :>> ', confirmedByName);
+// console.log('deathsByName :>> ', deathsByName);
+// console.log('confirmedBy :>> ', confirmedByName);
 
+// refresh memory: there are 266 entries but only 187 unique country names
 
-  // refresh memory: there are 266 entries but only 187 unique country names
-
-const tableForAll = names.map(name => {
+const dataForAll = names.map(name => {
   return {
     'Flag' :'/static/img/flags/Ensign_Flag_Nation_' + name.toLowerCase().replace( ' ', '_' ) + '-128.png',
     'Name': name,
@@ -69,13 +68,31 @@ const tableForAll = names.map(name => {
   }
   ;
 })
-// console.log('object :>> ', tableForAll);
-// console.log('object :>> ', tableForAll[150]);
 
-return tableForAll;
+function outputByGeoNames(geoJSON) {
+  const names = asia.features.map(country => country.properties.name);
+  return names.map(name => {
+  return {
+    'Flag' :'/static/img/flags/Ensign_Flag_Nation_' + name.toLowerCase().replace( ' ', '_' ) + '-128.png',
+    'Name': name,
+    'Code': abCodeByName[name],
+    'Deaths' : deathsByName[name],
+    'Confirmed' : confirmedByName[name],
+    'Population' : popByName[name],
+  }
+  ;
+});
+}  
+
+console.log('outputByGeoNames(asia) :>> ', outputByGeoNames(asia));
+let output = {
+  all : dataForAll,
+  asia : outputByGeoNames(asia).sort(function(a, b){
+    return b["Deaths"]-a ["Deaths"];
+  })  
+};
+return output;
 }
-renderDynamicTable(prepDataForUnique( testdata ));
-
 
 function renderDynamicTable( rows ) {
   // console.log('--- rows ----');
@@ -108,8 +125,8 @@ function renderDynamicTable( rows ) {
       var $img = document. createElement("img");
       $img.src = currentRow[field];
       $img.class="img-thumbnail";
-      $img.alt="thumbnail";
-      $img.style="height: 5rem;";
+      $img.alt=+" thumbnail";
+      $img.style="height: 4rem;";
       $cell.appendChild($img);
 
     }
@@ -130,3 +147,11 @@ function renderDynamicTable( rows ) {
     }        
   }
 }
+ 
+
+renderDynamicTable(prepRowsFromJSON( testdata ).asia);
+
+
+// d3.json('http://coronavirus-tracker-api.herokuapp.com/v2/locations', function(err, data) {
+//   renderDynamicTable(prepRowsFromJSON( data ).europe);
+// });

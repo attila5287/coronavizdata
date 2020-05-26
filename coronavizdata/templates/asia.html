@@ -128,11 +128,11 @@
       </nav>
     </header>
     <style>
-      #map {
-        width: 800px;
-        height: 500px;
-      }
-
+    #map,
+    body,
+    html {
+      height: 90%;
+    }
       .info {
         padding: 6px 8px;
         font: 14px/16px Arial, Helvetica, sans-serif;
@@ -193,7 +193,12 @@
       }
     </style>
       <div id='map'></div>
+      <hr class="mt-0 mb-2 border-success">
 
+      <table class="table table-hover table-striped text-center">
+        <thead class="text-robo text-larger"></thead>
+        <tbody class="text-robo text-larger" ></tbody>
+      </table>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -212,14 +217,12 @@
 
     <script src="/static/data/timeseries.js"></script>
     <script src="/static/data/locations.js "></script>
-    <script src="/static/data/prep-geo.js"></script>
-    <script src="/static/data/us-states.js"></script>
+    <script src="/static/data/countries.js "></script>
     <script src="/static/geojson/asia.js"></script>
 
-
     <script src="/static/app/navbar-countries.js"></script>
-    <script src="/static/data/countries.js"></script>
     <script src="/static/app/asia.js"></script>
+    <script src="/static/app/table-asia.js"></script>
 
   </body>
 
