@@ -99,7 +99,7 @@ console.log('outputByGeoNames(asia) :>> ', outputByGeoNames(asia));
 let output = {
   all : dataForAll,
   asia : dataForAsia.sort(function(a, b){
-    return b["Deaths"]-a ["Deaths"];
+    return b["Deaths"]-a["Deaths"];
     // return b["Population"]-a ["Population"];
   })  
 };

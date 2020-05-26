@@ -128,10 +128,11 @@
       </nav>
     </header>
     <style>
-      #map {
-        width: 800px;
-        height: 500px;
-      }
+    #map,
+    body,
+    html {
+      height: 90%;
+    }
 
       .info {
         padding: 6px 8px;
@@ -192,7 +193,18 @@
         color: #777;
       }
     </style>
+
       <div id='map'></div>
+
+      <hr class="mt-0 mb-2 border-success">
+
+      <table class="table table-hover table-striped text-center">
+        <thead class="text-robo text-larger"></thead>
+        <tbody class="text-robo text-larger" ></tbody>
+      </table>
+
+
+
 
 
     <!-- Optional JavaScript -->
@@ -212,12 +224,12 @@
 
     <script src="/static/data/timeseries.js"></script>
     <script src="/static/data/locations.js "></script>
-    <script src="/static/data/prep-geo.js"></script>
     <script src="/static/data/us-states.js"></script>
 
 
     <script src="/static/app/navbar-states.js"></script>
     <script src="/static/app/states.js"></script>
+    <script src="/static/app/table-states.js"></script>
 
   </body>
 

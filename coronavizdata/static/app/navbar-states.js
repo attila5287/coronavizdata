@@ -82,8 +82,8 @@ function overallCountUpStates( data ) {
     totalConfirmed += +row.Confirmed;
   } );
 
-  console.log(totalDeaths);
-  console.log(totalConfirmed);
+  // console.log(totalDeaths);
+  // console.log(totalConfirmed);
 
   const format = d3.format( ',' );
   d3.select( '#overallDeaths' ).text( format( totalDeaths ) );
@@ -91,7 +91,7 @@ function overallCountUpStates( data ) {
 }
 
 function dropDownUpdateStates( data, static_or_latest ) {
-  console.log('data :>> ', data);
+  // console.log('data :>> ', data);
 
   const format = d3.format( ',' );
   const ddJSON = data.map( ( row, i ) => {
@@ -105,7 +105,7 @@ function dropDownUpdateStates( data, static_or_latest ) {
     };
 
   } );
-console.log('ddJSON :>> ', ddJSON);
+// console.log('ddJSON :>> ', ddJSON);
   $( '#opts' ).ddslick( {
     data: ddJSON,
     defaultSelectedIndex: 6,
@@ -125,7 +125,7 @@ console.log('ddJSON :>> ', ddJSON);
 
       if (latest) {
         const name = d.selectedData.value;
-        console.log('name :>> ', name);
+        // console.log('name :>> ', name);
   var urlBase = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/';
   let strdate = getOffsetDate( 1, "mm-dd-yyyy" );
   let urlCompiled = urlBase + strdate + ".csv";

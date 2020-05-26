@@ -24,7 +24,8 @@ d3.csv( urlCompiled,
                 stateJSON.properties[ 'deaths' ] = dictDeaths[ stateJSON.properties.name ]
                 stateJSON.properties[ 'confirmed' ] = dictConfirmed[ stateJSON.properties.name ]
             } );
-            console.log( 'statesData AFTER :>> ', statesData );
+            renderDynamicTable(prepDataFromCSV(csvData));
+            // console.log( 'statesData AFTER :>> ', statesData );
 
             var mapboxAccessToken = "pk.eyJ1IjoiYXR0aWxhNTIiLCJhIjoiY2thOTE3N3l0MDZmczJxcjl6dzZoNDJsbiJ9.bzXjw1xzQcsIhjB_YoAuEw";
             var map = L.map( 'map' ).setView( [ 37.8, -96 ], 4 );
