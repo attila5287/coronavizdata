@@ -1,7 +1,3 @@
-const namesEurope = [
-  "Albania", "Austria", "Belgium", "Bulgaria", "Bosnia and Herzegovina", "Belarus", "Switzerland", "Czechia", "Denmark", "Germany", "Spain", "Estonia", "Finland", "France", "United Kingdom", "Greece", "Croatia", "Hungary", "Ireland", "Iceland", "Italy", "Kosovo", "Lithuania", "Luxembourg", "Latvia", "Moldova", "North Macedonia", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Slovakia", "Sweden", "Slovenia", "Ukraine", "Turkey"
-];
-
 function prepRowsFromJSON( data ) {
   console.log( '--------- TABLE-ASIA ---------------- :>> ' );
   const format = d3.format( ',' );
@@ -76,19 +72,35 @@ function outputByGeoNames(geoJSON) {
     'Flag' :'/static/img/flags/Ensign_Flag_Nation_' + name.toLowerCase().replace( ' ', '_' ) + '-128.png',
     'Name': name,
     'Code': abCodeByName[name],
-    'Deaths' : deathsByName[name],
-    'Confirmed' : confirmedByName[name],
-    'Population' : popByName[name],
+    'Deaths' : +deathsByName[name],
+    'Confirmed' : +confirmedByName[name],
+    'Population' : +popByName[name],
   }
   ;
 });
 }  
+// const dataForAsia = outputByGeoNames(asia);
+const namesAsia = asia.features.map(obj => obj.properties.name );
+console.log('namesAsia :>> ', namesAsia);
+const dataForAsia = namesAsia.map(name => {
+  return {
+    'Flag' :'/static/img/flags/Ensign_Flag_Nation_' + name.toLowerCase().replace( ' ', '_' ) + '-128.png',
+    'Name': name,
+    'Code': abCodeByName[name],
+    'Deaths' : +deathsByName[name],
+    'Confirmed' : +confirmedByName[name],
+    'Population' : +popByName[name],
+  }
+  ;
+})
+
 
 console.log('outputByGeoNames(asia) :>> ', outputByGeoNames(asia));
 let output = {
   all : dataForAll,
-  asia : outputByGeoNames(asia).sort(function(a, b){
+  asia : dataForAsia.sort(function(a, b){
     return b["Deaths"]-a ["Deaths"];
+    // return b["Population"]-a ["Population"];
   })  
 };
 return output;
@@ -149,9 +161,9 @@ function renderDynamicTable( rows ) {
 }
  
 
-renderDynamicTable(prepRowsFromJSON( testdata ).asia);
+// renderDynamicTable(prepRowsFromJSON( testdata ).asia);
 
 
-// d3.json('http://coronavirus-tracker-api.herokuapp.com/v2/locations', function(err, data) {
-//   renderDynamicTable(prepRowsFromJSON( data ).europe);
-// });
+d3.json('http://coronavirus-tracker-api.herokuapp.com/v2/locations', function(err, data) {
+  renderDynamicTable(prepRowsFromJSON( data ).asia);
+});
