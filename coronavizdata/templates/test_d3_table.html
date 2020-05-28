@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<style>
+#table-location {
+	margin-left: 0;
+    margin-right: auto;
+    width: 70%;
+}
+
+</style>
+</head>
+<body>
+<div id="table-location"></div>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script>
+  var svg = d3.select("body").append("svg")
+    .attr("height", 1)
+    .attr("width", 1);
+
+var table = d3.select("#table-location")
+	.append("table")
+	.attr("class", "table table-condensed table-striped"),
+	thead = table.append("thead"),
+	tbody = table.append("tbody");
+
+let url = "../static/data/VotingInformationTable.tsv";
+
+d3.tsv(url, function(error, data){
+
+	// filter year
+	var data = data.filter(function(d){return d.Year == '2012';});
+	// Get every column value
+	var columns = Object.keys(data[0])
+		.filter(function(d){
+			return ((d != "Year"));
+		});
+
+	var header = thead.append("tr")
+		.selectAll("th")
+		.data(columns)
+		.enter()
+		.append("th")
+			.text(function(d){ return d;})
+			.on("click", function(d){
+				if (d == "State"){
+					rows.sort(function(a, b) {
+						if (a[d] < b[d]){
+							return -1;
+						}
+						if (a[d] > b[d]){
+							return 1;
+						}
+						else{
+							return 0;
+						}
+    				});
+				}
+				else if (d.split(" ")[0] == "Percent"){
+					rows.sort(function(a, b){
+						return +b[d].split("%")[0] - +a[d].split("%")[0];
+					});
+				}
+				else {
+					rows.sort(function(a, b){
+						return b[d] - a[d];
+					})
+				}
+  			});
+
+	var rows = tbody.selectAll("tr")
+		.data(data)
+		.enter()
+		.append("tr")
+		.on("mouseover", function(d){
+			d3.select(this)
+				.style("background-color", "orange");
+		})
+		.on("mouseout", function(d){
+			d3.select(this)
+				.style("background-color","transparent");
+		});
+
+	var cells = rows.selectAll("td")
+		.data(function(row){
+			return columns.map(function(d, i){
+				return {i: d, value: row[d]};
+			});
+		})
+		.enter()
+		.append("td")
+		.html(function(d){ return d.value;});
+		
+
+
+});
+
+</script>
+</body>

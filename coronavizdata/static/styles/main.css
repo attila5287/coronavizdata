@@ -1,3 +1,10 @@
+
+.bordered {
+  border-width: thin;
+  border-radius: 4px;
+  border-color: #2aa198;
+}
+
 #hairmetal {
   border-radius: 8px;
 }
@@ -48,21 +55,21 @@
 
 /* ------------------------- */
 .add-anime {
-  transition: ease 0.5s;
+  transition: ease 0.25s;
 }
 
 .add-anime:hover {
   color:#2aa198;
   transform: scale(1.1, 1.1);
-  box-shadow: rgb(188, 143, 250) 0px 15px 15px;
+  box-shadow: rgb(143, 250, 227) 0px 15px 15px;
 }
 
 .add-anime:hover:first-child {
-  box-shadow: rgb(65, 237, 243) -5px 15px 15px;
+  box-shadow: rgb(177, 159, 238) -5px 15px 15px;
 }
 
 .add-anime:hover:last-child {
-  box-shadow: rgb(80, 224, 167) 5px 15px 15px;
+  box-shadow: rgb(230, 194, 111) 5px 15px 15px;
 }
 .text-larger {
   font-size: 1.25rem;
