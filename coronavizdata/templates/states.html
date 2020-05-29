@@ -195,14 +195,123 @@
     </style>
 
       <div id='map'></div>
+            <style>
+        .fa-stack {
+          font-size: 1rem;
+        }
 
-      <hr class="mt-0 mb-2 border-success">
-<div id="table-goes-here"></div>
+        i {
+          vertical-align: middle;
+        }
+      </style>
+      <div id="viz-box">
+        <hr class="border-success text-center animated infinite pulse  w-50"
+          style="opacity: 70%;stroke-linecap: round;">
+        <h2 class="text-center text-digi shadow-turq">US States vs COVID-19</h2>
+        <hr class="border-success text-center animated infinite heartBeat w-25" style="opacity: 70%">
+
+        <div class="d-flex flex-row justify-content-center">
+          <div class="d-flex flex-column">
+            <div class="d-flex flex-row text-success justify-content-end shadow-turq">
+              <h2 class="card-t3xt"></h2>
+              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center">
+                <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
+                  <h4 class="card-title m-0">HOVER</h4>
+                </div>
+              </div>
+              <div class="fa-1x ml-0">
+                <i class="fas fa-minus"></i>
+                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+              </div>
+            </div>
+            <div class="d-flex flex-row text-success justify-content-end shadow-turq mt-3">
+
+              <h2 class="card-t3xt"></h2>
+
+              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1">
+                <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
+                  <h4 class="card-title m-0">OVER</h4>
+                </div>
+              </div>
+              <div class="fa-1x ml-0">
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+              </div>
+            </div>
+            <div class="d-flex flex-row text-success shadow-turq mt-3">
+              <h1 class="card-t3xt"></h1>
+              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1 px-2">
+                <h3 class="card-title m-0">TABLE</h3>
+                <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
+                </div>
+              </div>
+              <div class="fa-1x ml-0">
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+              </div>
+            </div>
+          </div>
+
+          <img src="../static/img/states/default.png" style="opacity: 50%;height:12rem;" alt="viz-bar-img" class="shadow-turq add-anime"  >
+          <div class="d-flex flex-column">
+            <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq">
+              <h2 class="card-t3xt"></h2>
+              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center">
+                <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
+                  <h4 class="card-title m-0">DISPLAY</h4>
+                </div>
+              </div>
+              <div class="fa-1x ml-0">
+                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                <i class="fas fa-minus"></i>
+              </div>
+            </div>
+            <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq mt-3" style="vertical-align:center;">
+
+              <h2 class="card-t3xt"></h2>
+
+              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1">
+                <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
+                  <h4 class="card-title m-0">STATE</h4>
+                </div>
+              </div>
+              <div class="fa-1x ml-0">
+                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+              </div>
+            </div>
+            <div class="d-flex flex-row-reverse text-success shadow-turq mt-3">
+              <h1 class="card-t3xt"></h1>
+              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1">
+                <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
+                  <h3 class="card-title m-0">DETAILS</h3>
+                </div>
+              </div>
+              <div class="fa-1x ml-0">
+                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus"></i>
+              </div>
+            </div>
+          </div>
 
 
 
 
-
+        </div>
+      </div>
+      <div id="table-goes-here"></div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -28,6 +28,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
         })
       };
     });
+    
     // I strongly advise to have a look to dataReady with
     // console.log(dataReady)
 
