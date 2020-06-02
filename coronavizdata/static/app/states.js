@@ -1,4 +1,4 @@
-const format = d3.format( ',' );
+const formt = d3.formt( ',' );
 const formatDecimal = d3.format( '.4' );
 let strdate = getOffsetDate( 1, "mm-dd-yyyy" );
 console.log( 'strdate :>> ', strdate );
@@ -102,7 +102,7 @@ d3.csv( urlCompiled,
 
             info.update = function ( props ) {
                 this._div.innerHTML = '<h4>US States COVID-19</h4>' + ( props ?
-                    '<b>' + props.name + '</b><br />' + format( props.deaths ) + ' deaths ' + format( props.confirmed ) + ' confirmed' :
+                    '<b>' + props.name + '</b><br />' + formt( props.deaths ) + ' deaths ' + formt( props.confirmed ) + ' confirmed' :
                     'Hover over a state' );
             };
             info.addTo( map );

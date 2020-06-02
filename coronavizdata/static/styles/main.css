@@ -1,3 +1,13 @@
+.opac-70{
+  opacity: 0.7;
+}
+.opac-50{
+  opacity: 0.5;
+}
+.opac-30{
+  opacity: 0.3;
+}
+
 .shadow-turq {
   text-shadow: 1px 3px 8px #2aa198;
 }
@@ -28,6 +38,7 @@
   background-size: cover;
   opacity: 0.3;
 }
+
 
 
 
@@ -74,6 +85,9 @@
 
 .add-anime:hover:last-child {
   box-shadow: rgb(230, 194, 111) 5px 15px 15px;
+}
+.text-onerem {
+  font-size: 1rem;
 }
 .text-larger {
   font-size: 1.25rem;

@@ -3,7 +3,7 @@
 
   <head>
 
-    <title>Choropleth Tutorial - Leaflet</title>
+    <title>US States- Leaflet</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -204,37 +204,36 @@
           vertical-align: middle;
         }
       </style>
-      <div id="viz-box">
-        <hr class="border-success text-center animated infinite pulse  w-50"
-          style="opacity: 70%;stroke-linecap: round;">
+            <div id="num-box">
+        <hr class="border-success text-center animated infinite pulse w-50 mb-1 opac-70"
+          style="stroke-linecap: round;">
         <h2 class="text-center text-digi shadow-turq">US States vs COVID-19</h2>
-        <hr class="border-success text-center animated infinite heartBeat w-25" style="opacity: 70%">
+        <hr class="border-success text-center animated infinite heartBeat w-25 my-2 opac-70">
 
-        <div class="d-flex flex-row justify-content-center">
+        <div class="d-flex flex-row justify-content-center align-items-center">
           <div class="d-flex flex-column">
             <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-              <h2 class="card-t3xt"></h2>
-              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center">
+              <h1 class="card-t3xt"></h1>
+              <div class="card add-anime rounded-xl border-success bg-transparent mx-1 shadow-gold text-center">
                 <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
                   <h4 class="card-title m-0">HOVER</h4>
                 </div>
               </div>
-              <div class="fa-1x ml-0">
+              <div class="fa-1x mx-0 my-2">
                 <i class="fas fa-minus"></i>
                 <i class="far fa-dot-circle animated infinite heartBeat "></i>
               </div>
             </div>
             <div class="d-flex flex-row text-success justify-content-end shadow-turq mt-3">
 
-              <h2 class="card-t3xt"></h2>
+              <h1 class="card-t3xt"></h1>
 
-              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1">
+              <div class="card add-anime rounded-xl border-success bg-transparent mx-1 shadow-gold text-center p-1">
                 <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
                   <h4 class="card-title m-0">OVER</h4>
                 </div>
               </div>
-              <div class="fa-1x ml-0">
-                <i class="fas fa-minus"></i>
+              <div class="fa-1x mx-0 my-2">
                 <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
                 <i class="far fa-dot-circle animated infinite heartBeat "></i>
@@ -242,14 +241,12 @@
             </div>
             <div class="d-flex flex-row text-success shadow-turq mt-3">
               <h1 class="card-t3xt"></h1>
-              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1 px-2">
+              <div class="card add-anime rounded-xl border-success bg-transparent mx-1 shadow-gold text-center p-1 px-2">
                 <h3 class="card-title m-0">TABLE</h3>
                 <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
                 </div>
               </div>
-              <div class="fa-1x ml-0">
-                <i class="fas fa-minus"></i>
-                <i class="fas fa-minus"></i>
+              <div class="fa-1x mx-0 my-2">
                 <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
@@ -258,47 +255,44 @@
             </div>
           </div>
 
-          <img src="../static/img/states/default.png" style="opacity: 50%;height:12rem;" alt="viz-bar-img" class="shadow-turq add-anime"  >
+          <img src="../static/img/states/default.png" style="opacity: 50%;height:12rem;" alt="viz-bar-img">
           <div class="d-flex flex-column">
             <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq">
-              <h2 class="card-t3xt"></h2>
-              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center">
+              <h1 class="card-t3xt"></h1>
+              <div class="card add-anime rounded-xl border-success bg-transparent mx-1 shadow-gold text-center">
                 <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
                   <h4 class="card-title m-0">DISPLAY</h4>
                 </div>
               </div>
-              <div class="fa-1x ml-0">
+              <div class="fa-1x mx-0 my-2">
                 <i class="far fa-dot-circle animated infinite heartBeat "></i>
                 <i class="fas fa-minus"></i>
               </div>
             </div>
-            <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq mt-3" style="vertical-align:center;">
+            <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq mt-3" >
 
-              <h2 class="card-t3xt"></h2>
+              <h1 class="card-t3xt"></h1>
 
-              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1">
+              <div class="card add-anime rounded-xl border-success bg-transparent mx-1 shadow-gold text-center p-1">
                 <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
                   <h4 class="card-title m-0">STATE</h4>
                 </div>
               </div>
-              <div class="fa-1x ml-0">
+              <div class="fa-1x mx-0 my-2">
                 <i class="far fa-dot-circle animated infinite heartBeat "></i>
-                <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
               </div>
             </div>
             <div class="d-flex flex-row-reverse text-success shadow-turq mt-3">
               <h1 class="card-t3xt"></h1>
-              <div class="card add-anime rounded-lg border-success bg-transparent mx-1 shadow-gold text-center p-1">
+              <div class="card add-anime rounded-xl border-success bg-transparent mx-1 shadow-gold text-center p-1">
                 <div class="card-body mt-1 mb-0 mx-2 py-0 px-1 text-center">
                   <h3 class="card-title m-0">DETAILS</h3>
                 </div>
               </div>
-              <div class="fa-1x ml-0">
+              <div class="fa-1x mx-0 my-2">
                 <i class="far fa-dot-circle animated infinite heartBeat "></i>
-                <i class="fas fa-minus"></i>
-                <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
                 <i class="fas fa-minus"></i>
@@ -310,6 +304,19 @@
 
 
         </div>
+      </div>
+      
+      <p class="text-center mb-0 mt-1">
+        <span class="fa-stack">
+          <i class="fas fa-square fa-stack-2x text-dark shadow-gold"></i>
+          <i class="fas fa-mouse-pointer fa-stack-1x  text-primary fa animated infinite tada"></i>
+        </span>
+        <em>     
+          Hover over rows for viz-box action...
+        </em>
+      </p>
+
+      <div id="bar-chart-horizontal">
       </div>
       <div id="table-goes-here"></div>
     <!-- Optional JavaScript -->
@@ -325,6 +332,7 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
+        <script src="/static/data/mapAccessToken.js "></script>
     <script src="/static/plugins/ddslick.js"></script>
 
     <script src="/static/data/timeseries.js"></script>
@@ -334,7 +342,7 @@
 
     <script src="/static/app/navbar-states.js"></script>
     <script src="/static/app/states.js"></script>
-    <script src="/static/app/interactive-table.js"></script>
+     <script src="/static/app/interactive-table.js"></script>
 
   </body>
 
