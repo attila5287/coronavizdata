@@ -1,4 +1,4 @@
-const formt = d3.formt( ',' );
+const formt = d3.format( ',' );
 const formatDecimal = d3.format( '.4' );
 let strdate = getOffsetDate( 1, "mm-dd-yyyy" );
 console.log( 'strdate :>> ', strdate );
