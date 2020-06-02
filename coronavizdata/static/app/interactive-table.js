@@ -72,10 +72,8 @@ function tableInteractive(url,c0lumns) {
           .style("height","10rem")
           .attr("src", '/static/img/states/default.png')
           ;          
-          d3.select('#bar-chart-vertical')
-            .select('svg')
-            .remove();
-        // vizBoxDown();
+
+        vizBoxDown();
 
       } );
     var cells = rows.selectAll( "td" )
@@ -271,3 +269,9 @@ var chartGroup = svg.append("g")
 }
 }
   
+function vizBoxDown() {
+  d3.select('#bar-chart-vertical')
+  .select('svg')
+  .remove()
+  ;
+}
