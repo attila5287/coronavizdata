@@ -72,7 +72,7 @@ function tableInteractive(url,c0lumns) {
           .style("height","10rem")
           .attr("src", '/static/img/states/default.png')
           ;          
-          d3.select('#bar-chart-horizontal')
+          d3.select('#bar-chart-vertical')
             .select('svg')
             .remove();
         // vizBoxDown();
@@ -217,7 +217,7 @@ var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
 
 // Select body, append SVG area to it, and set the dimensions
 var svg = d3
-  .select("#bar-chart-horizontal")
+  .select("#bar-chart-vertical")
   .append("svg")
   .attr("height", svgHeight)
   .attr("width", svgWidth);
