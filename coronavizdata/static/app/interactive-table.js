@@ -140,18 +140,18 @@ function numBoxUp( d, i ) {
 
   const cardTitles = d3
     .select( '#num-box' )
-    .selectAll( '.card-title' )
+    .selectAll( '.category-title' )
     .data(zKeysv1)
     .text(function(d) {return d ;});
     
   const cardTexts = d3
     .select( '#num-box' )
-    .selectAll( '.card-t3xt' )
+    .selectAll( '.number-of-person' )
     .data(zValues)
     .text(function(d) {return d ;});
-
-  d3.select( '#num-box' )
-    .select( 'h2' )
+    
+    d3.select( '#num-box' )
+    .selectAll( '.name-title' )
     .text( d.Province_State + " " + i );
   d3.select( '#num-box' )
     .select( "img" )
@@ -289,10 +289,13 @@ return output;
 }
 function rankBoxUp(arrOfSortedDict, d,i) {
   const name = d.Province_State;
-
   let out =  arrOfSortedDict.map(dict => dict[d.Province_State]
   );
-
-
+  console.log('out :>> ', out);
+  const rankings = d3
+    .select( '#num-box' )
+    .selectAll( '.ranking-order' )
+    .data(out)
+    .text(function(d) {return d ;});
 }
 
