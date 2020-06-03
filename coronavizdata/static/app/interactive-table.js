@@ -18,6 +18,9 @@ function tableInteractive(url,c0lumns) {
   d3.csv( url, function ( error, data ) {
     // Get every column value
     // var columns = Object.keys( data[ 0 ] );
+
+    const rankDicts = rankingDict(data);
+    // console.log(rankDicts);
     var header = thead.append( "tr" )
       .selectAll( "th" )
       .data( columns )
@@ -59,6 +62,7 @@ function tableInteractive(url,c0lumns) {
           .attr( "class", "shadow-after" );
         numBoxUp( d, i );
         vizBoxUp( d, i );
+        rankBoxUp( rankDicts, d,i );
       } )
       .on( "mouseout", function ( d ) {
         // console.log('d :>> ', d);
@@ -109,104 +113,93 @@ function tableInteractive(url,c0lumns) {
         else {
           return format(d.value);
         }
-      } );
+      } )
+      ;
       // console.log('d :>> ', cells);
   } );
-
-  function numBoxUp( d, i ) {
-    let z = {};
-    z.Active = +d.Active;
-    z.Confirmed = +d.Confirmed;
-    z.Recovered = +d.Recovered;
-    z.People_Tested = +d.People_Tested;
-    z.Deaths = +d.Deaths;
-    z.People_Hospitalized = +d.People_Hospitalized;            
-    // console.table(z);
-    const zKeys = Object.keys(z);
-    let listOfValues = [];
-    const zValues =  zKeys.map((key) => {
-       return format(d[key]);  
-    });
-      
-    // console.log('zValues :>> ', zValues);
-    // console.log('zKeys :>> ', zKeys);
-    
-    const zKeysv1 = ["Active","Confirmed", "Recovered",  "Tested", "Deaths",  "Hospitalized" ];
-
-    const cardTitles = d3
-      .select( '#num-box' )
-      .selectAll( '.card-title' )
-      .data(zKeysv1)
-      .text(function(d) {return d ;});
-      
-    const cardTexts = d3
-      .select( '#num-box' )
-      .selectAll( '.card-t3xt' )
-      .data(zValues)
-      .text(function(d) {return d ;});
-
-    d3.select( '#num-box' )
-      .select( 'h2' )
-      .text( d.Province_State + " " + i );
-    d3.select( '#num-box' )
-      .select( "img" )
-      .style( "height", "9rem" )
-      .attr( "src", '/static/img/states/' + d.Province_State.trim().toLowerCase().replace( ' ', '-' ) + '-flag-small.png' );
-  }
-
-  function vizBoxUp( d, i ) {
-  const format = d3.format( ',' );
+}
+function numBoxUp( d, i ) {
   let z = {};
-    z.Active = +d.Active;
-    z.Confirmed = +d.Confirmed;
-    z.Recovered = +d.Recovered;
-    z.People_Tested = +d.People_Tested;
-    z.Deaths = +d.Deaths;
-    z.People_Hospitalized = +d.People_Hospitalized;            
-    // console.table(z);
-    const zKeys = Object.keys(z);
-    let listOfValues = [];
-    const zValues =  zKeys.map((key) => {
-       return +d[key];  
-    });
-      
-    // console.log('zValues :>> ', zValues);
-    // console.log('zKeys :>> ', zKeys);
+  z.Active = +d.Active;
+  z.Confirmed = +d.Confirmed;
+  z.Recovered = +d.Recovered;
+  z.People_Tested = +d.People_Tested;
+  z.Deaths = +d.Deaths;
+  z.People_Hospitalized = +d.People_Hospitalized;            
+  // console.table(z);
+  const zKeys = Object.keys(z);
+  let listOfValues = [];
+  const zValues =  zKeys.map((key) => {
+      return format(d[key]);  
+  });
     
-  const zKeysv1 = ["Active","Confirmed", "Recovered",  "Tested", "Deaths",  "Hospitalized" ];
+  // console.log('zValues :>> ', zValues);
+  // console.log('zKeys :>> ', zKeys);
   
-  const dictArray = [];
+  const zKeysv1 = ["Active","Confirmed", "Recovered",  "Tested", "Deaths",  "Hospitalized" ];
 
+  const cardTitles = d3
+    .select( '#num-box' )
+    .selectAll( '.card-title' )
+    .data(zKeysv1)
+    .text(function(d) {return d ;});
+    
+  const cardTexts = d3
+    .select( '#num-box' )
+    .selectAll( '.card-t3xt' )
+    .data(zValues)
+    .text(function(d) {return d ;});
 
-  let colors = [
-  '#c7eae5', '#80cdc1', '#01665e',
-  '#268BD2', '#2aa198', '#2bbb98'
-  ];
-  for (let i = 0; i < zKeysv1.length; i++) {
-    let dict = {
+  d3.select( '#num-box' )
+    .select( 'h2' )
+    .text( d.Province_State + " " + i );
+  d3.select( '#num-box' )
+    .select( "img" )
+    .style( "height", "9rem" )
+    .attr( "src", '/static/img/states/' + d.Province_State.trim().toLowerCase().replace( ' ', '-' ) + '-flag-small.png' );
+}
+function vizBoxUp( d, i ) {
+const format = d3.format( ',' );
+let z = {};
+  z.Active = +d.Active;
+  z.Confirmed = +d.Confirmed;
+  z.Recovered = +d.Recovered;
+  z.People_Tested = +d.People_Tested;
+  z.Deaths = +d.Deaths;
+  z.People_Hospitalized = +d.People_Hospitalized;            
+  // console.table(z);
+  const zKeys = Object.keys(z);
+  let listOfValues = [];
+  const zValues =  zKeys.map((key) => {
+     return +d[key];  
+  });
+const zKeysv1 = ["Active","Confirmed", "Recovered",  "Tested", "Deaths",  "Hospitalized" ];
+const dictArray = [];
+let colors = [
+'#c7eae5', '#80cdc1', '#01665e',
+'#268BD2', '#2aa198', '#2bbb98'
+];
+for (let i = 0; i < zKeysv1.length; i++) {
+  let dict = {
 
-      name:'',
-      value:0
-    };
-    dict.name=zKeysv1[i];
-    dict.value=+z[zKeys[i]];
-    dict.color = colors[i];
-    dictArray.push(dict);
-  }
-
-// console.log('vizBoxUp --> dictArray :>> ', dictArray);
-
-
+    name:'',
+    value:0
+  };
+  dict.name=zKeysv1[i];
+  dict.value=+z[zKeys[i]];
+  dict.color = colors[i];
+  dictArray.push(dict);
+}
 // Define SVG area dimensions
 var svgWidth = 600;
 var svgHeight = 150;
 
 // Define the chart's margins as an object
 var chartMargin = {
-  top: 30,
-  right: 30,
-  bottom: 30,
-  left: 50
+top: 30,
+right: 30,
+bottom: 30,
+left: 50
 };
 
 // Define dimensions of the chart area
@@ -215,63 +208,91 @@ var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
 
 // Select body, append SVG area to it, and set the dimensions
 var svg = d3
-  .select("#bar-chart-vertical")
-  .append("svg")
-  .attr("height", svgHeight)
-  .attr("width", svgWidth);
+.select("#bar-chart-vertical")
+.append("svg")
+.attr("height", svgHeight)
+.attr("width", svgWidth);
 
 // Append a group to the SVG area and shift ('translate') it to the right and to the bottom
 var chartGroup = svg.append("g")
-  .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
-  
-  // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
-  var xBandScale = d3.scaleBand()
-    .domain(zKeysv1)
-    .range([0, chartWidth])
-    .padding(0.1);
- 
-  // Create a linear scale for the vertical axis.
-  var yLinearScale = d3.scaleLinear()
-    .domain([0, (dictArray[1].value)])
-    .range([chartHeight, 0]);
+.attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
-  // Create two new functions passing our scales in as arguments
-  // These will be used to create the chart's axes
-  var bottomAxis = d3.axisBottom(xBandScale);
-  var leftAxis = d3.axisLeft(yLinearScale).ticks(10);
+// Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
+var xBandScale = d3.scaleBand()
+  .domain(zKeysv1)
+  .range([0, chartWidth])
+  .padding(0.1);
 
-  // Append two SVG group elements to the chartGroup area,
-  // and create the bottom and left axes inside of them
-  chartGroup.append("g")
-    .attr("class", "axisGold")
-    .call(leftAxis);
+// Create a linear scale for the vertical axis.
+var yLinearScale = d3.scaleLinear()
+  .domain([0, (dictArray[1].value)])
+  .range([chartHeight, 0]);
 
-  chartGroup.append("g")
-    .attr("transform", `translate(0, ${chartHeight})`)
-    .attr("class", "axisGold text-robo")
-    .call(bottomAxis);
+// Create two new functions passing our scales in as arguments
+// These will be used to create the chart's axes
+var bottomAxis = d3.axisBottom(xBandScale);
+var leftAxis = d3.axisLeft(yLinearScale).ticks(10);
+
+// Append two SVG group elements to the chartGroup area,
+// and create the bottom and left axes inside of them
+chartGroup.append("g")
+  .attr("class", "axisGold")
+  .call(leftAxis);
+
+chartGroup.append("g")
+  .attr("transform", `translate(0, ${chartHeight})`)
+  .attr("class", "axisGold text-robo")
+  .call(bottomAxis);
 
 
-  // Create one SVG rectangle per piece of csvData
-  // Use the linear and band scales to position each rectangle within the chart
-  console.log('dictArray :>> ', dictArray);
-  chartGroup.selectAll(".bar")
-    .data(dictArray)
-    .enter()
-    .append("rect")
-    .attr("class", "bar") 
-    .attr("fill",d=> d.color)
-    .attr("x", d => xBandScale(d.name))
-    .attr("y", d => yLinearScale(d.value))
-    .attr("width", xBandScale.bandwidth())
-    .attr("height", d => chartHeight - yLinearScale(d.value));
+// Create one SVG rectangle per piece of csvData
+// Use the linear and band scales to position each rectangle within the chart
+// console.log('dictArray :>> ', dictArray);
+chartGroup.selectAll(".bar")
+  .data(dictArray)
+  .enter()
+  .append("rect")
+  .attr("class", "bar") 
+  .attr("fill",d=> d.color)
+  .attr("x", d => xBandScale(d.name))
+  .attr("y", d => yLinearScale(d.value))
+  .attr("width", xBandScale.bandwidth())
+  .attr("height", d => chartHeight - yLinearScale(d.value));
 
 }
-}
-  
 function vizBoxDown() {
   d3.select('#bar-chart-vertical')
   .select('svg')
   .remove()
   ;
 }
+
+function rankingDict(data) {
+function  dictGen(columnName) {
+  const sorted = data.sort(function(a, b){
+      return b[columnName]-a[columnName];
+  });  
+  // console.log('sorted :>> ', sorted);
+  let dict = {};
+  sorted.forEach((d,i) => {
+    dict[d.Province_State]= i+1;
+  });
+  return dict;
+}
+categories = ["Active","Confirmed", "Recovered",  "People_Tested", "Deaths",  "People_Hospitalized" ];  
+const output = categories.map(column => {
+  return dictGen(column);
+});
+console.log('output :>> ', output);
+// console.table(output);
+return output;
+}
+function rankBoxUp(arrOfSortedDict, d,i) {
+  const name = d.Province_State;
+
+  let out =  arrOfSortedDict.map(dict => dict[d.Province_State]
+  );
+
+
+}
+
