@@ -126,6 +126,9 @@
 .text-balo {
   font-family: 'Baloo 2', sans-serif;
 }
+.text-body text {
+  color: #002B36;
+}
 .tooltip {
   position: absolute;
   width: 100px;
@@ -154,9 +157,12 @@
 
 .axisGold text {
   fill: #B58900;
-
+  font-size: 0.75rem;
 }
 
+.names text {
+  font-size: 1.25rem;
+}
 
 .axisTurq line {
   stroke: #2aa198;

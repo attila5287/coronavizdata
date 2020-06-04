@@ -13,7 +13,7 @@ function tableInteractive(url,c0lumns) {
   });
   var table = d3.select( "#table-goes-here" )
     .append( "table" )
-    .attr( "class", "table table-condensed table-striped table-hover text-center text-onerem  border-none" ), thead = table.append( "thead" ), tbody = table.append( "tbody" );
+    .attr( "class", "table table-condensed table-striped table-hover text-center text-xlarger  border-none" ), thead = table.append( "thead" ), tbody = table.append( "tbody" );
   
   d3.csv( url, function ( error, data ) {
     // Get every column value
@@ -176,7 +176,7 @@ let z = {};
 const zKeysv1 = ["Active","Confirmed", "Recovered",  "Tested", "Deaths",  "Hospitalized" ];
 const dictArray = [];
 let colors = [
-'#c7eae5', '#80cdc1', '#01665e',
+'#d7eae5', '#80cdc1', '#01665e',
 '#268BD2', '#2aa198', '#2bbb98'
 ];
 for (let i = 0; i < zKeysv1.length; i++) {
@@ -191,8 +191,10 @@ for (let i = 0; i < zKeysv1.length; i++) {
   dictArray.push(dict);
 }
 // Define SVG area dimensions
-var svgWidth = 600;
-var svgHeight = 150;
+// var svgWidth = 600;
+// var svgHeight = 150;
+var svgWidth = window.innerWidth;
+var svgHeight = svgWidth*.25;
 
 // Define the chart's margins as an object
 var chartMargin = {
@@ -241,7 +243,7 @@ chartGroup.append("g")
 
 chartGroup.append("g")
   .attr("transform", `translate(0, ${chartHeight})`)
-  .attr("class", "axisGold text-robo")
+  .attr("class", "axisGold text-robo text-xlarger")
   .call(bottomAxis);
 
 
@@ -256,7 +258,7 @@ chartGroup.selectAll(".bar")
   .attr("fill",d=> d.color)
   .attr("x", d => xBandScale(d.name))
   .attr("y", d => yLinearScale(d.value))
-  .attr("width", xBandScale.bandwidth())
+  .attr("width", xBandScale.bandwidth()*.85)
   .attr("height", d => chartHeight - yLinearScale(d.value));
 
 }
@@ -283,7 +285,7 @@ categories = ["Active","Confirmed", "Recovered",  "People_Tested", "Deaths",  "P
 const output = categories.map(column => {
   return dictGen(column);
 });
-console.log('output :>> ', output);
+// console.log('output only rankings:>> ', output);
 // console.table(output);
 return output;
 }
@@ -291,7 +293,7 @@ function rankBoxUp(arrOfSortedDict, d,i) {
   const name = d.Province_State;
   let out =  arrOfSortedDict.map(dict => dict[d.Province_State]
   );
-  console.log('out :>> ', out);
+  // console.log('out :>> ', out);
   const rankings = d3
     .select( '#num-box' )
     .selectAll( '.ranking-order' )
