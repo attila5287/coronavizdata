@@ -125,36 +125,19 @@
         </div>
       </nav>
     </header>
-    <style>
-      /* set map, body, and html to 100% of the screen size */
-
-      #map,
-      body,
-      html {
-        height: 80%;
-      }
-
-      #table-goes-here {
-        margin-left: 0;
-        margin-right: auto;
-      }
-
-    </style>
-    <main role="main" class="container-fluid text-center" style="margin-top: 70px;">
-      <!-- <div id='map'></div> -->
-      <style>
-        .fa-stack {
-          font-size: 1rem;
-        }
-
-        i {
-          vertical-align: middle;
-        }
-
-      </style>
-      <div id="num-box">
+    <div 
+    id='map'
+    style="margin-top: 70px;"
+    ></div>
+    <main 
+    role="main" 
+    class="container-fluid text-center" 
+    >
+      <div id="rankings-box" class="mt-0">
         <hr class="border-success text-center animated infinite pulse w-50 mb-1 opac-70" style="stroke-linecap: round;">
-        <h2 class="name-title text-center text-digi shadow-turq">US States vs COVID-19</h2>
+        <h2 class="name-title text-center text-digi shadow-turq">
+          Europe vs COVID-19
+        </h2>
         <hr class="border-success text-center animated infinite heartBeat w-25 my-2 opac-70">
         
         <div class="d-flex flex-row justify-content-center align-items-center">
@@ -232,9 +215,7 @@
               </div>
             </div>
           </div>
-          
-          <img src="../static/img/states/default.png" style="opacity: 50%;height:10rem;" alt="viz-bar-img">
-          
+          <img src="../static/img/flags/default.png" style="opacity: 70%;height:10rem;" alt="viz-bar-img">
           <div class="d-flex flex-column">
             <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq">
               <div class="d-flex flex-column">
@@ -306,27 +287,44 @@
               </div>
             </div>
           </div>
-          
         </div>
-
-
       </div>
-
-      <p class="text-center mb-0 mt-1">
+      <p class="text-center mt-1">
+        <span class="fa-stack">
+          <i class="far fa-square fa-stack-2x text-success"></i>
+          <i class="fas fa-angle-double-up fa-stack-1x text-success text-larger"></i>
+        </span>
+          Ranking
+        <span class="fa-stack">
+          <i class="far fa-square fa-stack-2x text-success"></i>
+          <i class="fas fa-users fa-stack-1x text-success"></i>
+        </span>
+          Number Of Person
+        <span class="fa-stack">
+          <i class="far fa-square fa-stack-2x text-success"></i>
+          <i class="fas fa-info fa-stack-1x text-success"></i>
+        </span>
+          Category
+      </p>
+      <p class="text-center mb-0 mt-1 text-primary">
         <span class="fa-stack">
           <i class="fas fa-square fa-stack-2x text-dark shadow-gold"></i>
-          <i class="fas fa-mouse-pointer fa-stack-1x text-primary fa animated infinite tada"></i>
+          <i class="fas fa-mouse-pointer fa-stack-1x  text-primary fa animated infinite tada text-larger"></i>
         </span>
-        <em>
-          Move pointer over rows for viz-box action...
+        <em>     
+          Hover over rows for viz-box action...
         </em>
       </p>
-
       <!-- <div id="bar-chart-horizontal"></div> -->
       <div id="bar-chart-vertical">
       </div>
       <div id="table-goes-here"></div>
-
+      
+    <hr class="mt-0 mb-2 border-success">
+    <table class="table table-hover table-striped text-center">
+      <thead class="text-robo text-larger"></thead>
+      <tbody class="text-robo text-xlarger"></tbody>
+    </table>
     </main>
 
     <!-- Optional JavaScript -->
@@ -341,19 +339,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-
-    <script src="/static/data/mapAccessToken.js "></script>
     <script src="/static/plugins/ddslick.js"></script>
     <script src="/static/data/timeseries.js"></script>
     <script src="/static/data/locations.js "></script>
-    <script src="/static/data/us-states.js "></script>
 
 
-    <!-- <script src="/static/app/navbar-countries.js"></script> -->
-    <!-- <script src="/static/app/test.js"></script> -->
-    <script src="/static/app/navbar-states.js"></script>
-    <!-- <script src="/static/app/states.js"></script> -->
-    <script src="/static/app/interactive-table.js"></script>
+    <script src="/static/app/navbar-countries.js"></script>
+    <script src="/static/data/countries.js"></script>
+    <script src="/static/app/leaflet-eu.js"></script>
+    <script src="/static/app/table-eu.js"></script>
+
   </body>
 
 </html>

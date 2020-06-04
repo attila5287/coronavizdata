@@ -1,24 +1,29 @@
-.opac-70{
+.opac-70 {
   opacity: 0.7;
 }
-.opac-50{
+
+.opac-50 {
   opacity: 0.5;
 }
-.opac-30{
+
+.opac-30 {
   opacity: 0.3;
 }
 
 .shadow-turq {
   text-shadow: 1px 3px 8px #2aa198;
 }
+
 .bordered {
   border-width: thin;
   border-radius: 4px;
   border-color: #2aa198;
 }
+
 .border-med {
   border-width: medium;
 }
+
 #hairmetal {
   border-radius: 8px;
 }
@@ -74,7 +79,7 @@
 }
 
 .add-anime:hover {
-  color:#2aa198;
+  color: #2aa198;
   transform: scale(1.1, 1.1);
   box-shadow: rgb(143, 250, 227) 0px 15px 15px;
 }
@@ -86,21 +91,27 @@
 .add-anime:hover:last-child {
   box-shadow: rgb(230, 194, 111) 5px 15px 15px;
 }
+
 .text-onerem {
   font-size: 1rem;
 }
+
 .text-larger {
   font-size: 1.25rem;
 }
+
 .text-xlarger {
   font-size: 1.50rem;
 }
+
 .text-2xl {
   font-size: 1.50rem;
 }
+
 .text-sm {
   font-size: 0.80rem;
 }
+
 .text-xs {
   font-size: 0.70rem;
 }
@@ -120,15 +131,19 @@
 .text-cond {
   font-family: 'Roboto Condensed', sans-serif;
 }
+
 .text-robo {
   font-family: 'Roboto', sans-serif;
 }
+
 .text-balo {
   font-family: 'Baloo 2', sans-serif;
 }
+
 .text-body text {
   color: #002B36;
 }
+
 .tooltip {
   position: absolute;
   width: 100px;
@@ -140,7 +155,7 @@
   text-align: center;
   background: #073642;
   border: 0,
-  border-color: #2AA198;
+    border-color: #2AA198;
   border-width: thin;
   border-radius: 14px;
   box-shadow: 0 0.5rem 1rem rgba(2, 211, 243, 0.717) !important;
@@ -222,7 +237,7 @@ h4,
 h5,
 h6 {
   color: #2aa198;
-  font-family: 'Baloo 2' , sans-serif;
+  font-family: 'Baloo 2', sans-serif;
   margin: 2px;
 }
 
@@ -284,8 +299,8 @@ i {
   background-blend-mode: screen;
   vertical-align: top;
 }
--
-.bg-body {
+
+- .bg-body {
   background-color: #002B36;
 }
 
@@ -362,4 +377,68 @@ i {
 .infoboard-section {
   border-radius: 12px;
   border: 1px solid;
+}
+
+/* set map, body, and html to 100% of the screen size */
+#map,
+body,
+html {
+  height: 90%;
+}
+
+</style><style>.info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.info h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+.legend {
+  text-align: left;
+  line-height: 18px;
+  color: #555;
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+</style><style>.legend {
+  line-height: 12px;
+  color: #555;
+
+}
+
+.legend i {
+  font-size: 8px;
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.info h4 {
+  margin: 0 0 5px;
+  color: #777;
 }

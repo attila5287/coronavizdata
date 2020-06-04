@@ -19,7 +19,7 @@
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -83,7 +83,7 @@
             <a class="nav-item nav-link rounded-xl add-anime" href="/leaflet/asia">
               <i class="fas fa-sun"></i>
               <p class="py-0 my-0 text-balo text-sm">Asia</p>
-            </a>
+            </a>            
           </ul>
           <ul class="nav nav-pills nav-fill text-success w-100">
 
@@ -127,34 +127,83 @@
         </div>
       </nav>
     </header>
-    <div id='map'></div>
-    <p class="text-center mt-1">
-      <span class="fa-stack">
-        <i class="far fa-square fa-stack-2x text-success"></i>
-        <i class="fas fa-angle-double-up fa-stack-1x text-success text-larger"></i>
-      </span>
-      Ranking
-      <span class="fa-stack">
-        <i class="far fa-square fa-stack-2x text-success"></i>
-        <i class="fas fa-users fa-stack-1x text-success"></i>
-      </span>
-      Number Of Person
-    </p>
-    <p class="text-center mb-0 mt-1 text-primary">
-      <span class="fa-stack">
-        <i class="fas fa-square fa-stack-2x text-dark shadow-gold"></i>
-        <i class="fas fa-mouse-pointer fa-stack-1x  text-primary fa animated infinite tada text-larger"></i>
-      </span>
-      <em>
-        Hover over rows for viz-box action...
-      </em>
-    </p>
-    <hr class="mt-0 mb-2 border-success">
+        <style>
+     /* set map, body, and html to 100% of the screen size */
+    #map,
+    body,
+    html {
+      height: 90%;
+    }
+    </style>   
+    <style>
+      .info {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+      }
 
-    <table class="table table-hover table-striped text-center">
-      <thead class="text-robo text-larger"></thead>
-      <tbody class="text-robo text-larger"></tbody>
-    </table>
+      .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+      }
+
+      .legend {
+        text-align: left;
+        line-height: 18px;
+        color: #555;
+      }
+
+      .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+      }
+    </style>
+
+    <style>
+      .legend {
+        line-height: 12px;
+        color: #555;
+
+      }
+
+      .legend i {
+        font-size: 8px;
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+      }
+
+      .info {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+      }
+
+      .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+      }
+    </style>
+
+      <div id='map'></div>
+
+      <hr class="mt-0 mb-2 border-success">
+
+      <table class="table table-hover table-striped text-center">
+        <thead class="text-robo text-larger"></thead>
+        <tbody class="text-robo text-larger" ></tbody>
+      </table>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
