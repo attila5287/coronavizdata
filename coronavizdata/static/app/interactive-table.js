@@ -2,8 +2,8 @@ const format = d3.format( ',' );
 let  urlTest = "../static/data/states.csv";
 const columnsDisplayed = ["Province_State", "Deaths", "Confirmed", "Recovered", "Active"];
 
-tableInteractive(urlTest, columnsDisplayed);
-// tableInteractive(urlCompiled, columnsDisplayed);
+// tableInteractive(urlTest, columnsDisplayed);
+tableInteractive(urlCompiled, columnsDisplayed);
 
 function tableInteractive(url,c0lumns) {
   // const format = d3.format( ',' );
@@ -13,7 +13,7 @@ function tableInteractive(url,c0lumns) {
   });
   var table = d3.select( "#table-goes-here" )
     .append( "table" )
-    .attr( "class", "table table-condensed table-striped table-hover text-center text-xlarger  border-none" ), thead = table.append( "thead" ), tbody = table.append( "tbody" );
+    .attr( "class", "table table-condensed table-striped table-hover text-center text-xlarger" ), thead = table.append( "thead" ), tbody = table.append( "tbody" );
   
   d3.csv( url, function ( error, data ) {
     // Get every column value
@@ -196,7 +196,6 @@ function rankBoxUp(arrOfSortedDict, d,i) {
     .data(out)
     .text(function(d) {return d ;});
 }
-
 function rowChartUp( d, i ) {
 
   // console.log( d );
@@ -311,8 +310,7 @@ function rowChartUp( d, i ) {
     .attr( "width", d => chartWidth - xScale( d.value ) )
     ;
 
- }
-
+}
 function barChartUp( d, i ) {
 let z = {};
   z.Active = +d.Active;
