@@ -1,29 +1,6 @@
-let dTest = {
-  Active: "269255.0",
-  Confirmed: "362764",
-  Country_Region: "US",
-  Deaths: "29229",
-  FIPS: "36",
-  Hospitalization_Rate: "21.37064317297196",
-  ISO3: "USA",
-  Incident_Rate: "1864.7691289013871",
-  Last_Update: "2020-05-26 02:32:41",
-  Lat: "42.1657",
-  Long_: "-74.9481",
-  Mortality_Rate: "8.057304473431763",
-  People_Hospitalized: "77525",
-  People_Tested: "1739449",
-  Province_State: "New York",
-  Recovered: "64280",
-  Testing_Rate: "8941.54545792413",
-  UID: "84000036",
-};
-numBoxUp( dTest, 0 );
-vizBoxUp( dTest, 0 );
+function rowChartUp( d, i ) {
 
-function vizBoxUp( d, i ) {
-
-  console.log( d );
+  // console.log( d );
   const format = d3.format( ',' );
   let z = {};
   z.Active = +d.Active;
@@ -38,11 +15,13 @@ function vizBoxUp( d, i ) {
   const zValues = zKeys.map( ( key ) => {
     return +d[ key ];
   } );
-  const dictArray = [];
   let colors = [
     '#d7eae5', '#80cdc1', '#01665e',
     '#268BD2', '#2aa198', '#2bbb98'
   ];
+  // create an array to store dictionaries nxt step
+  const dictArray = [];
+  // generate new objects -dictionaries- 
   for ( let i = 0; i < zKeys.length; i++ ) {
     let dict = {
 
@@ -58,14 +37,14 @@ function vizBoxUp( d, i ) {
   // Define SVG area dimensions
   // var svgWidth = 600;
   // var svgHeight = 220;
-  var svgWidth = window.innerWidth;
-  var svgHeight = svgWidth * .33;
+  var svgWidth = window.innerWidth*.4;
+  var svgHeight = svgWidth * .75;
 
   // Define the chart's margins as an object
   var chartMargin = {
     top: 30,
     right: 30,
-    bottom: 30,
+    bottom: 50,
     left: 20
   };
 
@@ -100,13 +79,15 @@ function vizBoxUp( d, i ) {
   .range( [ 0, chartHeight ] );
   
   var values = dictArray.map( d => d.value );
-  
+  console.log(d3.max( values ));
   // scale y
   var xScale = d3.scaleLinear()
   .domain( [ 0, d3.max( values ) ] )
-  .range( [ chartWidth, 0 ] );
+  .range( [ chartWidth, 0 ] )
+  ;
   
-  console.log( 'object :>> ', yScale( 100000 ) );
+  // console.log( 'object :>> ', xScale( 100000 ) );
+
   var yAxis = d3.axisLeft( yScale );
   var xAxis = d3.axisBottom( xScale );
   
@@ -114,15 +95,22 @@ function vizBoxUp( d, i ) {
   .attr( "class", "axisGold" )
   .attr( "transform", `translate(0, ${chartHeight})` )
   .call( xAxis )
+  .selectAll("text")
+  .style("font-size", "8px")
+  .style("text-anchor", "end")
+  .attr("dx", "-.8em")
+  .attr("dy", "-.55em")
+  .attr("transform", "rotate(-90)" )
   ;
+  // .attr("transform", "rotate(-90)" )
   
   chartGroup.append( "g" )
   .attr( "class", "axisGold" )
   .call( yAxis );
 
-  console.table( labels );
-
-  console.log(dictArray);
+  // console.table( labels );
+  // console.log(dictArray);
+  const labelsV1 = ["Active","Confirmed", "Recovered",  "Tested", "Deaths",  "Hospitalized" ];
 
   chartGroup.selectAll( ".bar" )
     .data( dictArray )
@@ -130,15 +118,12 @@ function vizBoxUp( d, i ) {
     .append( "rect" )
     .attr( "class", "bar" )
     .attr("fill",d=> d.color)
-    .attr( "y", ( d, i ) => yScale( labels[ i ] ) )
+    .attr( "y", ( d, i ) => yScale( labelsV1[ i ] ) )
     .attr( "x", 0)
     .attr( "height", yScale.bandwidth() )
     .attr( "width", d => chartWidth - xScale( d.value ) )
+    .transition()
+    .duration(2000)
     ;
 
- }
-
- function vizBoxDown() {
-  console.log('dTest :>> ', dTest);
-  vizBoxUp(dTest)
 }
