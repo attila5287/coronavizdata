@@ -4,13 +4,13 @@ let dTest = {
   Country_Region: "US",
   Deaths: "29229",
   FIPS: "36",
-  Hospitalization_Rate: "21.37064317297196",
+  Hospitalization_Rate: "2100.37064317297196",
   ISO3: "USA",
   Incident_Rate: "1864.7691289013871",
   Last_Update: "2020-05-26 02:32:41",
   Lat: "42.1657",
   Long_: "-74.9481",
-  Mortality_Rate: "8.057304473431763",
+  Mortality_Rate: "8000.057304473431763",
   People_Hospitalized: "77525",
   People_Tested: "1739449",
   Province_State: "New York",
@@ -18,127 +18,7 @@ let dTest = {
   Testing_Rate: "8941.54545792413",
   UID: "84000036",
 };
-numBoxUp( dTest, 0 );
-vizBoxUp( dTest, 0 );
 
-function vizBoxUp( d, i ) {
+rowChartUp( dTest, 0);
 
-  console.log( d );
-  const format = d3.format( ',' );
-  let z = {};
-  z.Active = +d.Active;
-  z.Confirmed = +d.Confirmed;
-  z.Recovered = +d.Recovered;
-  z.People_Tested = +d.People_Tested;
-  z.Deaths = +d.Deaths;
-  z.People_Hospitalized = +d.People_Hospitalized;
-  // console.table(z);
-  const zKeys = Object.keys( z );
-  let listOfValues = [];
-  const zValues = zKeys.map( ( key ) => {
-    return +d[ key ];
-  } );
-  const dictArray = [];
-  let colors = [
-    '#d7eae5', '#80cdc1', '#01665e',
-    '#268BD2', '#2aa198', '#2bbb98'
-  ];
-  for ( let i = 0; i < zKeys.length; i++ ) {
-    let dict = {
-
-      name: '',
-      value: 0
-    };
-    dict.name = zKeys[ i ];
-    dict.value = +z[ zKeys[ i ] ];
-    dict.color = colors[ i ];
-    dictArray.push( dict );
-  }
-
-  // Define SVG area dimensions
-  // var svgWidth = 600;
-  // var svgHeight = 220;
-  var svgWidth = window.innerWidth;
-  var svgHeight = svgWidth * .33;
-
-  // Define the chart's margins as an object
-  var chartMargin = {
-    top: 30,
-    right: 30,
-    bottom: 30,
-    left: 20
-  };
-
-  var margin = {
-    top: 30,
-    right: 30,
-    bottom: 30,
-    left: 50
-  };
-  var chartWidth = svgWidth - margin.left - margin.right;
-  var chartHeight = svgHeight - margin.top - margin.bottom;
-
-  var svg = d3
-    .select( "#bar-chart-horizontal" )
-    .append( "svg" )
-    .attr( "height", svgHeight )
-    .attr( "width", svgWidth );
-    
-  var chartGroup = svg.append( "g" )
-    .attr( "transform", `translate(${margin.left}, ${margin.top})` );
-
-    
-  // Define dimensions of the chart area
-  var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
-  var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
-  
-  const labels = [ "Active", "Confirmed", "Recovered", "Tested", "Deaths", "Hospitalized" ];
-
-  // scale x to chart
-  var yScale = d3.scaleBand()
-  .domain( labels )
-  .range( [ 0, chartHeight ] );
-  
-  var values = dictArray.map( d => d.value );
-  
-  // scale y
-  var xScale = d3.scaleLinear()
-  .domain( [ 0, d3.max( values ) ] )
-  .range( [ chartWidth, 0 ] );
-  
-  console.log( 'object :>> ', yScale( 100000 ) );
-  var yAxis = d3.axisLeft( yScale );
-  var xAxis = d3.axisBottom( xScale );
-  
-  chartGroup.append( "g" )
-  .attr( "class", "axisGold" )
-  .attr( "transform", `translate(0, ${chartHeight})` )
-  .call( xAxis )
-  ;
-  
-  chartGroup.append( "g" )
-  .attr( "class", "axisGold" )
-  .call( yAxis );
-
-  console.table( labels );
-
-  console.log(dictArray);
-
-  chartGroup.selectAll( ".bar" )
-    .data( dictArray )
-    .enter()
-    .append( "rect" )
-    .attr( "class", "bar" )
-    .attr("fill",d=> d.color)
-    .attr( "y", ( d, i ) => yScale( labels[ i ] ) )
-    .attr( "x", 0)
-    .attr( "height", yScale.bandwidth() )
-    .attr( "width", d => chartWidth - xScale( d.value ) )
-    ;
-
- }
-
- function vizBoxDown() {
-  console.log('dTest :>> ', dTest);
-  vizBoxUp(dTest)
-}
+barChartUp( dTest, 0);

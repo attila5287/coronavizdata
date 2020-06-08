@@ -44,9 +44,9 @@
   opacity: 0.3;
 }
 
-
-
-
+.bar-top {
+  fill: #B58900;
+}
 .axis-text {
   font-family: sans-serif;
   font-weight: bold;
@@ -92,6 +92,10 @@
   box-shadow: rgb(230, 194, 111) 5px 15px 15px;
 }
 
+.text-italic {
+  font-style: italic;
+}
+
 .text-onerem {
   font-size: 1rem;
 }
@@ -105,7 +109,7 @@
 }
 
 .text-2xl {
-  font-size: 1.50rem;
+  font-size: 2rem;
 }
 
 .text-sm {
@@ -122,6 +126,10 @@
 
 .text-3xs {
   font-size: 0.50rem;
+}
+
+.text-orient {
+  font-family: 'Orienta', sans-serif;
 }
 
 .text-digi {
@@ -167,12 +175,13 @@
 }
 
 .axisGold path {
-  stroke: #B58900;
+  stroke: #002B36;
 }
 
 .axisGold text {
   fill: #B58900;
   font-size: 0.75rem;
+  font-family: 'Orienta';
 }
 
 .names text {
@@ -180,16 +189,17 @@
 }
 
 .axisTurq line {
-  stroke: #2aa198;
+  /* stroke: #2aa198; */
+  stroke: #002B36;
 }
 
 .axisTurq path {
-  stroke: #2aa198;
+  stroke: #002B36;
 }
 
 .axisTurq text {
   fill: #2aa198;
-
+  font-family: 'Orienta', sans-serif;
 }
 
 .bg-black {
@@ -238,7 +248,7 @@ h5,
 h6 {
   color: #2aa198;
   font-family: 'Baloo 2', sans-serif;
-  margin: 2px;
+  margin: 1px;
 }
 
 .bg-steel {
@@ -265,15 +275,6 @@ h6 {
   border-radius: 16px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-p,
-i {
-  font-family: unset;
-}
 
 .rotateimg180 {
   -webkit-transform: rotate(180deg);

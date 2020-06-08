@@ -17,22 +17,17 @@
 
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
-        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-      crossorigin=""></script>
 
     <!-- FONTS -->
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Orienta' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
@@ -206,39 +201,17 @@
         Hover over rows for viz-box action...
       </em>
     </p>
-    <div id="bar-chart-vertical"></div>
-    <style>
-        body {
-            font-family: "Arial", sans-serif;
-        }
-        
-        .bar {
-'fill: #5f89ad;'
-        }
-        
-        .axis {
-            font-size: 13px;
-        }
-        
-        .axis path,
-        .axis line {
-            fill: none;
-            display: none;
-        }
-        
-        .label {
-            font-size: 13px;
-        }
-    </style>
+
+
     <div class="row">
       <div class="col-sm-6">
         <div class="container-fluid mx-4 px-2 text-nowrap" id="num-box">
-          <hr class="border-success text-center animated infinite pulse w-50 mb-1 opac-70"
+          <hr class="border-success text-center animated infinite pulse w-50 mb-1 opac-50"
             style="stroke-linecap: round;">
           <h2 class="name-title text-center text-digi shadow-turq">US States vs COVID-19</h2>
-          <hr class="border-success text-center animated infinite heartBeat w-25 my-2 opac-70">
+          <hr class="border-success text-center animated infinite heartBeat w-25 my-2 opac-50">
 
-          <div class="d-flex flex-row justify-content-center align-items-center  text-success">
+          <div class="d-flex flex-row justify-content-center align-items-center text-success">
             <div class="d-flex flex-column">
               <div class="d-flex flex-row justify-content-end shadow-turq mt-1">
                 <div class="d-flex flex-column">
@@ -397,24 +370,21 @@
           </div>
 
         </div>
-        <div class="container-fluid mx-3 px-2 text-nowrap"  id="bar-chart-horizontal">
-        </div>         
-        <svg height="500px" width="100%" class="shadow-gold bg-transparent">  
-          <rect y="0" height="25px" width="50px" fill="#2aa198"></rect>
-          <rect y="50" height="25px" width="150px" fill="#B58900"></rect>
-          <rect x="0" y="100" rx="5" ry="5" width="150" height="25"
-  style="fill:#073642;stroke:#2aa198;stroke-width:1;opacity:0.9" />
-          <rect x="0" y="150" rx="5" ry="10" width="150" height="25"
-  style="fill:#b58900;stroke:#002b36;stroke-width:1;opacity:0.9" />
-        </svg> 
+        <div class="mx-3 px-2" id="bar-chart-horizontal">
+        </div>
+        <br>
+        <div class=" mx-3 px-2 text-nowrap" id="bar-chart-vertical"></div>
       </div>
       <div class="col-sm-6">
         <div class="mx-2" id="table-goes-here"></div>
       </div>
     </div>
+    <!-- <rect x="0" y="100" rx="5" ry="5" width="150" height="25"
+      style="fill:#073642;stroke:#2aa198;stroke-width:1;opacity:0.9" />
 
-
-
+    <rect x="0" y="150" rx="5" ry="10" width="150" height="25"
+      style="fill:#b58900;stroke:#002b36;stroke-width:1;opacity:0.9" /> -->
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
