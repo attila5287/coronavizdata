@@ -17,21 +17,23 @@
 
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">    
-
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
+ 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin="" />
+
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
       crossorigin=""></script>
+      
 
     <!-- FONTS -->
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Orienta' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
@@ -84,7 +86,7 @@
             <a class="nav-item nav-link rounded-xl add-anime" href="/leaflet/asia">
               <i class="fas fa-sun"></i>
               <p class="py-0 my-0 text-balo text-sm">Asia</p>
-            </a>            
+            </a>
           </ul>
           <ul class="nav nav-pills nav-fill text-success w-100">
 
@@ -129,11 +131,13 @@
       </nav>
     </header>
     <style>
-    #map,
-    body,
-    html {
-      height: 90%;
-    }
+      #map,
+      body,
+      html {
+        height: 90%;
+        < !-- width: 75%;
+        -->
+      }
 
       .info {
         padding: 6px 8px;
@@ -162,234 +166,218 @@
         margin-right: 8px;
         opacity: 0.7;
       }
-    </style>
 
-    <style>
-      .legend {
-        line-height: 12px;
-        color: #555;
-
-      }
-
-      .legend i {
-        font-size: 8px;
-        width: 18px;
-        height: 18px;
-        float: left;
-        margin-right: 8px;
-        opacity: 0.7;
-      }
-
-      .info {
-        padding: 6px 8px;
-        font: 14px/16px Arial, Helvetica, sans-serif;
-        background: white;
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-      }
-
-      .info h4 {
-        margin: 0 0 5px;
-        color: #777;
-      }
-    </style>
-
-      <div id='map'></div>
-            <style>
-        .fa-stack {
-          font-size: 1rem;
-        }
-
-        i {
-          vertical-align: middle;
-        }
       .bar:hover {
-        fill: #B58900;
-      }        
-      </style>
-      <div id="num-box">
-        <hr class="border-success text-center animated infinite pulse w-50 mb-1 opac-70" style="stroke-linecap: round;">
-        <h2 class="name-title text-center text-digi shadow-turq">US States vs COVID-19</h2>
-        <hr class="border-success text-center animated infinite heartBeat w-25 my-2 opac-70">
-        
-        <div class="d-flex flex-row justify-content-center align-items-center">
-          <div class="d-flex flex-column ">
-            <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-              <div class="d-flex flex-column">
-                <div class="d-flex flex-row text-success  shadow-turq align-items-center">
-                <i class="fas fa-users my-auto text-larger"></i>
-                  <h3 class="number-of-person my-auto">
-                  </h3>
+        fill: #2AA198;
+      }
+    </style>
+
+    <div id='map'></div>
+    <p class="text-center mt-1">
+      <span class="fa-stack">
+        <i class="far fa-square fa-stack-2x text-success"></i>
+        <i class="fas fa-angle-double-up fa-stack-1x text-success text-larger"></i>
+      </span>
+      Ranking
+      <span class="fa-stack">
+        <i class="far fa-square fa-stack-2x text-success"></i>
+        <i class="fas fa-users fa-stack-1x text-success"></i>
+      </span>
+      Num Person
+      <span class="fa-stack">
+        <i class="far fa-square fa-stack-2x text-success"></i>
+        <i class="fas fa-info fa-stack-1x text-success"></i>
+      </span>
+      Category
+    </p>
+    <p class="text-center mb-0 mt-1 text-primary">
+      <span class="fa-stack">
+        <i class="fas fa-square fa-stack-2x text-dark shadow-gold"></i>
+        <i class="fas fa-mouse-pointer fa-stack-1x  text-primary fa animated infinite tada text-larger"></i>
+      </span>
+      <em>
+        Hover over rows for viz-box action...
+      </em>
+    </p>
+
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="container-fluid mx-4 px-2 text-nowrap" id="num-box">
+          <hr class="border-success text-center animated infinite pulse w-50 mb-1 opac-50"
+            style="stroke-linecap: round;">
+          <h2 class="name-title text-center text-digi shadow-turq">US States vs COVID-19</h2>
+          <hr class="border-success text-center animated infinite heartBeat w-25 my-2 opac-50">
+
+          <div class="d-flex flex-row justify-content-center align-items-center text-success">
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
                 </div>
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-                <i class="fas fa-angle-double-up my-auto text-larger"></i>
-                  <h3 class="ranking-order my-auto"> 
-                  </h3>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
                 </div>
-              </div>            
-              <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq py-auto m-2">
-                <div class="card-body text-center m-1 p-0">
-                  <h4 class="card-title category-title my-2">MOVE</h4>
+                <div class="fa-1x my-auto">
+                  <i class="fas fa-minus"></i>
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
                 </div>
               </div>
-              <div class="fa-1x my-auto">
-                <i class="fas fa-minus"></i>
-                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+              <div class="d-flex flex-row justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
+                </div>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
+                </div>
+                <div class="fa-1x my-auto">
+                  <i class="fas fa-minus"></i>
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                </div>
+              </div>
+              <div class="d-flex flex-row justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
+                </div>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
+                </div>
+                <div class="fa-1x my-auto">
+                  <i class="fas fa-minus"></i>
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                </div>
               </div>
             </div>
-            <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-              <div class="d-flex flex-column">
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq align-items-center">
-                <i class="fas fa-users my-auto text-larger"></i>
-                  <h3 class="number-of-person my-auto">
-                  </h3>
+            <img src="../static/img/states/default.png" style="opacity: 50%;height:3rem;" alt="viz-bar-img">
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row-reverse justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
                 </div>
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-                <i class="fas fa-angle-double-up my-auto text-larger"></i>
-                  <h3 class="ranking-order my-auto"> 
-                  </h3>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
                 </div>
-              </div>            
-              <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq py-auto m-2">
-                <div class="card-body text-center m-1 p-0">
-                  <h4 class="card-title category-title my-2">MOUSE</h4>
-                </div>
-              </div>
-              <div class="fa-1x my-auto">
-                <i class="fas fa-minus"></i>
-                <i class="far fa-dot-circle animated infinite heartBeat "></i>
-              </div>
-            </div>
-            <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-              <div class="d-flex flex-column">
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq align-items-center">
-                <i class="fas fa-users my-auto text-larger"></i>
-                  <h3 class="number-of-person my-auto">
-                  </h3>
-                </div>
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-                <i class="fas fa-angle-double-up my-auto text-larger"></i>
-                  <h3 class="ranking-order my-auto"> 
-                  </h3>
-                </div>
-              </div>            
-              <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq py-auto m-2">
-                <div class="card-body text-center m-1 p-0">
-                  <h4 class="card-title category-title my-2">POINTER</h4>
+                <div class="fa-1x my-auto">
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                  <i class="fas fa-minus"></i>
                 </div>
               </div>
-              <div class="fa-1x my-auto">
-                <i class="fas fa-minus"></i>
-                <i class="far fa-dot-circle animated infinite heartBeat "></i>
+              <div class="d-flex flex-row-reverse justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
+                </div>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
+                </div>
+                <div class="fa-1x my-auto">
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                  <i class="fas fa-minus"></i>
+                </div>
+              </div>
+              <div class="d-flex flex-row-reverse justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
+                </div>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
+                </div>
+                <div class="fa-1x my-auto">
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                  <i class="fas fa-minus"></i>
+                </div>
               </div>
             </div>
           </div>
-          
-          <img src="../static/img/states/default.png" style="opacity: 50%;height:12rem;" alt="viz-bar-img">
-          
-          <div class="d-flex flex-column">
-            <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq">
-              <div class="d-flex flex-column">
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq align-items-center">
-                <i class="fas fa-users my-auto text-larger"></i>
-                  <h3 class="number-of-person my-auto">
-                  </h3>
-                </div>
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-                <i class="fas fa-angle-double-up my-auto text-larger"></i>
-                  <h3 class="ranking-order my-auto"> 
-                  </h3>
-                </div>
-              </div>            
-              <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq py-auto m-2">
-                <div class="card-body text-center m-1 p-0">
-                  <h4 class="card-title category-title my-2">OVER</h4>
-                </div>
-              </div>
-              <div class="fa-1x my-auto">
-                <i class="fas fa-minus"></i>
-                <i class="far fa-dot-circle animated infinite heartBeat "></i>
-              </div>
-            </div>
-            <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq">
-              <div class="d-flex flex-column">
-                <div class="d-flex flex-row text-success  shadow-turq align-items-center">
-                <i class="fas fa-users my-auto text-larger"></i>
-                  <h3 class="number-of-person my-auto">
-                  </h3>
-                </div>
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-                <i class="fas fa-angle-double-up my-auto text-larger"></i>
-                  <h3 class="ranking-order my-auto"> 
-                  </h3>
-                </div>
-              </div>            
-              <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq py-auto m-2">
-                <div class="card-body text-center m-1 p-0">
-                  <h4 class="card-title category-title my-2">ROWS</h4>
-                </div>
-              </div>
-              <div class="fa-1x my-auto">
-                <i class="fas fa-minus"></i>
-                <i class="far fa-dot-circle animated infinite heartBeat "></i>
-              </div>
-            </div>
-            <div class="d-flex flex-row-reverse text-success justify-content-end shadow-turq">
-              <div class="d-flex flex-column">
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq align-items-center">
-                <i class="fas fa-users my-auto text-larger"></i>
-                  <h3 class="number-of-person my-auto">
-                  </h3>
-                </div>
-                <div class="d-flex flex-row text-success justify-content-end shadow-turq">
-                <i class="fas fa-angle-double-up my-auto text-larger"></i>
-                  <h3 class="ranking-order my-auto"> 
-                  </h3>
-                </div>
-              </div>            
-              <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq py-auto m-2">
-                <div class="card-body text-center m-1 p-0">
-                  <h4 class="card-title category-title my-2">FOR ACTION</h4>
-                </div>
-              </div>
-              <div class="fa-1x my-auto">
-                <i class="fas fa-minus"></i>
-                <i class="far fa-dot-circle animated infinite heartBeat "></i>
-              </div>
-            </div>
-          </div>
-          
+
         </div>
-
-
-      </div> 
-      
-
-      <p class="text-center mt-1">
-        <span class="fa-stack">
-          <i class="far fa-square fa-stack-2x text-success"></i>
-          <i class="fas fa-angle-double-up fa-stack-1x text-success text-larger"></i>
-        </span>
-          Ranking
-        <span class="fa-stack">
-          <i class="far fa-square fa-stack-2x text-success"></i>
-          <i class="fas fa-users fa-stack-1x text-success"></i>
-        </span>
-          Number Of Person
-      </p>
-      <p class="text-center mb-0 mt-1 text-primary">
-        <span class="fa-stack">
-          <i class="fas fa-square fa-stack-2x text-dark shadow-gold"></i>
-          <i class="fas fa-mouse-pointer fa-stack-1x  text-primary fa animated infinite tada text-larger"></i>
-        </span>
-        <em>     
-          Hover over rows for viz-box action...
-        </em>
-      </p>
-      <!-- <div id="bar-chart-vertical"></div> -->
-      <div id="bar-chart-horizontal"></div>
-      <div id="table-goes-here"></div>
+        <div class="mx-3 px-2" id="bar-chart-horizontal">
+        </div>
+        <br>
+        <div class=" mx-3 px-2 text-nowrap" id="bar-chart-vertical"></div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mx-2" id="table-goes-here"></div>
+      </div>
+    </div>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -403,7 +391,7 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
-        <script src="/static/data/mapAccessToken.js "></script>
+    <script src="/static/data/mapAccessToken.js "></script>
     <script src="/static/plugins/ddslick.js"></script>
 
     <script src="/static/data/timeseries.js"></script>
@@ -412,10 +400,9 @@
 
     <script src="/static/app/navbar-states.js"></script>
     <script src="/static/app/states.js"></script>
-     <script src="/static/app/interactive-table.js"></script>
+    <script src="/static/app/interactive-table.js"></script>
+    <!-- <script src="/static/app/test.js"></script> -->
 
   </body>
 
 </html>
--
-

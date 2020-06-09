@@ -1,11 +1,10 @@
  const format = d3.format( ',' );
  const formatBigNum = d3.format( ',' );
- const formatDecimal = d3.format( '.2' );
  let urlTest = "../static/data/states.csv";
  const columnsDisplayed = [ "Province_State", "Deaths", "Confirmed", "Recovered", "Active" ];
 
- tableInteractive( urlTest, columnsDisplayed );
- // tableInteractive(urlCompiled, columnsDisplayed);
+//  tableInteractive( urlTest, columnsDisplayed );
+ tableInteractive(urlCompiled, columnsDisplayed);
 
  function tableInteractive( url, c0lumns ) {
    // const format = d3.format( ',' );
@@ -76,7 +75,6 @@
          vizBoxDown();
        } );
 
-
      let cells = rows.selectAll( "td" )
        .data( function ( row ) {
          return columns.map( function ( d, i ) {
@@ -111,7 +109,7 @@
              '</em>' +
              '</strong>';
          } else {
-           return formatDecimal( d.value );
+           return format( d.value );
          }
        } );
      // console.log('d :>> ', cells);
@@ -306,7 +304,7 @@
 
    //add a value label to the right of each bar
    bars.append( "text" )
-     .attr( "class", "text-robo text-xlarger shadow-gold" )
+     .attr( "class", "text-orient text-xlarger shadow-gold" )
      .attr( "y", d => y( d.name ) + y.rangeBand() / 2 - 5 )
      .attr( "x", d => -50 )
      .attr( "fill", "#B58900" )
@@ -352,12 +350,12 @@
      .attr( "transform", `translate(${margin.left}, ${margin.top})` );
    var labels = data.map( d => d.name );
    // console.log( 'labels :>> ', labels );
-   const n=  ["Hospitalization", 
-   "Incident", 
-   "Mortality", 
-   "Testing",
-  ];
-  var newLab3ls = n.map( d => d );
+   const n = [ "Hospitalization",
+     "Incident",
+     "Mortality",
+     "Testing",
+   ];
+   var newLab3ls = n.map( d => d );
    // scale x to chart
    var xScale = d3.scaleBand()
      .domain( newLab3ls )
@@ -373,46 +371,43 @@
      .range( [ chartHeight, 0 ] );
    var xAxis = d3.axisBottom( xScale );
 
-   var barWidth = chartWidth / data.length / 1.25;
+   var barWidth = chartWidth / data.length / 2;
 
    let bars = chartGroup.selectAll( ".bar" )
      .data( data )
      .enter().append( "g" );
 
    let rects = bars.append( "rect" )
-     .attr( "class", "bar" )
+     .attr( "class", "bar opac-70" )
      .attr( "fill", "#002B36" )
-     .attr( "rx", "4px" )
-     .attr( "ry", "3px" )
+     .attr( "rx", "8px" )
+     .attr( "ry", "6px" )
      .style( "stroke", "#2AA198" )
      .style( "stroke-width", "1px" )
      .attr( "x", ( d, i ) => xScale( newLab3ls[ i ] ) )
      .attr( "y", d => yScale( d.value ) )
      .attr( "width", barWidth )
      .attr( "height", d => chartHeight - yScale( d.value ) );
-     
-     let xTopRotated = bars.append( "text" )
-     .attr( "class", "text-digi text-xlarger bar-top" )
-     .style( "text-anchor", "end" )
-   .attr( "x", ( d, i ) => xScale( newLab3ls[ i ] )+30 )
-   .attr( "y", d => yScale( d.value ) - 30 )
-   .attr( "fill", "#2aa198" )
-   .text( d => formatDecimal( d.value ) )
-   ;
-   
 
-    
+   let xTopRotated = bars.append( "text" )
+     .attr( "class", "text-digi text-xlarger axisTurq opac-50" )
+     .attr( "x", ( d, i ) => xScale( newLab3ls[ i ] ) )
+     .attr( "y", d => yScale( d.value ) - 10 )
+     .attr( "fill", "#2aa198" )
+     .text( d => format( Math.round(d.value) ) );
+
+
+
    let xBottomRotated = chartGroup.append( "g" )
-   .attr( "transform", `translate(0, ${chartHeight})` )
-   .attr( "class", "text-orient axisGold" )
-   .call( xAxis )
-   .selectAll( "text" )
-   .attr( "fill", "#b58900" )
-   .style( "font-size", "18px" )
+     .attr( "transform", `translate(0, ${chartHeight})` )
+     .attr( "class", "text-orient axisGold" )
+     .call( xAxis )
+     .selectAll( "text" )
+     .attr( "fill", "#b58900" )
+     .style( "font-size", "13px" )
      .style( "text-anchor", "center" )
      .attr( "dx", "-.8em" )
      .attr( "dy", "-.55em" )
-     .attr( "transform", "rotate(-45)" );
-     ;
-     
+     .attr( "transform", "rotate(-30)" )
+     ; 
  }
