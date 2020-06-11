@@ -5,7 +5,7 @@ const namesEurope = [
   "Albania", "Austria", "Belgium", "Bulgaria", "Bosnia and Herzegovina", "Belarus", "Switzerland", "Czechia", "Denmark", "Germany", "Spain", "Estonia", "Finland", "France", "United Kingdom", "Greece", "Croatia", "Hungary", "Ireland", "Iceland", "Italy", "Kosovo", "Lithuania", "Luxembourg", "Latvia", "Moldova", "North Macedonia", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Slovakia", "Sweden", "Slovenia", "Ukraine", "Turkey"
 ];
 
-function prepUnqRows( JSON ) {
+function prepGrpUnqRows( JSON ) {
   console.log( '--------- TABLE-EU ---------------- :>> ' );
   const format = d3.format( ',' );
   let abCodeByName = {},
@@ -98,7 +98,7 @@ function renderDynamicTable( url ) {
   d3.json( url, data => {
     // console.log('data.locations :>> ', data.locations[213]);
 
-    const rankDicts = rankingDict( data );
+    const rankDicts = rankingDict( data ); // part of second step below
 
     // console.log( 'rankDicts :>> ', rankDicts );
 
@@ -108,8 +108,7 @@ function renderDynamicTable( url ) {
       thead = table.append( "thead" ).attr( "class", "shadow-after" ),
       tbody = table.append( "tbody" ).attr( "class", "my-0 py-0 text-xlarger" );
 
-    const rowData = prepUnqRows( data )
-      .europe;
+    const rowData = prepGrpUnqRows( data ).europe;
 
     columns = Object.keys( rowData[ 0 ] );
     // console.log( 'columns :>> ', columns );
@@ -152,8 +151,11 @@ function renderDynamicTable( url ) {
       .attr( "class", "shadow-before add-anime" )
       .on( "mouseover", function ( d ) {
 
+        // now the third is for row chart
+        rowChartUp(d);
+        // first step
         numBoxUp( d );
-
+        // second,  complex data process, after rankDicts generated
         rankBoxUp( rankDicts, d );
 
         d3.select( this )
@@ -249,34 +251,10 @@ function numBoxUp( d ) {
 
 }
 
-function rankingD1ct( data ) {
-  function dictGen( columnName ) {
-    const sorted = data.sort( function ( a, b ) {
-      return b[ columnName ] - a[ columnName ];
-    } );
-    // console.log('sorted :>> ', sorted);
-    let dict = {};
-    sorted.forEach( ( d, i ) => {
-      dict[ d.Name ] = i + 1;
-    } );
-    return dict;
-  }
-  categories = [ "Deaths", "Confirmed", "Population" ];
-
-  const output = categories.map( column => {
-    // console.log('dictGen( column ) :>> ', dictGen( column ));
-    return dictGen( column );
-  } );
-
-  console.log( 'output only rankings:>> ', output );
-  
-  return output;
-}
-
 function rankBoxUp( arrOfSortedDict, d ) {
   const name = d.Name;
   let out = arrOfSortedDict.map( dict => dict[ d.Name ] );
-  console.log('out :>> ', out);
+  // console.log('arrOfSortedDict.map( dict => dict[ d.Name ] )', out);
   const rankings = d3
     .select( '#num-box' )
     .selectAll( '.ranking-order' )
@@ -287,7 +265,7 @@ function rankBoxUp( arrOfSortedDict, d ) {
 }
 
 function rankingDict( JSON ) {
-  const europe = prepUnqRows(JSON).europe;
+  const europe = prepGrpUnqRows(JSON).europe;
   // console.log('data :>> ', europe);
 
   function dictGen( data, columnName ) {
@@ -321,5 +299,108 @@ function rankingDict( JSON ) {
   // console.log( 'output only rankings:>> ', output );
   return output;
 }
+
+
 // ------------- RUN------------------
 renderDynamicTable( urlTest );
+function rowChartUp( d, i ) {
+   console.log( d );
+   const format = d3.format( ',' );
+   let z = {};
+   z.Confirmed = +d.Confirmed;
+   z.Deaths = +d.Deaths;
+   z.Population = +d.Population;
+  //  console.table(z);
+   const zKeys = Object.keys( z );
+   let listOfValues = [];
+   const zValues = zKeys.map( ( key ) => {
+     return +d[ key ];
+   } );
+   // create an array to store dictionaries nxt step
+   const dictArray = [];
+   // generate new objects -dictionaries- 
+   for ( let i = 0; i < zKeys.length; i++ ) {
+     let dict = {
+       name: 'default',
+       value: 0
+     };
+     dict.name = zKeys[ i ];
+     dict.value = +z[ zKeys[ i ] ];
+     dictArray.push( dict );
+   }
+   
+  console.log('dictArray :>> ', dictArray);
+
+   var margin = {
+     top: 15,
+    right: 50,
+     bottom: 15,
+     left: 50
+   };
+
+   var svgWidth = window.innerWidth * .5;
+   var svgHeight = svgWidth * .75;
+   var width = svgWidth - margin.left - margin.right,
+     height = svgHeight - margin.top - margin.bottom
+     ;
+
+   var svg = d3.select( "#bar-chart-horizontal" ).append( "svg" )
+     .attr( "width", width + margin.left + margin.right )
+     .attr( "height", height + margin.top + margin.bottom )
+     .append( "g" )
+     .attr( "transform", "translate(" + margin.left + "," + margin.top + ")" );
+
+   var x = d3.scale.linear()
+     .range( [ 0, width ] )
+     .domain( [ 0, d3.max( dictArray,  d =>  d.value  ] );
+
+   var y = d3.scale.ordinal()
+     .rangeRoundBands( [ height, 0 ], .2 )
+     .domain( dictArray.map( function ( d ) {
+       return d.name;
+     } ) );
+
+   //make y axis to show bar names
+   var yAxis = d3.svg.axis()
+     .scale( y )
+     //no tick marks
+     .tickSize( 0 )
+     .orient( "left" );
+
+   var gy = svg.append( "g" )
+     .attr( "class", "axisTurq" )
+     .call( yAxis );
+
+   var bars = svg.selectAll( ".bar" )
+     .data( dictArray )
+     .enter()
+     .append( "g" );
+
+   bars.append( "rect" )
+     .attr( "class", "bar opac-50" )
+     .attr( "rx", "3px" )
+     .attr( "ry", "10px" )
+     .attr( "fill", "#002B36" )
+     .attr( "stroke", "#2aa198" )
+     .attr( "y", ( d ) => y( d.name ) )
+     .attr( "height", y.rangeBand() * .8 )
+     .attr( "x", 0 )
+     .attr( "width", ( d ) => x( d.value ) );
+
+   bars.append( "text" )
+     .attr( "class", "text-digi text-xlarger opac-50" )
+     .attr( "y", d => y( d.name ) + y.rangeBand() / 2 + 8 )
+     .attr( "x", d => x( d.value ) + 3 )
+     .attr( "fill", "#2aa198" )
+     .text( function ( d ) {
+       return format( d.value );
+     } );
+
+   //add a value label to the right of each bar
+   bars.append( "text" )
+     .attr( "class", "text-orient text-xlarger shadow-gold" )
+     .attr( "y", d => y( d.name ) + y.rangeBand() / 2 - 5 )
+     .attr( "x", d => -50 )
+     .attr( "fill", "#B58900" )
+     .text( d => d.name );
+ }

@@ -8,3 +8,4 @@ let dTest = {
 };
 
 // numBoxUp(dTest);
+ rowChartUp(dTest); 
