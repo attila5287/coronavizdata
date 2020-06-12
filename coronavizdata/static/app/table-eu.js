@@ -1,3 +1,4 @@
+console.log( '--------- TABLE-EU ---------------- ' );
 const urlTest = '../static/data/locations.json';
 const urlFresh = 'http://coronavirus-tracker-api.herokuapp.com/v2/locations';
 
@@ -5,8 +6,13 @@ const namesEurope = [
   "Albania", "Austria", "Belgium", "Bulgaria", "Bosnia and Herzegovina", "Belarus", "Switzerland", "Czechia", "Denmark", "Germany", "Spain", "Estonia", "Finland", "France", "United Kingdom", "Greece", "Croatia", "Hungary", "Ireland", "Iceland", "Italy", "Kosovo", "Lithuania", "Luxembourg", "Latvia", "Moldova", "North Macedonia", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Slovakia", "Sweden", "Slovenia", "Ukraine", "Turkey"
 ];
 
+function vizBoxDown() {
+  d3.select( '#bar-chart-horizontal' )
+    .select( 'svg' )
+    .remove();
+}
+
 function prepGrpUnqRows( JSON ) {
-  console.log( '--------- TABLE-EU ---------------- :>> ' );
   const format = d3.format( ',' );
   let abCodeByName = {},
     popByName = {};
@@ -92,9 +98,10 @@ function prepGrpUnqRows( JSON ) {
   };
   return output;
 }
-function renderDynamicTable( url ) {
 
+function renderDynamicTable( url ) {
   const format = d3.format( ',' );
+
   d3.json( url, data => {
     // console.log('data.locations :>> ', data.locations[213]);
 
@@ -104,9 +111,9 @@ function renderDynamicTable( url ) {
 
     let table = d3.select( "#table-goes-here" )
       .append( "table" )
-      .attr( "class", "table table-striped table-hover text-center text-xlarger py-0 text-success" ),
-      thead = table.append( "thead" ).attr( "class", "shadow-after" ),
-      tbody = table.append( "tbody" ).attr( "class", "my-0 py-0 text-xlarger" );
+      .attr( "class", "table table-striped table-condensed table-hover text-center text-xlarger text-success" ),
+      thead = table.append( "thead" ).attr( "class", "shadow-af                  ter" ),
+      tbody = table.append( "tbody" ).attr( "class", "my-0 py-0" );
 
     const rowData = prepGrpUnqRows( data ).europe;
 
@@ -152,7 +159,7 @@ function renderDynamicTable( url ) {
       .on( "mouseover", function ( d ) {
 
         // now the third is for row chart
-        rowChartUp(d);
+        rowChartUp( d );
         // first step
         numBoxUp( d );
         // second,  complex data process, after rankDicts generated
@@ -161,14 +168,14 @@ function renderDynamicTable( url ) {
         d3.select( this )
           .attr( "class", "shadow-after add-anime text-primary text-uppercase text-monospace border-primary" );
 
-          console.log( 'rankBoxUp( rankDicts, d ) ; :>> ', rankBoxUp( rankDicts, d ) );
+        // console.log( 'rankBoxUp( rankDicts, d ) ; :>> ', rankBoxUp( rankDicts, d ) );
 
       } )
       .on( "mouseout", function ( d ) {
         d3.select( this )
           .attr( "class", "shadow-before add-anime" );
-        
-          
+
+        vizBoxDown();
 
       } );
 
@@ -209,17 +216,17 @@ function renderDynamicTable( url ) {
       } );
 
     // console.log('d :>> ', cells);
-    
+
   } )
 }
 
 function numBoxUp( d ) {
   const form4t = d3.format( ',' );
-  
+
   const keys = [ "Deaths", "Confirmed", "Population" ];
   // console.log( 'keys :>> ', keys );
-  
-  
+
+
   const values = keys.map( key => d[ key ] );
   // console.log( 'values :>> ', values );
 
@@ -265,16 +272,16 @@ function rankBoxUp( arrOfSortedDict, d ) {
 }
 
 function rankingDict( JSON ) {
-  const europe = prepGrpUnqRows(JSON).europe;
+  const europe = prepGrpUnqRows( JSON ).europe;
   // console.log('data :>> ', europe);
 
   function dictGen( data, columnName ) {
     const sorted = data.sort( function ( a, b ) {
       return b[ columnName ] - a[ columnName ];
     } );
-    
+
     // console.log('sorted :>> ', sorted);
-    
+
     let dict = {};
 
     sorted.forEach( ( d, i ) => {
@@ -283,7 +290,7 @@ function rankingDict( JSON ) {
     return dict;
   }
 
-  const testDict = dictGen(europe, 'Deaths');
+  const testDict = dictGen( europe, 'Deaths' );
   // console.table(testDict);
 
   const categories = [
@@ -303,104 +310,130 @@ function rankingDict( JSON ) {
 
 // ------------- RUN------------------
 renderDynamicTable( urlTest );
-function rowChartUp( d, i ) {
-   console.log( d );
-   const format = d3.format( ',' );
-   let z = {};
-   z.Confirmed = +d.Confirmed;
-   z.Deaths = +d.Deaths;
-   z.Population = +d.Population;
+
+function rowChartUp( d ) {
+  // console.log( d );
+  const format = d3.format( ',' );
+  let z = {};
+  z.Confirmed = +d.Confirmed;
+  z.Deaths = +d.Deaths;
   //  console.table(z);
-   const zKeys = Object.keys( z );
-   let listOfValues = [];
-   const zValues = zKeys.map( ( key ) => {
-     return +d[ key ];
-   } );
-   // create an array to store dictionaries nxt step
-   const dictArray = [];
-   // generate new objects -dictionaries- 
-   for ( let i = 0; i < zKeys.length; i++ ) {
-     let dict = {
-       name: 'default',
-       value: 0
-     };
-     dict.name = zKeys[ i ];
-     dict.value = +z[ zKeys[ i ] ];
-     dictArray.push( dict );
-   }
-   
-  console.log('dictArray :>> ', dictArray);
+  const zKeys = Object.keys( z );
+  let listOfValues = [];
+  const zValues = zKeys.map( ( key ) => {
+    return +d[ key ];
+  } );
+  // create an array to store dictionaries nxt step
+  const dictArray = [];
+  // generate new objects -dictionaries- 
+  for ( let i = 0; i < zKeys.length; i++ ) {
+    let dict = {
+      name: 'default',
+      value: 0
+    };
+    dict.name = zKeys[ i ];
+    dict.value = +z[ zKeys[ i ] ];
+    dictArray.push( dict );
+  }
 
-   var margin = {
-     top: 15,
+  // console.log( 'dictArray :>> ', dictArray );
+
+  //set up svg responsive with respect to window size
+  let margin = {
+    top: 35,
     right: 50,
-     bottom: 15,
-     left: 50
-   };
+    bottom: 25,
+    left: 70
+  };
 
-   var svgWidth = window.innerWidth * .5;
-   var svgHeight = svgWidth * .75;
-   var width = svgWidth - margin.left - margin.right,
-     height = svgHeight - margin.top - margin.bottom
-     ;
+  const svgWidth = window.innerWidth * .5,
+    svgHeight = svgWidth * .75,
+    width = svgWidth - margin.left - margin.right,
+    height = svgHeight - margin.top - margin.bottom;
 
-   var svg = d3.select( "#bar-chart-horizontal" ).append( "svg" )
-     .attr( "width", width + margin.left + margin.right )
-     .attr( "height", height + margin.top + margin.bottom )
-     .append( "g" )
-     .attr( "transform", "translate(" + margin.left + "," + margin.top + ")" );
+  let svg = d3.select( "#bar-chart-horizontal" ).append( "svg" )
+    .attr( "width", width + margin.left + margin.right )
+    .attr( "height", height + margin.top + margin.bottom )
+    .append( "g" )
+    .attr( "transform", "translate(" + margin.left + "," + margin.top + ")" )
 
-   var x = d3.scale.linear()
-     .range( [ 0, width ] )
-     .domain( [ 0, d3.max( dictArray,  d =>  d.value  ] );
+  // console.log('maxValue :>> ', maxValue);
 
-   var y = d3.scale.ordinal()
-     .rangeRoundBands( [ height, 0 ], .2 )
-     .domain( dictArray.map( function ( d ) {
-       return d.name;
-     } ) );
+  const names = dictArray.map( d => d.name );
+  const values = dictArray.map( d => d.value );
+  // const maxValue = d3.max( dictArray, d =>  d.value );
+  const maxValue = d3.max( values );
 
-   //make y axis to show bar names
-   var yAxis = d3.svg.axis()
-     .scale( y )
-     //no tick marks
-     .tickSize( 0 )
-     .orient( "left" );
+  // console.log('dictArray :>> ', dictArray);
 
-   var gy = svg.append( "g" )
-     .attr( "class", "axisTurq" )
-     .call( yAxis );
+  // >>---soF-soG--|>
 
-   var bars = svg.selectAll( ".bar" )
-     .data( dictArray )
-     .enter()
-     .append( "g" );
+  let xBandScale = d3.scaleBand()
+    .domain( dictArray.map( d => d.name ) )
+    .range( [ 0, width ] )
+    .padding( 0.4 );
 
-   bars.append( "rect" )
-     .attr( "class", "bar opac-50" )
-     .attr( "rx", "3px" )
-     .attr( "ry", "10px" )
-     .attr( "fill", "#002B36" )
-     .attr( "stroke", "#2aa198" )
-     .attr( "y", ( d ) => y( d.name ) )
-     .attr( "height", y.rangeBand() * .8 )
-     .attr( "x", 0 )
-     .attr( "width", ( d ) => x( d.value ) );
+  // Create a linear scale for the vertical axis.
+  let yLinearScale = d3.scaleLinear()
+    .domain( [ 0, d3.max( dictArray, d => d.value ) ] )
+    .range( [ height, 0 ] );
 
-   bars.append( "text" )
-     .attr( "class", "text-digi text-xlarger opac-50" )
-     .attr( "y", d => y( d.name ) + y.rangeBand() / 2 + 8 )
-     .attr( "x", d => x( d.value ) + 3 )
-     .attr( "fill", "#2aa198" )
-     .text( function ( d ) {
-       return format( d.value );
-     } );
+  // Create two new functions passing our scales in as arguments
+  // These will be used to create the chart's axes
+  let bottomAxis = d3.axisBottom( xBandScale );
+  let leftAxis = d3
+    .axisLeft( yLinearScale )
+    .ticks( 5 );
 
-   //add a value label to the right of each bar
-   bars.append( "text" )
-     .attr( "class", "text-orient text-xlarger shadow-gold" )
-     .attr( "y", d => y( d.name ) + y.rangeBand() / 2 - 5 )
-     .attr( "x", d => -50 )
-     .attr( "fill", "#B58900" )
-     .text( d => d.name );
- }
+
+  var barWidth = width / dictArray.length / 2.5;
+
+  let bars = svg.selectAll( ".bar" )
+    .data( dictArray )
+    .enter().append( "g" );
+
+  let rects = bars.append( "rect" )
+    .attr( "class", "bar opac-30" )
+    .attr( "rx", "4px" )
+    .attr( "ry", "3px" )
+    .attr( "fill", "#002B36" )
+    .attr( "fill", "#073642" )f
+    .attr( "fill", "#2aa198" )
+    .attr( "stroke-width", "2px" )
+    .attr( "stroke", "#2aa198" )
+    .attr( "x", ( d, i ) => xBandScale( names[ i ] ) )
+    .attr( "y", d => yLinearScale( d.value ) )
+    .attr( "width", barWidth )
+    .attr( "height", d => height - yLinearScale( d.value ) );
+
+  let xTopRotated = bars.append( "text" )
+  .attr( "x", ( d, i ) => xBandScale( names[ i ] ) )
+  .attr( "y", -3 )
+  .attr( "fill", "#b58900" )
+  .attr( "class", "text-digi text-xs" )
+    .style( "font-size", "14px" )
+    .style( "font-family", "Orbitron" )
+    .text( d => format( Math.round( d.value ) ) );
+
+  let text = svg.append( "g" )
+    .attr( "transform", `translate(0, ${height})` )
+    .attr( "class", "axisGold" )
+    .call( bottomAxis )
+    .selectAll( "text" )
+    .style( "font-size", "14px" )
+    .style( "font-family", "Orbitron" )
+    .style( "text-anchor", "start" )
+    .attr( "fill", "#b58900" )
+    .attr( "transform", "rotate(-90)" );
+    
+    let textLeft = svg.append( "g" )
+    // .attr( "transform", `translate(${height},0 )` )
+    .attr( "class", "axisTurq opac-50" )
+    .call( leftAxis )
+    .selectAll( "text" )
+    .style( "font-size", "10px" )
+    .style( "font-family", "Orbitron" )
+    .style( "text-anchor", "end" )
+    .attr( "fill", "#b58900" )
+
+}
