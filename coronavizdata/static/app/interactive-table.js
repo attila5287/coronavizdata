@@ -3,8 +3,8 @@
  let urlTest = "../static/data/states.csv";
  const columnsDisplayed = [ "Province_State", "Deaths", "Confirmed", "Recovered", "Active" ];
 
-//  tableInteractive( urlTest, columnsDisplayed );
- tableInteractive(urlCompiled, columnsDisplayed);
+ //  tableInteractive( urlTest, columnsDisplayed );
+ tableInteractive( urlCompiled, columnsDisplayed );
 
  function tableInteractive( url, c0lumns ) {
    // const format = d3.format( ',' );
@@ -205,112 +205,6 @@
      } );
  }
 
- function rowChartUp( d, i ) {
-
-   console.log( d );
-   const format = d3.format( ',' );
-   let z = {};
-   z.Active = +d.Active;
-   z.Confirmed = +d.Confirmed;
-   z.Recovered = +d.Recovered;
-   z.Deaths = +d.Deaths;
-   z.People_Hospitalized = +d.People_Hospitalized;
-   // console.table(z);
-   const zKeys = Object.keys( z );
-   let listOfValues = [];
-   const zValues = zKeys.map( ( key ) => {
-     return +d[ key ];
-   } );
-   // create an array to store dictionaries nxt step
-   const dictArray = [];
-   // generate new objects -dictionaries- 
-   for ( let i = 0; i < zKeys.length; i++ ) {
-     let dict = {
-
-       name: '',
-       value: 0
-     };
-     dict.name = zKeys[ i ];
-     dict.value = +z[ zKeys[ i ] ];
-     dictArray.push( dict );
-   }
-
-   //set up svg using margin conventions - we'll need plenty of room on the left for labels
-   var margin = {
-     top: 15,
-     right: 50,
-     bottom: 15,
-     left: 50
-   };
-
-   var svgWidth = window.innerWidth * .5;
-   var svgHeight = svgWidth * .75;
-   var width = svgWidth - margin.left - margin.right,
-     height = svgHeight - margin.top - margin.bottom;
-
-   var svg = d3.select( "#bar-chart-horizontal" ).append( "svg" )
-     .attr( "width", width + margin.left + margin.right )
-     .attr( "height", height + margin.top + margin.bottom )
-     .append( "g" )
-     .attr( "transform", "translate(" + margin.left + "," + margin.top + ")" );
-
-   var x = d3.scale.linear()
-     .range( [ 0, width ] )
-     .domain( [ 0, d3.max( dictArray, function ( d ) {
-       return d.value;
-     } ) ] );
-
-   var y = d3.scale.ordinal()
-     .rangeRoundBands( [ height, 0 ], .2 )
-     .domain( dictArray.map( function ( d ) {
-       return d.name;
-     } ) );
-
-   //make y axis to show bar names
-   var yAxis = d3.svg.axis()
-     .scale( y )
-     //no tick marks
-     .tickSize( 0 )
-     .orient( "left" );
-
-   var gy = svg.append( "g" )
-     .attr( "class", "axisTurq" )
-     .call( yAxis );
-
-   var bars = svg.selectAll( ".bar" )
-     .data( dictArray )
-     .enter()
-     .append( "g" );
-
-   bars.append( "rect" )
-     .attr( "class", "bar opac-50" )
-     .attr( "rx", "3px" )
-     .attr( "ry", "10px" )
-     .attr( "fill", "#002B36" )
-     .attr( "stroke", "#2aa198" )
-     .attr( "y", ( d ) => y( d.name ) )
-     .attr( "height", y.rangeBand() * .8 )
-     .attr( "x", 0 )
-     .attr( "width", ( d ) => x( d.value ) );
-
-   bars.append( "text" )
-     .attr( "class", "text-digi text-xlarger opac-50" )
-     .attr( "y", d => y( d.name ) + y.rangeBand() / 2 + 8 )
-     .attr( "x", d => x( d.value ) + 3 )
-     .attr( "fill", "#2aa198" )
-     .text( function ( d ) {
-       return format( d.value );
-     } );
-
-   //add a value label to the right of each bar
-   bars.append( "text" )
-     .attr( "class", "text-orient text-xlarger shadow-gold" )
-     .attr( "y", d => y( d.name ) + y.rangeBand() / 2 - 5 )
-     .attr( "x", d => -50 )
-     .attr( "fill", "#B58900" )
-     .text( d => d.name );
- }
-
  function barChartUp( d, i ) {
    console.log( d );
    console.log( i );
@@ -365,6 +259,7 @@
 
    console.log( 'values :>> ', values );
    console.log( 'values :>> ', d3.max( values ) );
+
    // scale y
    var yScale = d3.scaleLinear()
      .domain( [ 0, d3.max( values ) ] )
@@ -394,20 +289,20 @@
      .attr( "x", ( d, i ) => xScale( newLab3ls[ i ] ) )
      .attr( "y", d => yScale( d.value ) - 10 )
      .attr( "fill", "#2aa198" )
-     .text( d => format( Math.round(d.value) ) );
+     .text( d => format( Math.round( d.value ) ) );
+
+  let xBottomRotated = chartGroup.append( "g" )
+    .attr( "transform", `translate(0, ${chartHeight})` )
+    .attr( "class", "text-orient axisGold" )
+    .call( xAxis )
+    .selectAll( "text" )
+    .attr( "fill", "#b58900" )
+    .style( "font-size", "13px" )
+    .style( "text-anchor", "center" )
+    .attr( "dx", "-.8em" )
+    .attr( "dy", "-.55em" )
+    .attr( "transform", "rotate(-30)" );
 
 
-
-   let xBottomRotated = chartGroup.append( "g" )
-     .attr( "transform", `translate(0, ${chartHeight})` )
-     .attr( "class", "text-orient axisGold" )
-     .call( xAxis )
-     .selectAll( "text" )
-     .attr( "fill", "#b58900" )
-     .style( "font-size", "13px" )
-     .style( "text-anchor", "center" )
-     .attr( "dx", "-.8em" )
-     .attr( "dy", "-.55em" )
-     .attr( "transform", "rotate(-30)" )
-     ; 
  }
+ 

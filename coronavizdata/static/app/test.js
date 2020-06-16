@@ -7,5 +7,6 @@ let dTest = {
   Population: 82319724
 };
 
-// numBoxUp(dTest);
- rowChartUp(dTest); 
+barChartUp(dTest);
+numBoxUp(dTest);
+rowChartUp(dTest); 

@@ -2,11 +2,11 @@ import os
 from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 from coronavizdata import app, db
 
-@app.route("/")
 @app.route("/dashboard")
 def dashboard():
     return render_template('dashboard.html', title='dashBoard')
 
+@app.route("/")
 @app.route("/table")
 def table():
     return render_template('table.html', title='Table')

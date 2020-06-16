@@ -1,3 +1,4 @@
+
 console.log( '--------- TABLE-EU ---------------- ' );
 const urlTest = '../static/data/locations.json';
 const urlFresh = 'http://coronavirus-tracker-api.herokuapp.com/v2/locations';
@@ -307,11 +308,7 @@ function rankingDict( JSON ) {
   return output;
 }
 
-
-// ------------- RUN------------------
-renderDynamicTable( urlTest );
-
-function rowChartUp( d ) {
+function barChartUp( d ) {
   // console.log( d );
   const format = d3.format( ',' );
   let z = {};
@@ -351,20 +348,18 @@ function rowChartUp( d ) {
     width = svgWidth - margin.left - margin.right,
     height = svgHeight - margin.top - margin.bottom;
 
-  let svg = d3.select( "#bar-chart-horizontal" ).append( "svg" )
+  let svg = d3.select( "#bar-chart-vertical" )
+    .append( "svg" )
     .attr( "width", width + margin.left + margin.right )
     .attr( "height", height + margin.top + margin.bottom )
     .append( "g" )
-    .attr( "transform", "translate(" + margin.left + "," + margin.top + ")" )
-
-  // console.log('maxValue :>> ', maxValue);
-
-  const names = dictArray.map( d => d.name );
-  const values = dictArray.map( d => d.value );
-  // const maxValue = d3.max( dictArray, d =>  d.value );
-  const maxValue = d3.max( values );
-
-  // console.log('dictArray :>> ', dictArray);
+    .attr( "transform", "translate(" + margin.left + "," + margin.top + ")" );
+  
+    
+    const names = dictArray.map( d => d.name );
+    const values = dictArray.map( d => d.value );
+    const maxValue = d3.max( values );
+    // console.log('maxValue :>> ', maxValue);
 
   // >>---soF-soG--|>
 
@@ -396,26 +391,25 @@ function rowChartUp( d ) {
     .attr( "class", "bar opac-30" )
     .attr( "rx", "4px" )
     .attr( "ry", "3px" )
-    .attr( "fill", "#002B36" )
-    .attr( "fill", "#073642" )f
     .attr( "fill", "#2aa198" )
-    .attr( "stroke-width", "2px" )
+    .attr( "stroke-width", "5px" )
     .attr( "stroke", "#2aa198" )
     .attr( "x", ( d, i ) => xBandScale( names[ i ] ) )
     .attr( "y", d => yLinearScale( d.value ) )
     .attr( "width", barWidth )
     .attr( "height", d => height - yLinearScale( d.value ) );
 
-  let xTopRotated = bars.append( "text" )
-  .attr( "x", ( d, i ) => xBandScale( names[ i ] ) )
-  .attr( "y", -3 )
-  .attr( "fill", "#b58900" )
-  .attr( "class", "text-digi text-xs" )
-    .style( "font-size", "14px" )
+  let textValues = bars.append( "text" )
+    .attr( "x", ( d, i ) => xBandScale( names[ i ] ) )
+    .attr( "y", -3 )
+    .attr( "fill", "#b58900" )
+    .attr( "class", "text-digi text-xs" )
+    .style( "font-size", "13px" )
     .style( "font-family", "Orbitron" )
+    .style( "text-anchor", "center" )
     .text( d => format( Math.round( d.value ) ) );
 
-  let text = svg.append( "g" )
+  let textLabels = svg.append( "g" )
     .attr( "transform", `translate(0, ${height})` )
     .attr( "class", "axisGold" )
     .call( bottomAxis )
@@ -425,8 +419,8 @@ function rowChartUp( d ) {
     .style( "text-anchor", "start" )
     .attr( "fill", "#b58900" )
     .attr( "transform", "rotate(-90)" );
-    
-    let textLeft = svg.append( "g" )
+
+  let textLeft = svg.append( "g" )
     // .attr( "transform", `translate(${height},0 )` )
     .attr( "class", "axisTurq opac-50" )
     .call( leftAxis )
@@ -434,6 +428,9 @@ function rowChartUp( d ) {
     .style( "font-size", "10px" )
     .style( "font-family", "Orbitron" )
     .style( "text-anchor", "end" )
-    .attr( "fill", "#b58900" )
+    .attr( "fill", "#b58900" );
 
 }
+
+// ------------- RUN------------------
+renderDynamicTable( urlTest );

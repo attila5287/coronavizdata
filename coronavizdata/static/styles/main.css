@@ -43,7 +43,6 @@
 	cursor: pointer;
 	fill: #e75480;
 }
-/* ------------------------- */
 .add-anime {
 	transition: ease 0.25s;
 }
@@ -105,8 +104,7 @@
 }
 .tooltip {
 	background: #073642;
-	border: 0,
-    border-color: #2AA198;
+	border: 0, border-color: #2AA198;
 	border-radius: 14px;
 	border-width: thin;
 	box-shadow: 0 0.5rem 1rem rgba(2, 211, 243, 0.717) !important;
@@ -120,10 +118,10 @@
 	width: 100px;
 }
 .axisGold line {
-	stroke: #002B36;
+	stroke: none;
 }
 .axisGold path {
-	stroke: #002B36;
+	stroke: none;
 }
 .axisGold text {
 	fill: #B58900;
@@ -148,14 +146,6 @@
 }
 .bg-slategray {
 	background-color: #0f3b46d5;
-}
-html {
-	font-size: 10px;
-}
-@media (min-width: 768px) {
-	html {
-		font-size: 14px;
-	}
 }
 .container {
 	x-width: 960px;
@@ -292,7 +282,7 @@ html {
 	height: 90%;
 }
 .info {
-	background: rgba(255, 255, 255, 0.8);
+ 	background: rgba(255, 255, 255, 0.8);
 	border-radius: 5px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 	font: 14px/16px Arial, Helvetica, sans-serif;
@@ -314,4 +304,12 @@ html {
 	margin-right: 8px;
 	opacity: 0.7;
 	width: 18px;
+}
+html {
+	font-size: 10px;
+}
+@media (min-width: 768px) {
+	html {
+		font-size: 14px;
+	}
 }
