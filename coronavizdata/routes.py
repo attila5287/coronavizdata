@@ -1,7 +1,7 @@
 import os
-import requests
 from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 from coronavizdata import app, db
+# import requests
 
 @app.route("/dashboard")
 def dashboard():
@@ -537,12 +537,16 @@ def jsonify_comments():
 def comment_reporter():
     pass
     myURL = "http://127.0.0.1:5000/api/response"
+    print(myURL)
+    
     # print(requests.get(myURL))
-    response = requests.get(myURL).json()
+    
+    # response = requests.get(myURL).json()
+
     print(' < --- response -> data -> comments  --->')
     # print(response[0]['data'])
-    data = response[0]['data']
-    comments_fetched = [dict['comment'] for dict in data]
+    # data = response[0]['data']
+    # comments_fetched = [dict['comment'] for dict in data]
     # print(comments_fetched[0])
     
     
