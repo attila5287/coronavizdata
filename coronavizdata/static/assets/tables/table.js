@@ -162,7 +162,7 @@ function renderDynamicTable( data ) {
       // console.log(field);
       condition = ( j == 0 ) // country name is the first field in a row
       var $cell = $row.insertCell( j );
-      // condition = (typeof currentRow[field] == "string") // country name is string
+      // condition = (typeof currentRow[field] == "string") // country name is string 
       if ( condition ) {
         $cell.innerText = currentRow[ field ]; // dont format strings
 

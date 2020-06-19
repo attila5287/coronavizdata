@@ -1,4 +1,4 @@
- const format = d3.format( ',' );
+const format = d3.format( ',' );
  const formatBigNum = d3.format( ',' );
  let urlTest = "../static/data/states.csv";
  const columnsDisplayed = [ "Province_State", "Deaths", "Confirmed", "Recovered", "Active" ];
@@ -290,7 +290,7 @@
      .attr( "y", d => yScale( d.value ) - 10 )
      .attr( "fill", "#2aa198" )
      .text( d => format( Math.round( d.value ) ) );
-
+     
   let xBottomRotated = chartGroup.append( "g" )
     .attr( "transform", `translate(0, ${chartHeight})` )
     .attr( "class", "text-orient axisGold" )
@@ -302,7 +302,5 @@
     .attr( "dx", "-.8em" )
     .attr( "dy", "-.55em" )
     .attr( "transform", "rotate(-30)" );
-
-
  }
  

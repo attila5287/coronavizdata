@@ -6,7 +6,10 @@ let dTest = {
   Confirmed: 157814,
   Population: 82319724
 };
+let urlResponse = "static/data/json/response.json";
+barChartUp( dTest );
+numBoxUp( dTest );
+rowChartUp( dTest );
 
-barChartUp(dTest);
-numBoxUp(dTest);
-rowChartUp(dTest); 
+console.log('RESPONSE TEST ONE TWO :>> ', responseTest.data);
+console.log('comments :>> ', comments);
