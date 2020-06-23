@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
+
   <head>
+
+    <title>US States- Leaflet</title>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" class="favicon" href="/static/img/site/c_hex_aquamarine.ico" />
@@ -13,26 +17,23 @@
 
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
-    <script src="https://d3js.org/d3.v4.js"></script>    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>    
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
+ 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin="" />
+
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
       crossorigin=""></script>
-        
-    <!-- Color Scale -->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
+      
 
     <!-- FONTS -->
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Orienta' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
@@ -43,7 +44,6 @@
   </head>
 
   <body style="margin-top: 70px;">
-
     <header>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
@@ -130,6 +130,47 @@
         </div>
       </nav>
     </header>
+    <style>
+      #map,
+      body,
+      html {
+        height: 90%;
+        < !-- width: 75%;
+        -->
+      }
+
+      .info {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+      }
+
+      .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+      }
+
+      .legend {
+        text-align: left;
+        line-height: 18px;
+        color: #555;
+      }
+
+      .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+      }
+
+      .bar:hover {
+        fill: #2AA198;
+      }
+    </style>
 
     <div id='map'></div>
     <p class="text-center mt-1">
@@ -142,24 +183,33 @@
         <i class="far fa-square fa-stack-2x text-success"></i>
         <i class="fas fa-users fa-stack-1x text-success"></i>
       </span>
-      Number Of Person
+      Num Person
+      <span class="fa-stack">
+        <i class="far fa-square fa-stack-2x text-success"></i>
+        <i class="fas fa-info fa-stack-1x text-success"></i>
+      </span>
+      Category
+    </p>
+    <p class="text-center mb-0 mt-1 text-primary">
+      <span class="fa-stack">
+        <i class="fas fa-square fa-stack-2x text-dark shadow-gold"></i>
+        <i class="fas fa-mouse-pointer fa-stack-1x  text-primary fa animated infinite tada text-larger"></i>
+      </span>
+      <em>
+        Hover over rows for viz-box action...
+      </em>
     </p>
 
-    
 
-    <hr class="mt-0 mb-2 border-success">
-    
     <div class="row">
-      <div class="col-sm-8">
-
-        <div class="container-fluid mx-4 px-4 text-nowrap text-center" id="num-box">
+      <div class="col-sm-6">
+        <div class="container-fluid mx-4 px-2 text-nowrap" id="num-box">
           <hr class="border-success text-center animated infinite pulse w-50 mb-1 opac-50"
             style="stroke-linecap: round;">
-          <h2 class="name-title text-center text-digi shadow-turq">Europe vs COVID-19</h2>
+          <h2 class="name-title text-center text-digi shadow-turq">US States vs COVID-19</h2>
           <hr class="border-success text-center animated infinite heartBeat w-25 my-2 opac-50">
 
           <div class="d-flex flex-row justify-content-center align-items-center text-success">
-            
             <div class="d-flex flex-column">
               <div class="d-flex flex-row justify-content-end shadow-turq mt-1">
                 <div class="d-flex flex-column">
@@ -186,8 +236,58 @@
                   <i class="far fa-dot-circle animated infinite heartBeat "></i>
                 </div>
               </div>
+              <div class="d-flex flex-row justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
+                </div>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
+                </div>
+                <div class="fa-1x my-auto">
+                  <i class="fas fa-minus"></i>
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                </div>
+              </div>
+              <div class="d-flex flex-row justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
+                </div>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
+                </div>
+                <div class="fa-1x my-auto">
+                  <i class="fas fa-minus"></i>
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                </div>
+              </div>
             </div>
-            <img class="opac-70 mx-2" src="../static/img/flags/default.png" style="height:8rem;" alt="viz-bar-img">
+            <img src="../static/img/states/default.png" style="opacity: 50%;height:3rem;" alt="viz-bar-img">
             <div class="d-flex flex-column">
               <div class="d-flex flex-row-reverse justify-content-end shadow-turq mt-1">
                 <div class="d-flex flex-column">
@@ -202,8 +302,32 @@
                     </h5>
                   </div>
                 </div>
-                <div class="card add-anime rounded-xl 
-                border-success bg-transparent shadow-turq">
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
+                  <div class="card-body text-center pt-1 pb-0 px-0">
+                    <h5 class="card-title category-title mt-1">
+                      <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
+                    </h5>
+                  </div>
+                </div>
+                <div class="fa-1x my-auto">
+                  <i class="far fa-dot-circle animated infinite heartBeat "></i>
+                  <i class="fas fa-minus"></i>
+                </div>
+              </div>
+              <div class="d-flex flex-row-reverse justify-content-end shadow-turq mt-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row text-primary shadow-turq">
+                    <i class="fas fa-users my-auto"></i>
+                    <h5 class="number-of-person text-primary my-auto ">
+                    </h5>
+                  </div>
+                  <div class="d-flex flex-row text-primary justify-content-end shadow-turq">
+                    <i class="fas fa-angle-double-up my-auto"></i>
+                    <h5 class="ranking-order my-auto text-primary">
+                    </h5>
+                  </div>
+                </div>
+                <div class="card add-anime rounded-xl border-success bg-transparent shadow-turq ">
                   <div class="card-body text-center pt-1 pb-0 px-0">
                     <h5 class="card-title category-title mt-1">
                       <i class="fas fa-info mx-3 mb-1 text-2xl"></i>
@@ -242,59 +366,38 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="container-fluid mx-3 px-2" id="scatter-line-time"></div>
-        
-        <div class="container-fluid mx-1 px-2" 
-        id="bar-chart-horizontal"></div>
 
-        <div class="container-fluid mx-3 px-2" id="bar-chart-vertical"></div>
+        </div>
+        <div class="mx-3 px-2" id="bar-chart-horizontal">
+        </div>
+        <br>
+        <div class=" mx-3 px-2 text-nowrap" id="bar-chart-vertical"></div>
       </div>
-      <div class="col-sm-4">
-        <p class="text-center mb-0 mt-1 text-primary">
-      <span class="fa-stack">
-        <i class="fas fa-square fa-stack-2x text-dark shadow-gold"></i>
-        <i class="fas fa-mouse-pointer fa-stack-1x  text-primary fa animated infinite tada text-larger"></i>
-      </span>
-      <em>Hover over rows for viz-box action...</em>
-    </p>
-        <div id="table-goes-here"></div>
+      <div class="col-sm-6">
+        <div class="mx-2" id="table-goes-here"></div>
       </div>
     </div>
-
+    
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
-        crossorigin="anonymous"
-        >
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
+    <script src="/static/.devcontainer/mapAccessToken.js "></script>
     <script src="/static/plugins/ddslick.js"></script>
 
-    <script src="/static/data/json/locations.js "></script>
-
+    <script src="/static/api/states.js"></script>
     <script src="/static/data/json/timeseries.js"></script>
-    <script src="/static/assets/navbars/countries.js"></script>
-    
-    <script src="/static/data/geojson/countries.js"></script>
-
-    <script src="/static/api/leaflet-eu.js"></script>
-    
-    <script src="/static/app/bar-row-charts.js"></script>
-    <script src="/static/app/test.js"></script>
-    <script src="/static/assets/tables/europe.js"></script>
-    
+    <script src="/static/data/json/locations.js "></script>
+    <script src="/static/data/geojson/us-states.js"></script>
+    <script src="/static/assets/navbars/states.js"></script>
+    <script src="/static/assets/tables/states.js"></script>
 
   </body>
 
- </html>
+  </html>
