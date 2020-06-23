@@ -1,20 +1,18 @@
 let urlTimeTest = '../static/data/json/time-series.json';
 let urlFreshTime = 'https://pomber.github.io/covid19/timeseries.json';
 
- function scatterTimeEu( url ) {
+ function scatterTimeEu( url, name ) {
   const format = d3.format( ',' );
   const formatDecimal = d3.format( '.4' );
   const formatDate = d3.timeFormat( "%d-%b" );
   d3.json( url, function ( error, raw ) {
-    const names = [
-    "Albania", "Austria", "Belgium", "Bulgaria", "Bosnia and Herzegovina", "Belarus", "Switzerland", "Czechia", "Denmark", "Germany", "Spain", "Estonia", "Finland", "France", "United Kingdom", "Greece", "Croatia", "Hungary", "Ireland", "Iceland", "Italy", "Kosovo", "Lithuania", "Luxembourg", "Latvia", "Moldova", "North Macedonia", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Slovakia", "Sweden", "Slovenia", "Ukraine", "Turkey"
-    ];
+    const names = [name];
 
     var aspect_ratio = 0.4;
     var frame_width = $('#scatter-line-time').width();
     var frame_height = aspect_ratio * frame_width;
     // set the dimensions and margins of the graph
-    let margin = {top: 10, right: 50, bottom: 10, left: 10};
+    let margin = {top: 20, right: 50, bottom: 20, left: 20};
 
     let width = frame_width - margin.left - margin.right;
     let height = frame_height- margin.top - margin.bottom;
@@ -40,8 +38,6 @@ let urlFreshTime = 'https://pomber.github.io/covid19/timeseries.json';
       "Confirmed",
       "Recovered",
     ] ;
-    let dFinal = nested[39];
-    
     // Reformat the data: we need an array of arrays of {x, y} tuples
     let deaths = nested.map( function(d) { 
       return {
@@ -79,9 +75,9 @@ let urlFreshTime = 'https://pomber.github.io/covid19/timeseries.json';
     // --> => store above in a different let after a function call
 
     let dataReady = [
-      {"name": "Deaths", "values": dataAll["Deaths"][39].values},
-      {"name": "Confirmed", "values": dataAll["Confirmed"][39].values},
-      {"name": "Recovered", "values": dataAll["Recovered"][39].values},
+      {"name": "Deaths", "values": dataAll["Deaths"][0].values},
+      {"name": "Confirmed", "values": dataAll["Confirmed"][0].values},
+      {"name": "Recovered", "values": dataAll["Recovered"][0].values},
     ];
     let allGroup = dataReady.map(d => d.name);
     // console.log('dataReady :>> ', dataReady);
@@ -89,7 +85,8 @@ let urlFreshTime = 'https://pomber.github.io/covid19/timeseries.json';
     // A color scale: one color for each group
     let myColor = d3.scaleOrdinal()
       .domain(allGroup)
-      .range(d3.schemeSet3);
+      .range(["#7fcdbb","#41b6c4","#1d91c0"]);
+      // console.log('d3.schemeSet3 :>> ', d3.schemeSet3);
     // confirmed always highest in this case
     // create scales
     let a = d3.max(dataReady[0].values, d => d.date);
@@ -237,8 +234,8 @@ let urlFreshTime = 'https://pomber.github.io/covid19/timeseries.json';
 
   } );
  }
-let dTest = { Flag: "/static/img/flags/Ensign_Flag_Nation_montenegro-128.png", Name: "Montenegro", Code: "ME", Deaths: 9, Confirmed: 326, Population: 622345 };
+let dTest = { Flag: "/static/img/flags/Ensign_Flag_Nation_turkey-128.png", Name: "Turkey", Code: "TR", Deaths: 4899, Confirmed: 150000, Population: 82566959 };
 
-scatterTimeEu( urlTimeTest );
+scatterTimeEu( urlTimeTest, "Turkey" );
 rowChartUp(dTest);
 barChartUp(dTest);
