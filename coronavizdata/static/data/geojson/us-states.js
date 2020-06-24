@@ -4603,7 +4603,6 @@ var csvStateNames = [
 
 // console.log('csvStateNames :>> ', csvStateNames);
 
-
 var geoStateNames  = [
   "Alabama",
   "Alaska",

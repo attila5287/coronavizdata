@@ -1,0 +1,176 @@
+// const formt = d3.format( ',' );
+// const formatDecimal = d3.format( '.4' );
+// console.log('statesData :>> ', statesData);
+const  urlPrezTest = '../static/data/csv/president.csv';
+
+function presidentialUp (url, year ) {
+  d3.csv( url,
+    ( error, data ) => {
+      if ( error ) {
+        console.error( error );
+      }
+      else {
+        const colors = {
+          republican: "red",
+          democrat: "blue"
+        };
+        // console.log('colors test 1:>> ', colors.republican);
+        // console.log('colors test 2:>> ', colors["republican"]);
+        // let x = "republican";
+        // let y = "democrat";
+        // console.log('colors test 3:>> ', colors[x]);
+        // console.log('colors test 4:>> ', colors[y]);
+        let winners = {};
+        const nested = d3.nest()
+          .key( function ( d ) {
+            return d.state;
+          } )
+          .key( function ( d ) {
+            return d.party;
+          } )
+          .rollup( function ( v ) {
+            return d3.max( v, function ( d ) {
+              return d.candidatevotes;
+            } );
+          } )
+          .entries( data.filter( d => d[ "year" ] == year ) );
+
+        nested.forEach( d => {
+          winners[ d.key ] = d.values[ 0 ].key;
+        } );
+        console.log( 'winners :>> ', winners );
+        statesData.features.forEach( d => {
+          const nameState = d.properties.name;
+          d.properties[ "winner" ] = winners[ nameState ];
+          d.properties[ "color" ] = colors[ winners[ nameState ] ];
+          // console.log('d :>> ', d.properties);
+        } );
+
+        console.log( 'statesData :>> ', statesData.features[ 5 ].properties.winner.key );
+
+        var mapboxAccessToken = "pk.eyJ1IjoiYXR0aWxhNTIiLCJhIjoiY2thOTE3N3l0MDZmczJxcjl6dzZoNDJsbiJ9.bzXjw1xzQcsIhjB_YoAuEw";
+        var map = L.map( 'map' ).setView( [ 37.8, -96 ], 4 );
+
+        L.tileLayer( 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+          id: 'mapbox/dark-v10',
+          attribution: '<a href="https://www.openstreetmap.org/"> @attila5287 </a> Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            'Imagery © ' + '<a href="https://www.mapbox.com/">Mapbox</a>',
+          tileSize: 512,
+          zoomOffset: -1
+        } ).addTo( map );
+
+        map.createPane( 'labels' );
+        map.getPane( 'labels' ).style.zIndex = 650;
+        map.getPane( 'labels' ).style.pointerEvents = 'none';
+
+        var positronLabels = L.tileLayer( 'https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+          attribution: '©OpenStreetMap, ©CartoDB',
+          pane: 'labels'
+        } ).addTo( map );
+      }
+      function style ( feature ) {
+        return {
+          fillColor: getColor( feature.properties.winner ),
+          weight: 2,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.7
+        };
+      }
+
+
+      // Adding Interaction
+      function highlightFeature ( e ) {
+        var layer = e.target;
+
+        layer.setStyle( {
+          weight: 5,
+          color: '#2aa198',
+          dashArray: '',
+          fillOpacity: 0.7
+        } );
+
+        info.update( layer.feature.properties );
+      }
+
+      function zoomToFeature ( e ) {
+        map.fitBounds( e.target.getBounds() );
+      }
+
+      function resetHighlight ( e ) {
+        geojson.resetStyle( e.target );
+        info.update();
+      }
+
+      function onEachFeature ( feature, layer ) {
+        layer.on( {
+          mouseover: highlightFeature,
+          mouseout: resetHighlight,
+          click: zoomToFeature
+        } );
+      }
+
+      var info = L.control();
+
+      info.onAdd = function ( map ) {
+        this._div = L.DomUtil.create( 'div', 'info' ); // create a div with a class "info"
+        this.update();
+        return this._div;
+      };
+      // method that we will use to update the control based on feature properties passed
+      info.update = function ( props ) {
+        this._div.innerHTML = '<h4>US Election </h4>' + ( props ?
+          '<b>' + props.name + '</b><br />' + props.winner + ' people / mi<sup>2</sup>' :
+          'Hover over a state' );
+      };
+      info.addTo( map );
+
+      var legend = L.control( {
+        position: 'bottomright'
+      } );
+
+      legend.onAdd = function ( map ) {
+        var div = L.DomUtil.create( 'div', 'info legend' ),
+          partyNames = [ "republican", "democrat" ],
+          colors = [ "#d73027", "#4575b4" ];
+
+        // loop through our deaths intervals and generate a label with a colored square for each interval
+        for ( var i = 0; i < partyNames.length; i++ ) {
+          div.innerHTML +=
+            '<h4 class="text-light rounded-xl px-2 py-1 mb-2" style="background:' + colors[ i ]
+            + ';">'
+            + partyNames[ i ]
+            + '</h4> ';
+        }
+
+        return div;
+
+      };
+
+      legend.addTo( map );
+
+      geojson = L.geoJson( statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+      } ).addTo( map );
+
+      function getColor ( d ) {
+        const partyColor = {
+          republican: "#d73027",
+          democrat: "#4575b4"
+        };
+        console.log( 'colors[d] :>> ', partyColor[ d ] );
+        return partyColor[ d ];
+      }
+
+      console.log( 'getColor :>> ', getColor[ "democrat" ] ); 
+
+    } );
+}
+
+presidentialUp (urlPrezTest, 2000 );
+// presidentialUp (urlPrezTest, 2004 );
+// presidentialUp (urlPrezTest, 2008 );
+// presidentialUp (urlPrezTest, 2012 );
+// presidentialUp (urlPrezTest, 2016 );

@@ -32,7 +32,7 @@ const groupedByDeaths = d3.nest()
   .key(function(d) { return d.country; })
   .rollup(function(v) { return d3.sum(v, function(d) { return d.latest.deaths; }); })
   .entries(data.locations);
-  // console.log('groupedByDeaths :>> ', groupedByDeaths.length);
+  // console.log('groupedByDeaths :>> ', groupedByDeaths.length)
 
 const names = groupedByDeaths.map((d) => d.key);
 // console.log('names :>> ', names);
@@ -40,8 +40,10 @@ const names = groupedByDeaths.map((d) => d.key);
 const groupedByConfirmed = d3.nest()
   .key(function(d) { return d.country; })
   .rollup(function(v) { return d3.sum(v, function(d) { return d.latest.confirmed; }); })
-  .entries(data.locations);
-// console.log('groupedByConfirmed :>> ', groupedByConfirmed.length);
+  .entries(data.locations)
+  ;
+
+  // console.log('groupedByConfirmed :>> ', groupedByConfirmed.length);
 
 let deathsByName = {},
     confirmedByName = {};
