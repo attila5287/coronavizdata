@@ -56,20 +56,7 @@ def jsonify_maptoken():
 
     # print(' --- mapAccessToken ---')
     # print(mapAccessToken)
-    # myURL = "http://127.0.0.1:5000/api/response"
-    myURL = "http://coronavizdata.herokuapp.com/api/response"
-
-    print(myURL)
-    # print(requests.get(myURL))
-    response = requests.get(myURL).json()
-    print(' < --- response -> data -> comments  --->')
-
-    # print(response[0]['data'])
-    data = response[0]['data']
-    comments_fetched = [dict['comment'] for dict in data]
-    print(comments_fetched[0])
-    # comments_fetched = [dict['user'] for dict in data]
-    pd.DataFrame(data)
+    
     return jsonify({'doNotTell': mapAccessToken})
 
  

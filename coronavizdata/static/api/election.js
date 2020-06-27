@@ -1,25 +1,16 @@
 // const formt = d3.format( ',' );
 // const formatDecimal = d3.format( '.4' );
-// console.log('statesData :>> ', statesData);
-const  urlPrezTest = '../static/data/csv/president.csv';
+const urlPrezTest = '../static/data/csv/president.csv';
 
-function presidentialUp (url, year ) {
-  d3.csv( url,
-    ( error, data ) => {
+function presidentialUp( url, year ) { 
+  d3.csv( url,( error, data ) => {
       if ( error ) {
         console.error( error );
-      }
-      else {
+      } else {
         const colors = {
           republican: "red",
           democrat: "blue"
         };
-        // console.log('colors test 1:>> ', colors.republican);
-        // console.log('colors test 2:>> ', colors["republican"]);
-        // let x = "republican";
-        // let y = "democrat";
-        // console.log('colors test 3:>> ', colors[x]);
-        // console.log('colors test 4:>> ', colors[y]);
         let winners = {};
         const nested = d3.nest()
           .key( function ( d ) {
@@ -38,7 +29,8 @@ function presidentialUp (url, year ) {
         nested.forEach( d => {
           winners[ d.key ] = d.values[ 0 ].key;
         } );
-        console.log( 'winners :>> ', winners );
+        
+        // console.log( 'winners :>> ', winners );
         statesData.features.forEach( d => {
           const nameState = d.properties.name;
           d.properties[ "winner" ] = winners[ nameState ];
@@ -46,8 +38,8 @@ function presidentialUp (url, year ) {
           // console.log('d :>> ', d.properties);
         } );
 
-        console.log( 'statesData :>> ', statesData.features[ 5 ].properties.winner.key );
-
+        
+      }
         var mapboxAccessToken = "pk.eyJ1IjoiYXR0aWxhNTIiLCJhIjoiY2thOTE3N3l0MDZmczJxcjl6dzZoNDJsbiJ9.bzXjw1xzQcsIhjB_YoAuEw";
         var map = L.map( 'map' ).setView( [ 37.8, -96 ], 4 );
 
@@ -67,8 +59,9 @@ function presidentialUp (url, year ) {
           attribution: '©OpenStreetMap, ©CartoDB',
           pane: 'labels'
         } ).addTo( map );
-      }
-      function style ( feature ) {
+      
+
+      function style( feature ) {
         return {
           fillColor: getColor( feature.properties.winner ),
           weight: 2,
@@ -78,10 +71,7 @@ function presidentialUp (url, year ) {
           fillOpacity: 0.7
         };
       }
-
-
-      // Adding Interaction
-      function highlightFeature ( e ) {
+      function highlightFeature( e ) {
         var layer = e.target;
 
         layer.setStyle( {
@@ -93,17 +83,14 @@ function presidentialUp (url, year ) {
 
         info.update( layer.feature.properties );
       }
-
-      function zoomToFeature ( e ) {
+      function zoomToFeature( e ) {
         map.fitBounds( e.target.getBounds() );
       }
-
-      function resetHighlight ( e ) {
+      function resetHighlight( e ) {
         geojson.resetStyle( e.target );
         info.update();
       }
-
-      function onEachFeature ( feature, layer ) {
+      function onEachFeature( feature, layer ) {
         layer.on( {
           mouseover: highlightFeature,
           mouseout: resetHighlight,
@@ -119,10 +106,16 @@ function presidentialUp (url, year ) {
         return this._div;
       };
       // method that we will use to update the control based on feature properties passed
+      
       info.update = function ( props ) {
-        this._div.innerHTML = '<h4>US Election </h4>' + ( props ?
-          '<b>' + props.name + '</b><br />' + props.winner + ' people / mi<sup>2</sup>' :
-          'Hover over a state' );
+      const dictInfoText ={
+        republican : "text-danger",
+        democrat : "text-primary"
+      };
+      this._div.innerHTML = '<h4>US Election </h4>' + ( props ?
+        '<i class="text-secondary '+dictInfoText[props.winner]  +' ">' + props.name + '<br />' + props.winner  :
+        'Hover over a state</i>' 
+        );
       };
       info.addTo( map );
 
@@ -138,10 +131,10 @@ function presidentialUp (url, year ) {
         // loop through our deaths intervals and generate a label with a colored square for each interval
         for ( var i = 0; i < partyNames.length; i++ ) {
           div.innerHTML +=
-            '<h4 class="text-light rounded-xl px-2 py-1 mb-2" style="background:' + colors[ i ]
-            + ';">'
-            + partyNames[ i ]
-            + '</h4> ';
+            '<h4 class="text-light rounded-xl px-2 py-1 mb-2" style="background:' + colors[ i ] +
+            ';">' +
+            partyNames[ i ] +
+            '</h4> ';
         }
 
         return div;
@@ -155,22 +148,33 @@ function presidentialUp (url, year ) {
         onEachFeature: onEachFeature
       } ).addTo( map );
 
-      function getColor ( d ) {
+      function getColor( d ) {
         const partyColor = {
           republican: "#d73027",
           democrat: "#4575b4"
         };
-        console.log( 'colors[d] :>> ', partyColor[ d ] );
+        // console.log( 'colors[d] :>> ', partyColor[ d ] );
         return partyColor[ d ];
       }
-
-      console.log( 'getColor :>> ', getColor[ "democrat" ] ); 
-
+      
     } );
 }
 
-presidentialUp (urlPrezTest, 2000 );
-// presidentialUp (urlPrezTest, 2004 );
-// presidentialUp (urlPrezTest, 2008 );
-// presidentialUp (urlPrezTest, 2012 );
-// presidentialUp (urlPrezTest, 2016 );
+// presidentialUp( urlPrezTest, 2000 );
+// presidentialUp( urlPrezTest, 2004 );
+// presidentialUp( urlPrezTest, 2008 );
+// presidentialUp( urlPrezTest, 2012 );
+// presidentialUp( urlPrezTest, 2016 );
+
+
+d3.select( "#slider" ).on( "input", function () {
+  slideMyYears( +this.value );
+  console.log('test slider value :>> ', this.value);
+  // presidentialUp( urlPrezTest, +this.value );
+} );
+function slideMyYears( slider ) { // adjust the text on the range slider
+  d3.select( "#sliderValue" ).text( slider );
+  d3.select( "#slider" ).property( "value", slider );
+}
+
+slideMyYears( 2000 );

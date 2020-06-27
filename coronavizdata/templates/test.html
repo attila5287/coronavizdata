@@ -1,47 +1,45 @@
 <!DOCTYPE html>
+
 <html>
 
-  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" class="favicon" href="/static/img/site/c_hex_aquamarine.ico" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/superhero/bootstrap.min.css" />
 
+  <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" class="favicon" href="/static/img/site/c_hex_aquamarine.ico" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/superhero/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <script src="https://d3js.org/d3.v3.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
-      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
- 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
 
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-      crossorigin=""></script>
-      
-    <!-- FONTS -->
-    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Orienta' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
 
-    <title>US Election 2020</title>
+  <!-- FONTS -->
+  <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Orienta' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Baloo+2' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+
+  <title>US Election 2020</title>
 
 
   </head>
 
-  <body style="margin-top: 70px;">
+  <body>
     <style>
       #map,
       body,
@@ -60,10 +58,6 @@
         border-radius: 5px;
       }
 
-      .info h4 {
-        margin: 0 0 5px;
-        color: #777;
-      }
       .info i {
         margin: 0 0 5px;
         color: #777;
@@ -82,39 +76,28 @@
         margin-right: 8px;
         opacity: 0.7;
       }
-
     </style>
 
-    <div id='map'></div>
+    <div class="col-lg-8 offset-md-2">
+      <fieldset
+        class="form-group mb-4 mx-2 my-2 p-3 bg-secondary rounded-2xl text-success shadow-after text-center text-robo bg-black">
+        <label for="slider">
+          <i class="text-xlarger shadow-after">
+            <i class="fas fa-university" aria-hidden="true"></i>
+            PRESIDENTIAL
+            <i class="fas fa-calendar-check" aria-hidden="true"> </i>
+          </i>
+          <span class="text-2xl" id="sliderValue">
+            ...
+          </span>
+        </label>
+        <input type="range" min="0" max="30" step="1" id="slider" class="custom-range px-3 mx-3 form-control-lg">
+      </fieldset>
+    </div>
 
-  <fieldset class="form-group text-center">
-    <legend class="text-2xl" id="selected-year">Election Year On Board</legend>
-    <label for="customRange1">Election years 1976-2016</label>
-    <!-- <input type="range" class="custom-range" id="nRadius-value"> -->
-  </fieldset>
-    <p>
-    <label for="nRadius" style="display: inline-block; width: 240px; text-align: right"> radius = <span id="nRadius-value">...</span>
-      </label>
-      <input type="range" min="1" max="150" id="nRadius">
-      </p>
-  
-  <script>
-    var width=600;
-    var height=300;
-    var holder=d3.select("body").append("svg").attr("width", width).attr("height", height);
-    // draw the circle
-    holder.append("circle").attr("cx",300).attr("cy",150).style("fill","none").style("stroke","blue").attr("r",120);
-    // when the input range changes update the circle
-    d3.select("#nRadius").on("input",function() {update(+this.value);});
+    </div>
+    <div id="map"></div>
 
-function update(nRadius) {// adjust the text on the range slider
-  d3.select("#nRadius-value").text(nRadius);
-  d3.select("#nRadius").property("value", nRadius);
-  // update the circle radius
-  holder.selectAll("circle").attr("r", nRadius);
-}  
-update(120);  
-  </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -122,16 +105,19 @@ update(120);
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/        nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous">
     </script>
 
     <script src="/static/.devcontainer/mapAccessToken.js "></script>
     <script src="/static/plugins/ddslick.js"></script>
 
     <script src="/static/data/geojson/us-states.js"></script>
-    <script src="/static/api/election.js"></script>
+    <!-- <script src="/static/api/election.js"></script> -->
+    <!-- <script src="/static/api/logic.js"></script> -->
+    <script src="/static/api/slider.js"></script>
 
 
   </body>
 
-  </html>
+</html>
