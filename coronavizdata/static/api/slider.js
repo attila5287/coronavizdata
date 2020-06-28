@@ -44,6 +44,7 @@ function createFeatures( data, n ) {
   var earthquakes = L.geoJSON( earthquakeData, {
     onEachFeature: onEachFeature
   } );
+  
 
   // Sending our ``earthquakes`` layer to the createMap function
   createMap( earthquakes );
@@ -86,32 +87,45 @@ function createMap( earthquakes ) {
   } ).addTo( myMap );
 }
 
-function updateMap ( data ) {
-  console.log('object :>> ', data);
-}
-
 function slideMyYears( slider ) {
   // adjust the text on the range slider
   d3.select( "#sliderValue" ).text( slider );
   d3.select( "#slider" ).property( "value", slider );
 }
 
+function updateMap ( data ) {
+  console.log('object :>> ', data);
+  for (i=0;i<points.length;i++) {
+  map.removeLayer(points[i]);
+}
+points=[];
+//  Create a layer control
+// Pass in our baseMaps and overlayMaps
+// Add the layer control to the map
+L.control.layers( baseMaps, overlayMaps, {
+  collapsed: false
+} ).addTo( myMap );
+}
+
 // myMap.remove();
 d3.select( "#slider" ).on( "input", function () {
-  d3.select('#map').in
   let thisValue = this.value;
   slideMyYears( +this.value );
-  console.log( '+this.value in slider :>> ', +this.value );
-  console.log( 'test slider value :>> ', +this.value );
+
+   
+  // console.log( '+this.value in slider :>> ', +this.value );
+  // console.log( 'test slider value :>> ', +this.value );
+  
   // Perform a GET request to the query URL
   d3.json( queryUrl, function ( data ) {
     console.log( 'thisValue :>> ', thisValue );
-    console.log(data);
+    // console.log(data);
 
     console.log(thisValue);
 
+
     // Once we get a response, send the data.features object to the createFeatures function
-    createFeatures( data, thisValue );
+    // createFeatures( data, thisValue );
   } );
 
 } );
